@@ -1,0 +1,21 @@
+:root {
+  --primary-green: #0B6B3A;
+  --dark-green: #084C2E;
+  --gold: #D4AF37;
+  --background: #F8FAFC;
+  --white: #FFFFFF;
+  --text: #1E293B;
+  --secondary-text: #64748B;
+}
+
+body {
+  font-family: var(--font-inter);
+  background-color: var(--background);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
