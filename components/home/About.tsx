@@ -7,15 +7,15 @@ const MotionBox = motion(Box);
 const MotionGrid = motion(Grid);
 
 const galleryImages = [
-  "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1497366582816-96d57332149a?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop",
-  "https://images.unsplash.com/photo-1521791055366-0d553872125f?w=400&h=300&fit=crop"
+  "/images/soludo11.png",
+  "/images/soludo12.png",
+  "/images/soludo13.png",
+  "/images/soludo14.png",
+  "/images/soludo15.png",
+  "/images/soludo16.png",
+  "/images/soludo17.png",
+  "/images/soludo18.png",
+  "/images/soludo19.png"
 ];
 
 export default function About() {
@@ -129,7 +129,7 @@ export default function About() {
                   mb: 3
                 }}
               >
-                The Anambra SME Center ("Anambra SME" or "Agency") is the State Developmental Finance Institution tasked with the purview of acting as a catalyst for job creation and facilitating easier access to resources required by entrepreneurs and investors in the Micro, Small and Medium Enterprises (MSMEs), to achieve sustainable economic development in Anambra State.
+                We are the Anambra State Ministry of Commerce, committed to driving economic development through the promotion of commerce, trade, investment, and enterprise development.
               </Typography>
 
               <Typography
@@ -140,7 +140,7 @@ export default function About() {
                   mb: 5
                 }}
               >
-                With the continued support of His Excellency Gov. Soludo, ESME beneficiaries are groomed with the capacity to create quality jobs, revitalize livelihood, commercialize new technologies, and strengthen the local and national economy.
+               Our Ministry exists to create opportunities for businesses of all sizes—from local traders and artisans to manufacturers, exporters, cooperatives, and international investors. We believe that a thriving commercial sector is the foundation of sustainable economic growth, job creation, and improved living standards.
               </Typography>
 
               <Button

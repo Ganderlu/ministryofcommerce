@@ -1,4 +1,27 @@
-import { Statistic, Service, NewsItem, Event, Partner, FooterLink } from "@/types";
+import {
+  Statistic,
+  Service,
+  NewsItem,
+  Event,
+  Partner,
+  FooterLink,
+  ContactCard,
+  SocialLink,
+  ContactInformation,
+  TeamMember,
+} from "@/types";
+import {
+  Phone,
+  Email,
+  AccessTime,
+  HeadsetMic,
+  ContactSupport,
+  Facebook,
+  Twitter,
+  LinkedIn,
+  Instagram,
+  YouTube,
+} from "@mui/icons-material";
 
 export const statistics: Statistic[] = [
   {
@@ -42,35 +65,35 @@ export const services: Service[] = [
   {
     id: "1",
     icon: "Description",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop",
+    image: "/images/soludo21.png",
     title: "Business Registration",
     description: "Register your business online in minutes",
   },
   {
     id: "2",
     icon: "Verified",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop",
+    image: "/images/soludo22.png",
     title: "Permit & Licensing",
     description: "Apply for permits and renew your licenses",
   },
   {
     id: "3",
     icon: "People",
-    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop",
+    image: "/images/soludo17.png",
     title: "Cooperative Registration",
     description: "Register and manage cooperative societies",
   },
   {
     id: "4",
     icon: "ShowChart",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
-    title: "Investment Portal",
+    image: "/images/soludo13.png",
+    title: "Export Promotion",
     description: "Explore opportunities and investment support",
   },
   {
     id: "5",
     icon: "AccountBalanceWallet",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+    image: "/images/soludo19.png",
     title: "Loan & Grants",
     description: "Access loans, grants and enterprise support",
   },
@@ -114,19 +137,19 @@ export const services: Service[] = [
 export const news: NewsItem[] = [
   {
     id: "1",
-    image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=250&fit=crop",
+    image: "/images/soludo31.jpg",
     title: "Anambra State Signs MoU to Boost Industrial Growth and Investment",
     date: "May 10, 2025",
   },
   {
     id: "2",
-    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=400&h=250&fit=crop",
+    image: "/images/solud032.jpg",
     title: "Ministry Launches Digital Platform for Business Registration Services",
     date: "April 28, 2025",
   },
   {
     id: "3",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop",
+    image: "/images/soludo33.jpg",
     title: "Anambra to Host 2025 Investment and Trade Summit",
     date: "April 15, 2025",
   },
@@ -180,7 +203,7 @@ export const footerLinks: FooterLink[] = [
       { name: "Procurement & Tenders", href: "#" },
       { name: "Invest in Anambra", href: "#" },
       { name: "News & Events", href: "#" },
-      { name: "Contact Us", href: "#" },
+      { name: "Contact Us", href: "/contact" },
     ],
   },
   {
@@ -194,5 +217,136 @@ export const footerLinks: FooterLink[] = [
       { name: "NERFUND", href: "#" },
       { name: "NEPC", href: "#" },
     ],
+  },
+];
+
+// Contact Page Data
+export const contactInformation: ContactInformation = {
+  id: "1",
+  phone: "+234 813 423 4567",
+  altPhone: "+234 906 789 0123",
+  email: "info@commerce.anambrastate.gov.ng",
+  supportEmail: "support@commerce.anambrastate.gov.ng",
+  officeHours: "Monday – Friday",
+  officeHoursNote: "8:00 AM – 4:00 PM",
+};
+
+export const contactCards: ContactCard[] = [
+  {
+    id: "phone",
+    icon: Phone,
+    title: "Phone",
+    description: [contactInformation.phone, contactInformation.altPhone],
+    ctaText: "Call Us →",
+    ctaHref: `tel:${contactInformation.phone}`,
+  },
+  {
+    id: "email",
+    icon: Email,
+    title: "Email",
+    description: [contactInformation.email, contactInformation.supportEmail],
+    ctaText: "Send Email →",
+    ctaHref: `mailto:${contactInformation.email}`,
+  },
+  {
+    id: "office-hours",
+    icon: AccessTime,
+    title: "Office Hours",
+    description: [
+      contactInformation.officeHours,
+      contactInformation.officeHoursNote,
+      "Public Holidays Closed",
+    ],
+    ctaText: "View Schedule →",
+  },
+  {
+    id: "live-support",
+    icon: HeadsetMic,
+    title: "Live Support",
+    description: ["Live Chat Available", "Business hours"],
+    ctaText: "Start Live Chat →",
+  },
+  {
+    id: "general-enquiries",
+    icon: ContactSupport,
+    title: "General Enquiries",
+    description: [
+      "General information requests",
+      "Business enquiries",
+      "Partnership enquiries",
+    ],
+    ctaText: "Submit Enquiry →",
+  },
+];
+
+export const teamMembers: TeamMember[] = [
+  {
+    id: "1",
+    image: "/images/soludon.png",
+    name: "Prof. Charles Chukwuma Soludo",
+    position: "Executive Governor of Anambra State",
+  },
+  {
+    id: "2",
+    image: "/images/soludohead.jpg",
+    name: "Hon. Commissioner for Commerce",
+    position: "Commissioner for Commerce, Anambra State",
+  },
+  {
+    id: "3",
+    image: "/images/soludo21.png",
+    name: "Permanent Secretary",
+    position: "Permanent Secretary, Ministry of Commerce",
+  },
+  {
+    id: "4",
+    image: "/images/soludo22.png",
+    name: "Director of Finance",
+    position: "Director of Finance, Ministry of Commerce",
+  },
+  {
+    id: "5",
+    image: "/images/soludo17.png",
+    name: "Director of Trade & Investment",
+    position: "Director of Trade & Investment",
+  },
+  {
+    id: "6",
+    image: "/images/soludo13.png",
+    name: "Director of MSME Development",
+    position: "Director of MSME Development",
+  },
+];
+
+export const socialLinks: SocialLink[] = [
+  {
+    id: "facebook",
+    name: "Facebook",
+    icon: Facebook,
+    href: "#",
+  },
+  {
+    id: "twitter",
+    name: "Twitter/X",
+    icon: Twitter,
+    href: "#",
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    icon: LinkedIn,
+    href: "#",
+  },
+  {
+    id: "instagram",
+    name: "Instagram",
+    icon: Instagram,
+    href: "#",
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    icon: YouTube,
+    href: "#",
   },
 ];

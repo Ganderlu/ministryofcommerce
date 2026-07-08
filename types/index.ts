@@ -41,3 +41,43 @@ export interface FooterLink {
   title: string;
   links: { name: string; href: string }[];
 }
+
+// Contact Page Interfaces
+export interface ContactCard {
+  id: string;
+  icon: React.ElementType;
+  title: string;
+  description: string | string[];
+  ctaText: string;
+  ctaHref?: string;
+}
+
+export interface SocialLink {
+  id: string;
+  name: string;
+  icon: React.ElementType;
+  href: string;
+}
+
+export interface NewsletterSubscriber {
+  id?: string;
+  email: string;
+  createdAt: Date;
+}
+
+export interface ContactInformation {
+  id: string;
+  phone: string;
+  altPhone: string;
+  email: string;
+  supportEmail: string;
+  officeHours: string;
+  officeHoursNote: string;
+}
+
+export interface TeamMember {
+  id: string;
+  image: string;
+  name: string;
+  position: string;
+}

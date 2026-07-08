@@ -22,17 +22,18 @@ import {
 import { Search, Menu as MenuIcon, Close, ExpandMore } from "@mui/icons-material";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const navItems = [
-  { label: "Home", href: "#", hasDropdown: false },
+  { label: "Home", href: "/", hasDropdown: false },
   { 
     label: "About Us", 
-    href: "#", 
+    href: "/about", 
     hasDropdown: true,
     dropdownItems: [
-      { label: "History", href: "#" },
-      { label: "Mission & Vision", href: "#" },
-      { label: "Our Team", href: "#" },
+      { label: "History", href: "/about#history" },
+      { label: "Mission & Vision", href: "/about#mission-vision" },
+      { label: "Our Team", href: "/about#our-team" },
     ]
   },
   { 
@@ -43,7 +44,7 @@ const navItems = [
       { label: "Business Registration", href: "/services" },
       { label: "Permit & Licensing", href: "#" },
       { label: "Cooperative Registration", href: "#" },
-      { label: "Investment Portal", href: "#" },
+      { label: "Export Promotion", href: "#" },
       { label: "Loan & Grants", href: "#" },
     ]
   },
@@ -77,7 +78,7 @@ const navItems = [
       { label: "Gallery", href: "#" },
     ]
   },
-  { label: "Contact Us", href: "#", hasDropdown: false },
+  { label: "Contact Us", href: "/contact", hasDropdown: false },
 ];
 
 export default function Navbar() {
@@ -116,6 +117,7 @@ export default function Navbar() {
                   alt="Anambra State Logo"
                   width={isMobile ? 45 : 60}
                   height={isMobile ? 45 : 60}
+                  style={{ borderRadius: "50%" }}
                   priority
                 />
                 <Box>
@@ -143,10 +145,11 @@ export default function Navbar() {
                   </Typography>
                 </Box>
                 <Image
-                  src="/images/soludohead.jpg"
+                  src="/images/soludon.png"
                   alt="Soludo"
                   width={isMobile ? 55 : 80}
-                  height={isMobile ? 45 : 60}
+                  height={isMobile ? 55 : 80}
+                  style={{ borderRadius: "50%" }}
                   priority
                 />
               </Box>
@@ -195,42 +198,60 @@ export default function Navbar() {
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
               {navItems.map((item) => (
                 <div key={item.label}>
+                  {item.hasDropdown ? (
+                  <>
                   <Button
-                    onClick={item.hasDropdown ? handleClick(item.label) : undefined}
+                    onClick={handleClick(item.label)}
                     sx={{ 
                       color: item.label === "Home" ? "#D4AF37" : theme.palette.text.primary, 
                       textTransform: "none",
                       fontWeight: item.label === "Home" ? 600 : 400,
                       px: 2,
                     }}
-                    endIcon={item.hasDropdown ? <ExpandMore /> : undefined}
+                    endIcon={<ExpandMore />}
                   >
                     {item.label}
                   </Button>
-                  {item.hasDropdown && item.dropdownItems && (
-                    <Menu
-                      anchorEl={anchorEl[item.label]}
-                      open={Boolean(anchorEl[item.label])}
-                      onClose={() => handleClose(item.label)}
-                      PaperProps={{
-                        sx: {
-                          boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                          borderRadius: 2,
-                          minWidth: 200,
-                        }
-                      }}
-                    >
-                      {item.dropdownItems.map((dropdownItem) => (
-                        <MenuItem
-                          key={dropdownItem.label}
-                          onClick={() => handleClose(item.label)}
-                          sx={{ py: 1.5 }}
-                        >
-                          {dropdownItem.label}
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  )}
+                  <Menu
+                    anchorEl={anchorEl[item.label]}
+                    open={Boolean(anchorEl[item.label])}
+                    onClose={() => handleClose(item.label)}
+                    PaperProps={{
+                      sx: {
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                        borderRadius: 2,
+                        minWidth: 200,
+                      }
+                    }}
+                  >
+                    {item.dropdownItems?.map((dropdownItem) => (
+                      <MenuItem
+                        key={dropdownItem.label}
+                        onClick={() => handleClose(item.label)}
+                        sx={{ py: 1.5 }}
+                        component={Link}
+                        href={dropdownItem.href}
+                      >
+                        {dropdownItem.label}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                  </>
+                ) : (
+                  <Button
+                    component={Link}
+                    href={item.href}
+                    sx={{ 
+                      color: item.label === "Home" ? "#D4AF37" : theme.palette.text.primary, 
+                      textTransform: "none",
+                      fontWeight: item.label === "Home" ? 600 : 400,
+                      px: 2,
+                      textDecoration: "none",
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                )}
                 </div>
               ))}
             </Stack>
@@ -313,6 +334,8 @@ export default function Navbar() {
                           key={dropdownItem.label}
                           onClick={() => setMobileOpen(false)}
                           sx={{ pl: 2, py: 1.2, borderRadius: 1 }}
+                          component={Link}
+                          href={dropdownItem.href}
                         >
                           <ListItemText primary={dropdownItem.label} />
                         </ListItemButton>
@@ -321,7 +344,12 @@ export default function Navbar() {
                   </Accordion>
                 ) : (
                   <ListItem disablePadding sx={{ borderBottom: "1px solid #f5f5f5" }}>
-                    <ListItemButton sx={{ px: 2 }} onClick={() => setMobileOpen(false)}>
+                    <ListItemButton 
+                      sx={{ px: 2 }} 
+                      onClick={() => setMobileOpen(false)}
+                      component={Link}
+                      href={item.href}
+                    >
                       <ListItemText 
                         primary={item.label} 
                         primaryTypographyProps={{ fontWeight: 500 }}

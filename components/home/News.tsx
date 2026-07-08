@@ -45,7 +45,7 @@ export default function News() {
                 fontFamily: "var(--font-poppins)",
               }}
             >
-              Latest News & Updates
+              Latest News & Our Blog
             </Typography>
           </Box>
           <Button

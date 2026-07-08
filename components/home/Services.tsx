@@ -50,7 +50,7 @@ export default function Services() {
                 letterSpacing: 1,
               }}
             >
-              OUR PROGRAMMES
+              OUR SERVICES
             </Box>
             <Typography
               variant="h3"
