@@ -7,9 +7,9 @@ import { useState, useEffect } from "react";
 const MotionBox = motion(Box);
 
 const images = [
-  "/images/soludo.jpg",
-  "/images/soludo2.jpg",
-  "/images/soludo3.jpg"
+  "/images/Governor1.jpg",
+  "/images/governor3.jpg",
+  "/images/governor4.png"
 ];
 
 export default function Hero() {

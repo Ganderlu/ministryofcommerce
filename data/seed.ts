@@ -9,6 +9,7 @@ import {
   SocialLink,
   ContactInformation,
   TeamMember,
+  GalleryItem,
 } from "@/types";
 import {
   Phone,
@@ -65,35 +66,35 @@ export const services: Service[] = [
   {
     id: "1",
     icon: "Description",
-    image: "/images/soludo21.png",
+    image: "/images/images1.jpg",
     title: "Business Registration",
     description: "Register your business online in minutes",
   },
   {
     id: "2",
     icon: "Verified",
-    image: "/images/soludo22.png",
+    image: "/images/images2.jpg",
     title: "Permit & Licensing",
     description: "Apply for permits and renew your licenses",
   },
   {
     id: "3",
     icon: "People",
-    image: "/images/soludo17.png",
+    image: "/images/images3.jpg",
     title: "Cooperative Registration",
     description: "Register and manage cooperative societies",
   },
   {
     id: "4",
     icon: "ShowChart",
-    image: "/images/soludo13.png",
+    image: "/images/images4.webp",
     title: "Export Promotion",
     description: "Explore opportunities and investment support",
   },
   {
     id: "5",
     icon: "AccountBalanceWallet",
-    image: "/images/soludo19.png",
+    image: "/images/images5.webp",
     title: "Loan & Grants",
     description: "Access loans, grants and enterprise support",
   },
@@ -288,30 +289,36 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: "2",
-    image: "/images/soludohead.jpg",
-    name: "Hon. Commissioner for Commerce",
+    image: "/images/mi3.jpg",
+    name: "Hon. Nomso Chukwuma Ebonwu",
     position: "Commissioner for Commerce, Anambra State",
   },
   {
     id: "3",
-    image: "/images/soludo21.png",
-    name: "Permanent Secretary",
+    image: "/images/mi5.jpg",
+    name: "Engr. Michael Obiekwe",
     position: "Permanent Secretary, Ministry of Commerce",
   },
   {
     id: "4",
-    image: "/images/soludo22.png",
-    name: "Director of Finance",
-    position: "Director of Finance, Ministry of Commerce",
+    image: "/images/mi2.jpg",
+    name: "Mrs Anagbakwu Chioma Uzoamaka",
+    position: "Director of Account, Ministry of Commerce",
   },
   {
     id: "5",
+    image: "/images/mi4.jpg",
+    name: "Mrs. Odegbunam Chinyere B.",
+    position: "Director of Cooperative Department",
+  },
+  {
+    id: "6",
     image: "/images/soludo17.png",
     name: "Director of Trade & Investment",
     position: "Director of Trade & Investment",
   },
   {
-    id: "6",
+    id: "7",
     image: "/images/soludo13.png",
     name: "Director of MSME Development",
     position: "Director of MSME Development",
@@ -348,5 +355,53 @@ export const socialLinks: SocialLink[] = [
     name: "YouTube",
     icon: YouTube,
     href: "#",
+  },
+];
+
+export const gallery: GalleryItem[] = [
+  {
+    id: "1",
+    image: "/images/soludo11.png",
+    title: "Anambra Investment Summit",
+  },
+  {
+    id: "2",
+    image: "/images/soludo12.png",
+    title: "MSME Training Workshop",
+  },
+  {
+    id: "3",
+    image: "/images/soludo13.png",
+    title: "Business Registration Launch",
+  },
+  {
+    id: "4",
+    image: "/images/soludo14.png",
+    title: "Governor's Office Visit",
+  },
+  {
+    id: "5",
+    image: "/images/soludo15.png",
+    title: "Trade Fair Opening",
+  },
+  {
+    id: "6",
+    image: "/images/soludo16.png",
+    title: "Cooperative Society Meeting",
+  },
+  {
+    id: "7",
+    image: "/images/soludo17.png",
+    title: "Export Promotion Seminar",
+  },
+  {
+    id: "8",
+    image: "/images/soludo18.png",
+    title: "Industry Stakeholders Meeting",
+  },
+  {
+    id: "9",
+    image: "/images/soludo19.png",
+    title: "Youth Empowerment Program",
   },
 ];

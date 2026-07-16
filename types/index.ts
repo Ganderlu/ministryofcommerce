@@ -81,3 +81,9 @@ export interface TeamMember {
   name: string;
   position: string;
 }
+
+export interface GalleryItem {
+  id: string;
+  image: string;
+  title: string;
+}

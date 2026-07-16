@@ -118,7 +118,7 @@ export default function About() {
                   fontSize: { xs: "2rem", md: "2.75rem" }
                 }}
               >
-                Welcome to <span style={{ color: accentColor }}>Anambra SME</span> Centre
+                Anambra State Ministry of Commerce
               </Typography>
 
               <Typography

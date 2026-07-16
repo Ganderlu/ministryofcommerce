@@ -19,10 +19,30 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { Search, Menu as MenuIcon, Close, ExpandMore } from "@mui/icons-material";
+import { Search, Menu as MenuIcon, Close, ExpandMore, Business, AccountTree } from "@mui/icons-material";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+const departments = [
+  { name: "Commerce", url: "/departments/commerce" },
+  { name: "Cooperatives", url: "/departments/cooperatives" },
+  { name: "Trade/Industry", url: "/departments/trade-industry" },
+  { name: "Investment Promotion", url: "/departments/investment-promotion" },
+  { name: "Inspectorate and Monitoring", url: "/departments/inspectorate-and-monitoring" },
+  { name: "Administration and Human Resource", url: "/departments/administration-and-human-resource" },
+  { name: "Finance and Account", url: "/departments/finance-and-account" },
+];
+
+const units = [
+  { name: "Agribusiness Support", url: "/units/agribusiness-support" },
+  { name: "Procurement", url: "/units/procurement" },
+  { name: "Public Affairs", url: "/units/public-affairs" },
+  { name: "Audit", url: "/units/audit" },
+  { name: "ICT", url: "/units/ict" },
+  { name: "Legal", url: "/units/legal" },
+  { name: "Planning", url: "/units/planning" },
+];
 
 const navItems = [
   { label: "Home", href: "/", hasDropdown: false },
@@ -59,23 +79,19 @@ const navItems = [
     ]
   },
   { 
-    label: "Resources", 
+    label: "Department & Unit", 
     href: "#", 
     hasDropdown: true,
-    dropdownItems: [
-      { label: "Downloads", href: "#" },
-      { label: "Publications", href: "#" },
-      { label: "FAQs", href: "#" },
-    ]
+    isDepartmentUnit: true,
   },
   { 
     label: "Media", 
-    href: "#", 
+    href: "/media", 
     hasDropdown: true,
     dropdownItems: [
-      { label: "News", href: "#" },
-      { label: "Events", href: "#" },
-      { label: "Gallery", href: "#" },
+      { label: "News", href: "/media#news" },
+      { label: "Events", href: "/media#events" },
+      { label: "Gallery", href: "/media#gallery" },
     ]
   },
   { label: "Contact Us", href: "/contact", hasDropdown: false },
@@ -216,25 +232,83 @@ export default function Navbar() {
                     anchorEl={anchorEl[item.label]}
                     open={Boolean(anchorEl[item.label])}
                     onClose={() => handleClose(item.label)}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
                     PaperProps={{
                       sx: {
                         boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
                         borderRadius: 2,
-                        minWidth: 200,
+                        minWidth: item.isDepartmentUnit ? 480 : 200,
+                        maxWidth: item.isDepartmentUnit ? 550 : undefined,
                       }
                     }}
                   >
-                    {item.dropdownItems?.map((dropdownItem) => (
-                      <MenuItem
-                        key={dropdownItem.label}
-                        onClick={() => handleClose(item.label)}
-                        sx={{ py: 1.5 }}
-                        component={Link}
-                        href={dropdownItem.href}
-                      >
-                        {dropdownItem.label}
-                      </MenuItem>
-                    ))}
+                    {item.isDepartmentUnit ? (
+                      <Box sx={{ display: "flex", gap: 3, p: 1.5 }}>
+                        {/* Departments Column */}
+                        <Box sx={{ flex: 1 }}>
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 0.8, mb: 1.5 }}>
+                            <Business sx={{ color: "#D4AF37", fontSize: "1.3rem" }} />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
+                              Departments
+                            </Typography>
+                          </Box>
+                          <Stack spacing={0.5}>
+                            {departments.map((dept) => (
+                              <MenuItem
+                                key={dept.url}
+                                onClick={() => handleClose(item.label)}
+                                component={Link}
+                                href={dept.url}
+                                sx={{ py: 0.6, px: 1, borderRadius: 0.8, fontSize: "0.9rem" }}
+                              >
+                                {dept.name}
+                              </MenuItem>
+                            ))}
+                          </Stack>
+                        </Box>
+                        {/* Units Column */}
+                        <Box sx={{ flex: 1, borderLeft: "1px solid #f0f0f0", pl: 3 }}>
+                          <Box sx={{ display: "flex", alignItems: "center", gap: 0.8, mb: 1.5 }}>
+                            <AccountTree sx={{ color: "#D4AF37", fontSize: "1.3rem" }} />
+                            <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
+                              Units
+                            </Typography>
+                          </Box>
+                          <Stack spacing={0.5}>
+                            {units.map((unit) => (
+                              <MenuItem
+                                key={unit.url}
+                                onClick={() => handleClose(item.label)}
+                                component={Link}
+                                href={unit.url}
+                                sx={{ py: 0.6, px: 1, borderRadius: 0.8, fontSize: "0.9rem" }}
+                              >
+                                {unit.name}
+                              </MenuItem>
+                            ))}
+                          </Stack>
+                        </Box>
+                      </Box>
+                    ) : (
+                      item.dropdownItems?.map((dropdownItem) => (
+                        <MenuItem
+                          key={dropdownItem.label}
+                          onClick={() => handleClose(item.label)}
+                          sx={{ py: 1.5 }}
+                          component={Link}
+                          href={dropdownItem.href}
+                        >
+                          {dropdownItem.label}
+                        </MenuItem>
+                      ))
+                    )}
                   </Menu>
                   </>
                 ) : (
@@ -311,7 +385,7 @@ export default function Navbar() {
           <List sx={{ pb: 2 }}>
             {navItems.map((item) => (
               <div key={item.label}>
-                {item.hasDropdown && item.dropdownItems ? (
+                {item.hasDropdown ? (
                   <Accordion 
                     disableGutters 
                     elevation={0} 
@@ -329,17 +403,66 @@ export default function Navbar() {
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ px: 2, py: 1, backgroundColor: "#fafafa" }}>
-                      {item.dropdownItems.map((dropdownItem) => (
-                        <ListItemButton
-                          key={dropdownItem.label}
-                          onClick={() => setMobileOpen(false)}
-                          sx={{ pl: 2, py: 1.2, borderRadius: 1 }}
-                          component={Link}
-                          href={dropdownItem.href}
-                        >
-                          <ListItemText primary={dropdownItem.label} />
-                        </ListItemButton>
-                      ))}
+                      {item.isDepartmentUnit ? (
+                        <Stack spacing={2}>
+                          {/* Departments */}
+                          <Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                              <Business sx={{ color: "#D4AF37", fontSize: "1.2rem" }} />
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Departments
+                              </Typography>
+                            </Box>
+                            <Stack spacing={0.5}>
+                              {departments.map((dept) => (
+                                <ListItemButton
+                                  key={dept.url}
+                                  onClick={() => setMobileOpen(false)}
+                                  component={Link}
+                                  href={dept.url}
+                                  sx={{ py: 0.8, borderRadius: 1 }}
+                                >
+                                  <ListItemText primary={dept.name} primaryTypographyProps={{ fontSize: "0.9rem" }} />
+                                </ListItemButton>
+                              ))}
+                            </Stack>
+                          </Box>
+                          {/* Units */}
+                          <Box>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
+                              <AccountTree sx={{ color: "#D4AF37", fontSize: "1.2rem" }} />
+                              <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                                Units
+                              </Typography>
+                            </Box>
+                            <Stack spacing={0.5}>
+                              {units.map((unit) => (
+                                <ListItemButton
+                                  key={unit.url}
+                                  onClick={() => setMobileOpen(false)}
+                                  component={Link}
+                                  href={unit.url}
+                                  sx={{ py: 0.8, borderRadius: 1 }}
+                                >
+                                  <ListItemText primary={unit.name} primaryTypographyProps={{ fontSize: "0.9rem" }} />
+                                </ListItemButton>
+                              ))}
+                            </Stack>
+                          </Box>
+                        </Stack>
+                      ) : (
+                        item.dropdownItems?.map((dropdownItem) => (
+                          <ListItemButton
+                            key={dropdownItem.label}
+                            onClick={() => setMobileOpen(false)}
+                            sx={{ pl: 2, py: 1.2, borderRadius: 1 }}
+                            component={Link}
+                            href={dropdownItem.href}
+                          >
+                            <ListItemText primary={dropdownItem.label} />
+                          </ListItemButton>
+                        ))
+                      )}
                     </AccordionDetails>
                   </Accordion>
                 ) : (
