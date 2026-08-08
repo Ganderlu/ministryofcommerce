@@ -134,26 +134,6 @@ export default function Services() {
             );
           })}
         </Grid>
-
-        <Box sx={{ textAlign: "center", mt: 6 }}>
-          <Button
-            variant="contained"
-            onClick={() => router.push("/services")}
-            sx={{
-              backgroundColor: accentColor,
-              color: "black",
-              px: 6,
-              py: 1.5,
-              "&:hover": { backgroundColor: "#c49f2d" },
-              fontWeight: 600,
-              borderRadius: 2,
-              textTransform: "uppercase",
-              letterSpacing: 1,
-            }}
-          >
-            View All Services
-          </Button>
-        </Box>
       </Container>
     </Box>
   );

@@ -1,9 +1,8 @@
 "use client";
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme, alpha as alphaFn, lighten as lightenFn, darken as darkenFn } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { createTheme } from "@mui/material/styles";
 
-const theme = createTheme({
+const baseTheme = createTheme({
   palette: {
     primary: {
       main: "#0B6B3A",
@@ -58,6 +57,19 @@ const theme = createTheme({
     },
   },
 });
+
+type ColorFns = {
+  alpha: typeof alphaFn;
+  lighten: typeof lightenFn;
+  darken: typeof darkenFn;
+};
+
+const theme = {
+  ...baseTheme,
+  alpha: alphaFn,
+  lighten: lightenFn,
+  darken: darkenFn,
+} as typeof baseTheme & ColorFns;
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   return (

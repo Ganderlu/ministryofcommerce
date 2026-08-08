@@ -23,6 +23,7 @@ import { Search, Menu as MenuIcon, Close, ExpandMore, Business, AccountTree } fr
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const departments = [
   { name: "Commerce", url: "/departments/commerce" },
@@ -61,11 +62,11 @@ const navItems = [
     href: "#", 
     hasDropdown: true,
     dropdownItems: [
-      { label: "Business Registration", href: "/services" },
-      { label: "Permit & Licensing", href: "#" },
-      { label: "Cooperative Registration", href: "#" },
-      { label: "Export Promotion", href: "#" },
-      { label: "Loan & Grants", href: "#" },
+      { label: "Business Registration", href: "/services/business-registration" },
+      { label: "Permit & Licensing", href: "/services/permit-licensing" },
+      { label: "Cooperative Registration", href: "/services/cooperative-registration" },
+      { label: "Export Promotion", href: "/services/export-promotion" },
+      { label: "Loan & Grants", href: "/services/loan-grants" },
     ]
   },
   { 
@@ -102,6 +103,11 @@ export default function Navbar() {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<{ [key: string]: HTMLElement | null }>({});
+  const router = useRouter();
+
+  const handleSearchClick = () => {
+    router.push("/search");
+  };
 
   const handleClick = (label: string) => (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl({ ...anchorEl, [label]: event.currentTarget });
@@ -171,26 +177,28 @@ export default function Navbar() {
               </Box>
             </Stack>
 
-            {/* Right: Search, Login, Register */}
+            {/* Right: Search */}
             <Stack direction="row" alignItems="center" spacing={1}>
               {!isMobile && (
-                <>
-                  <IconButton sx={{ color: "#D4AF37" }}>
-                    <Search />
-                  </IconButton>
-                  <Button sx={{ textTransform: "none", color: "#D4AF37" }}>Login</Button>
-                  <Button
-                    variant="contained"
-                    sx={{
-                      backgroundColor: "#D4AF37",
-                      "&:hover": { backgroundColor: "#c49f2d" },
-                      textTransform: "none",
-                      color: "black"
-                    }}
-                  >
-                    Register
-                  </Button>
-                </>
+                <IconButton
+                  onClick={handleSearchClick}
+                  aria-label="Search"
+                  sx={{
+                    backgroundColor: "rgba(212, 175, 55, 0.1)",
+                    color: "#D4AF37",
+                    width: 44,
+                    height: 44,
+                    borderRadius: 2,
+                    "&:hover": {
+                      backgroundColor: "rgba(212, 175, 55, 0.2)",
+                      transform: "translateY(-1px)",
+                      boxShadow: "0 2px 8px rgba(212, 175, 55, 0.25)",
+                    },
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <Search sx={{ fontSize: 22 }} />
+                </IconButton>
               )}
 
               {/* Mobile Menu Button - Enhanced Styling */}
@@ -346,9 +354,22 @@ export default function Navbar() {
         }}
       >
         <Box sx={{ width: 320, pt: 2, px: 1 }}>
-          {/* Close Button */}
-          <Box display="flex" justifyContent="flex-end" pr={2} mb={1}>
-            <IconButton 
+          {/* Close + Search Buttons */}
+          <Box display="flex" justifyContent="space-between" pr={2} pl={2} mb={1}>
+            <IconButton
+              onClick={() => {
+                setMobileOpen(false);
+                handleSearchClick();
+              }}
+              aria-label="Search"
+              sx={{
+                backgroundColor: "rgba(212, 175, 55, 0.1)",
+                color: "#D4AF37",
+              }}
+            >
+              <Search />
+            </IconButton>
+            <IconButton
               onClick={() => setMobileOpen(false)}
               sx={{
                 backgroundColor: "rgba(212, 175, 55, 0.1)",
@@ -483,35 +504,6 @@ export default function Navbar() {
               </div>
             ))}
           </List>
-
-          {/* Login/Register Buttons */}
-          <Stack spacing={1.5} px={2} pt={2}>
-            <Button
-              fullWidth
-              variant="outlined"
-              sx={{ 
-                borderColor: "#D4AF37",
-                color: "#D4AF37",
-                textTransform: "none",
-                py: 1.2,
-              }}
-            >
-              Login
-            </Button>
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{ 
-                backgroundColor: "#D4AF37",
-                "&:hover": { backgroundColor: "#c49f2d" },
-                textTransform: "none",
-                color: "black",
-                py: 1.2,
-              }}
-            >
-              Register
-            </Button>
-          </Stack>
 
           {/* Contact Info */}
           <Box sx={{ mt: 4, px: 2, pb: 3 }}>

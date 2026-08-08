@@ -26,13 +26,12 @@ export default function Hero() {
 
   return (
     <Box sx={{ position: "relative", minHeight: "100vh", overflow: "hidden" }}>
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         <motion.div
           key={currentImageIndex}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
           style={{ position: "absolute", inset: 0 }}
         >
           <Image
@@ -88,7 +87,7 @@ export default function Hero() {
             variant="body1"
             sx={{ 
               color: "rgba(255,255,255,0.95)", 
-              mb: 5, 
+              mb: 0, 
               lineHeight: 1.8,
               fontSize: { xs: "1rem", md: "1.125rem" },
               textShadow: "1px 1px 2px rgba(0,0,0,0.3)",
@@ -97,38 +96,6 @@ export default function Hero() {
             We promote trade, investment, and enterprise development for a prosperous and globally
             competitive Anambra.
           </Typography>
-          <Stack direction={{ xs: "column", sm: "row" }} spacing={2.5}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#D4AF37",
-                paddingX: 5,
-                paddingY: 1.75,
-                "&:hover": { backgroundColor: "#c49f2d" },
-                fontWeight: 700,
-                color: "black",
-                fontSize: "1rem",
-                boxShadow: "0 4px 12px rgba(212, 175, 55, 0.4)",
-              }}
-            >
-              Explore Services
-            </Button>
-            <Button
-              variant="outlined"
-              sx={{
-                borderColor: "white",
-                color: "white",
-                paddingX: 5,
-                paddingY: 1.75,
-                "&:hover": { borderColor: "white", backgroundColor: "rgba(255,255,255,0.15)" },
-                fontWeight: 600,
-                fontSize: "1rem",
-                borderWidth: 2,
-              }}
-            >
-              Invest in Anambra
-            </Button>
-          </Stack>
         </MotionBox>
       </Container>
     </Box>

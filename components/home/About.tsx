@@ -2,6 +2,7 @@
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const MotionBox = motion(Box);
 const MotionGrid = motion(Grid);
@@ -12,9 +13,9 @@ const galleryImages = [
   "/images/soludo13.png",
   "/images/soludo14.png",
   "/images/soludo15.png",
-  "/images/soludo16.png",
-  "/images/soludo17.png",
-  "/images/soludo18.png",
+  "/images/ch3.png",
+  "/images/ch1.png",
+  "/images/ch2.png",
   "/images/soludo19.png"
 ];
 
@@ -144,6 +145,8 @@ export default function About() {
               </Typography>
 
               <Button
+                component={Link}
+                href="/about"
                 variant="contained"
                 sx={{
                   backgroundColor: accentColor,

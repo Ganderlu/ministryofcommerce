@@ -87,3 +87,333 @@ export interface GalleryItem {
   image: string;
   title: string;
 }
+
+export interface CooperativeBenefit {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface EligibilityRequirement {
+  id: string;
+  text: string;
+}
+
+export interface ProcessStep {
+  id: string;
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface RegistrationCategory {
+  id: string;
+  name: string;
+}
+
+export interface RequiredDocument {
+  id: string;
+  name: string;
+}
+
+export interface RegistrationGuideline {
+  id: string;
+  icon: string;
+  text: string;
+}
+
+export interface CooperativeRegistrationFormData {
+  cooperativeName: string;
+  cooperativeType: string;
+  registrationCategory: string;
+  yearOfEstablishment: string;
+  operationalArea: string;
+  officeAddress: string;
+  localGovernmentArea: string;
+  communityTown: string;
+  emailAddress: string;
+  phoneNumber: string;
+  whatsappNumber: string;
+  website: string;
+  objectives: string;
+}
+
+export type CooperativeMemberRole =
+  | "Chairman"
+  | "Vice Chairman"
+  | "Secretary"
+  | "Assistant Secretary"
+  | "Treasurer"
+  | "Financial Secretary"
+  | "PRO"
+  | "Auditor"
+  | "Ex-Officio"
+  | "Member";
+
+export interface CooperativeMember {
+  id: string;
+  role: CooperativeMemberRole;
+  fullName: string;
+  position?: string;
+  gender: "Male" | "Female" | "Other" | "";
+  dateOfBirth?: string;
+  phoneNumber: string;
+  emailAddress: string;
+  residentialAddress: string;
+  occupation: string;
+  bvn?: string;
+  nin?: string;
+  shareHolding?: number | string;
+  yearsInCooperative?: number | string;
+  signatureUrl?: string;
+  passportUrl?: string;
+}
+
+export interface CooperativeDocument {
+  documentId: string;
+  name: string;
+  fileName: string;
+  fileUrl: string;
+  fileSizeBytes: number;
+  mimeType: string;
+  uploadedAt: string;
+  uploadedBy: string;
+  publicId?: string;
+  cloudinary?: {
+    publicId: string;
+    secureUrl: string;
+    format: string;
+    resourceType: string;
+    bytes: number;
+    width?: number;
+    height?: number;
+    folder?: string;
+    version?: number;
+  };
+  id?: string;
+  label?: string;
+  required?: boolean;
+  uploaded?: boolean;
+  url?: string;
+}
+
+export interface CooperativeRegistrationDocument {
+  id?: string;
+  cooperativeDetails: CooperativeRegistrationFormData;
+  members: CooperativeMember[];
+  documents?: CooperativeDocument[];
+  reviewSubmission?: {
+    declarationAgreed?: boolean;
+    submissionDate?: any;
+    termsAgreed?: boolean;
+    certificationAccuracy?: boolean;
+  };
+  status?: "draft" | "submitted" | "Under Review" | "Approved" | "Rejected" | "Suspended";
+  currentStep?: number;
+  registrationNumber?: string;
+  createdAt?: any;
+  updatedAt?: any;
+  submittedAt?: any;
+}
+
+export interface BusinessBenefit {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface BusinessEligibility {
+  id: string;
+  text: string;
+}
+
+export interface BusinessType {
+  id: string;
+  name: string;
+}
+
+export interface BusinessCategory {
+  id: string;
+  name: string;
+}
+
+export interface BusinessNature {
+  id: string;
+  name: string;
+}
+
+export interface BusinessStructure {
+  id: string;
+  name: string;
+}
+
+export interface StateOption {
+  id: string;
+  name: string;
+}
+
+export interface OwnerDirector {
+  id: string;
+  fullName: string;
+  gender: string;
+  dateOfBirth: string;
+  nationality: string;
+  bvn: string;
+  nin: string;
+  meansOfId: string;
+  residentialAddress: string;
+  occupation: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface BusinessRegistrationFormData {
+  businessName: string;
+  businessType: string;
+  businessCategory: string;
+  natureOfBusiness: string;
+  dateOfIncorporation: string;
+  cacRegNumber: string;
+  taxIdentificationNumber: string;
+  businessStructure: string;
+  businessAddress: string;
+  localGovernmentArea: string;
+  communityTown: string;
+  state: string;
+  postalCode: string;
+  emailAddress: string;
+  phoneNumber: string;
+  alternativePhoneNumber: string;
+  website: string;
+  businessDescription: string;
+  owners: OwnerDirector[];
+}
+
+export interface KpiCard {
+  id: string;
+  title: string;
+  value: string;
+  change: number;
+  changeDirection: "up" | "down";
+  icon: string;
+  color: string;
+}
+
+export interface TopService {
+  id: string;
+  serviceName: string;
+  applications: number;
+  growth: number;
+  icon: string;
+  color: string;
+}
+
+export interface RecentApplication {
+  id: string;
+  applicantName: string;
+  applicationType: string;
+  submissionTime: string;
+  status: "Pending" | "Under Review" | "Approved" | "Rejected";
+  icon: string;
+  color: string;
+}
+
+export interface SystemAlert {
+  id: string;
+  title: string;
+  description: string;
+  type: "warning" | "success" | "info" | "error";
+  time: string;
+  badge?: string | number;
+}
+
+export interface QuickAction {
+  id: string;
+  label: string;
+  icon: string;
+  badge?: string | number;
+}
+
+export interface FooterStat {
+  id: string;
+  label: string;
+  value: string;
+  icon: string;
+  color: string;
+}
+
+export type ApplicationStatus =
+  | "Pending"
+  | "Under Review"
+  | "Approved"
+  | "Rejected";
+
+export interface SidebarItem {
+  id: string;
+  label: string;
+  icon: string;
+  href?: string;
+  children?: SidebarItem[];
+}
+
+export type AdminRole =
+  | "Super Admin"
+  | "Commissioner"
+  | "Permanent Secretary"
+  | "Director"
+  | "Staff Administrator"
+  | "Content Manager"
+  | "Finance Officer"
+  | "ICT Administrator";
+
+export type BusinessStatus = "Approved" | "Under Review" | "Pending" | "Rejected" | "Suspended";
+
+export interface BusinessCategoryItem {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+}
+
+export interface BusinessRow {
+  id: string;
+  businessName: string;
+  applicationNumber: string;
+  ownerName: string;
+  ownerEmail: string;
+  ownerPhone: string;
+  categoryId: string;
+  categoryName: string;
+  lga: string;
+  status: BusinessStatus;
+  registeredOnDate: string;
+  registeredOnTime: string;
+  logoColor: string;
+}
+
+export type CooperativeStatus = "Approved" | "Under Review" | "Pending" | "Rejected" | "Suspended";
+
+export interface CooperativeCategoryItem {
+  id: string;
+  name: string;
+  icon: string;
+  color: string;
+}
+
+export interface CooperativeRow {
+  id: string;
+  cooperativeName: string;
+  registrationNumber: string;
+  chairmanName: string;
+  chairmanEmail: string;
+  chairmanPhone: string;
+  categoryId: string;
+  categoryName: string;
+  lga: string;
+  status: CooperativeStatus;
+  registeredOnDate: string;
+  registeredOnTime: string;
+  logoColor: string;
+}

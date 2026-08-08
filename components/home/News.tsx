@@ -99,24 +99,11 @@ export default function News() {
                       fontWeight: 600,
                       fontFamily: "var(--font-poppins)",
                       fontSize: "1.1rem",
-                      mb: 1,
                       lineHeight: 1.4,
                     }}
                   >
                     {item.title}
                   </Typography>
-                  <Button
-                    variant="text"
-                    endIcon={<ArrowForward />}
-                    sx={{
-                      color: accentColor,
-                      fontWeight: 600,
-                      p: 0,
-                      mt: 1,
-                    }}
-                  >
-                    Read More
-                  </Button>
                 </CardContent>
               </MotionCard>
             </Grid>

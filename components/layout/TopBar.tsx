@@ -1,6 +1,7 @@
 "use client";
 import { Box, Container, Typography, IconButton, Stack } from "@mui/material";
-import { Facebook, Twitter, LinkedIn, Instagram, Email, Phone } from "@mui/icons-material";
+import { Facebook, Twitter, Instagram, Email, Phone } from "@mui/icons-material";
+import Image from "next/image";
 
 export default function TopBar() {
   return (
@@ -92,7 +93,13 @@ export default function TopBar() {
                   "&:hover": { backgroundColor: "rgba(0,0,0,0.08)" },
                 }}
               >
-                <LinkedIn fontSize="small" />
+                <Image
+                  src="/images/let.png"
+                  alt="LET"
+                  width={20}
+                  height={20}
+                  style={{ objectFit: "contain" }}
+                />
               </IconButton>
               <IconButton
                 size="small"

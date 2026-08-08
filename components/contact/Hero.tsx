@@ -20,7 +20,7 @@ export default function ContactHero() {
       {/* Background Image */}
       <Box sx={{ position: "absolute", inset: 0 }}>
         <Image
-          src="/images/soludo3.jpg"
+          src="/images/ch5.png"
           alt="Government Building"
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}
