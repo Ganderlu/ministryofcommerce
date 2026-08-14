@@ -428,7 +428,7 @@ export default function MembersInformationForm({
                               cursor: has ? "default" : "pointer",
                               bgcolor: has ? "rgba(16,185,129,0.12)" : "rgba(220,38,38,0.06)",
                               color: has ? "#047857" : "#B91C1C",
-                              border: `1px solid ${has ? "rgba(16,185,129,0.4)" : "rgba(220,38,38,0.25)"}`,
+                              border: `1px solid ${has ? "rgba(212,175,55,0.4)" : "rgba(220,38,38,0.25)"}`,
                               "&:hover": has ? {} : { bgcolor: "rgba(220,38,38,0.1)" },
                             }}
                           />

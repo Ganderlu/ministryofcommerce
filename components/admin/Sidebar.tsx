@@ -115,7 +115,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
             fontSize: 24,
             color: "#084C2E",
             fontWeight: 800,
-            boxShadow: "0 0 0 2px #0B6B3A inset",
+            boxShadow: "0 0 0 2px #D4AF37 inset",
             background: "radial-gradient(circle at 30% 30%, #F5D76E 0%, #D4AF37 50%, #A8882C 100%)",
           }}
         >
@@ -304,7 +304,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
               sx={{
                 p: 2,
                 borderRadius: "14px",
-                background: "linear-gradient(145deg, rgba(11,107,58,0.65) 0%, rgba(8,76,46,0.85) 100%)",
+                background: "linear-gradient(145deg, rgba(212,175,55,0.65) 0%, rgba(8,76,46,0.85) 100%)",
                 border: "1px solid rgba(212, 175, 55, 0.2)",
                 position: "relative",
                 overflow: "hidden",

@@ -18,7 +18,7 @@ export default function SectionTitle({
   align = "center",
 }: SectionTitleProps) {
   const accentColor = "#D4AF37";
-  const primaryColor = "#0B6B3A";
+  const primaryColor = "#D4AF37";
 
   return (
     <MotionBox

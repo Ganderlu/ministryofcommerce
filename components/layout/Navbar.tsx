@@ -58,15 +58,14 @@ const navItems = [
     ]
   },
   { 
-    label: "Services", 
+    label: "Portals", 
     href: "#", 
     hasDropdown: true,
     dropdownItems: [
       { label: "Business Registration", href: "/services/business-registration" },
-      { label: "Permit & Licensing", href: "/services/permit-licensing" },
+      { label: "SME Registration", href: "/services/sme-registration" },
       { label: "Cooperative Registration", href: "/services/cooperative-registration" },
-      { label: "Export Promotion", href: "/services/export-promotion" },
-      { label: "Loan & Grants", href: "/services/loan-grants" },
+      { label: "MSME Registration", href: "/services/msme-registration" },
     ]
   },
   { 

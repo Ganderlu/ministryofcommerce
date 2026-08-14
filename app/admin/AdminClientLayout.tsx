@@ -10,7 +10,7 @@ import AdminHeader from "@/components/admin/Header";
 const baseTheme = createTheme({
   palette: {
     mode: "light",
-    primary: { main: "#0B6B3A" },
+    primary: { main: "#D4AF37" },
     secondary: { main: "#D4AF37" },
     success: { main: "#16A34A" },
     warning: { main: "#F59E0B" },

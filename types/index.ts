@@ -291,6 +291,48 @@ export interface BusinessRegistrationFormData {
   owners: OwnerDirector[];
 }
 
+export interface BusinessDocumentUpload {
+  documentId: string;
+  name: string;
+  fileName?: string;
+  fileUrl?: string;
+  fileSizeBytes?: number;
+  mimeType?: string;
+  uploadedAt?: string;
+  uploadedBy?: string;
+  label?: string;
+  required?: boolean;
+  cloudinary?: {
+    publicId?: string;
+    secureUrl?: string;
+    format?: string;
+    resourceType?: string;
+    bytes?: number;
+    folder?: string;
+  };
+}
+
+export interface BusinessRegistrationDocument {
+  id?: string;
+  applicationId?: string;
+  userId?: string;
+  businessInformation?: BusinessRegistrationFormData;
+  owners?: OwnerDirector[];
+  documents?: BusinessDocumentUpload[];
+  reviewSubmission?: {
+    declarationAgreed?: boolean;
+    termsAgreed?: boolean;
+    certificationAccuracy?: boolean;
+    submissionDate?: string;
+  };
+  status?: "draft" | "pending" | "submitted" | "Under Review" | "Approved" | "Rejected" | "Suspended";
+  currentStep?: number;
+  registrationNumber?: string;
+  createdAt?: any;
+  updatedAt?: any;
+  submittedAt?: any;
+}
+
 export interface KpiCard {
   id: string;
   title: string;
@@ -416,4 +458,269 @@ export interface CooperativeRow {
   registeredOnDate: string;
   registeredOnTime: string;
   logoColor: string;
+}
+
+export interface SMEBenefit {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface SMEEligibility {
+  id: string;
+  text: string;
+}
+
+export interface SMEDocument {
+  id: string;
+  icon: string;
+  name: string;
+  note?: string;
+}
+
+export interface SMEProcessStep {
+  id: string;
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface NumberOfEmployees {
+  id: string;
+  name: string;
+}
+
+export interface AnnualTurnover {
+  id: string;
+  name: string;
+}
+
+export interface SMERegistrationFormData {
+  businessName: string;
+  businessType: string;
+  businessCategory: string;
+  natureOfBusiness: string;
+  cacRegistrationNumber: string;
+  dateOfCommencement: string;
+  businessStructure: string;
+  numberOfEmployees: string;
+  annualTurnoverRange: string;
+  businessAddress: string;
+  localGovernmentArea: string;
+  community: string;
+  state: string;
+  postalCode: string;
+  email: string;
+  phoneNumber: string;
+  alternativePhone: string;
+  website: string;
+  businessDescription: string;
+}
+
+export type SMERegistrationStatus = "draft" | "pending" | "under_review" | "approved" | "rejected";
+
+export interface SMEOwnerDirector {
+  id: string;
+  fullName: string;
+  gender: string;
+  dateOfBirth: string;
+  nationality: string;
+  meansOfId: string;
+  idNumber: string;
+  residentialAddress: string;
+  occupation: string;
+  email: string;
+  phoneNumber: string;
+  position: string;
+}
+
+export interface SMEDocumentUpload {
+  documentId: string;
+  name: string;
+  label?: string;
+  fileName?: string;
+  fileUrl?: string;
+  fileSizeBytes?: number;
+  mimeType?: string;
+  uploadedAt?: string;
+  uploadedBy?: string;
+  required?: boolean;
+  cloudinary?: {
+    publicId?: string;
+    secureUrl?: string;
+    format?: string;
+    resourceType?: string;
+    bytes?: number;
+    folder?: string;
+  };
+}
+
+export interface SMERegistrationDocument {
+  id?: string;
+  applicationId?: string;
+  userId?: string;
+  businessInformation: SMERegistrationFormData;
+  ownerDirectors: SMEOwnerDirector[];
+  documents: SMEDocumentUpload[];
+  status: SMERegistrationStatus;
+  currentStep: number;
+  registrationNumber?: string;
+  createdAt?: any;
+  updatedAt?: any;
+  submittedAt?: any;
+  reviewSubmission?: {
+    declarationAgreed: boolean;
+    termsAgreed: boolean;
+    certificationAccuracy: boolean;
+    submissionDate: string;
+  };
+  documentsSummary?: {
+    total: number;
+    onCloudinary: number;
+  };
+  submissionSummary?: {
+    totalOwners: number;
+    primaryOwnerName: string;
+    primaryOwnerEmail: string;
+    businessName: string;
+    lga: string;
+    emailAddress: string;
+    phoneNumber: string;
+  };
+}
+
+export interface SMERegistration {
+  applicationId?: string;
+  userId?: string;
+  businessName?: string;
+  businessType?: string;
+  businessCategory?: string;
+  natureOfBusiness?: string;
+  cacRegistrationNumber?: string;
+  dateOfCommencement?: string;
+  businessStructure?: string;
+  numberOfEmployees?: string;
+  annualTurnoverRange?: string;
+  businessAddress?: string;
+  localGovernmentArea?: string;
+  community?: string;
+  state?: string;
+  postalCode?: string;
+  email?: string;
+  phoneNumber?: string;
+  alternativePhone?: string;
+  website?: string;
+  businessDescription?: string;
+  status?: SMERegistrationStatus;
+  currentStep?: number;
+  documents?: SMEDocumentUpload[];
+  createdAt?: any;
+  updatedAt?: any;
+  submittedAt?: any;
+}
+
+export interface MSMEBenefit {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
+
+export interface MSMEEligibility {
+  id: string;
+  text: string;
+}
+
+export interface MSMEDocument {
+  id: string;
+  icon: string;
+  name: string;
+  note?: string;
+}
+
+export interface MSMEProcessStep {
+  id: string;
+  step: number;
+  title: string;
+  description: string;
+}
+
+export interface MSMERegistrationFormData {
+  businessName: string;
+  businessType: string;
+  businessCategory: string;
+  natureOfBusiness: string;
+  cacRegistrationNumber: string;
+  dateOfCommencement: string;
+  businessStructure: string;
+  numberOfEmployees: string;
+  annualTurnoverRange: string;
+  businessAddress: string;
+  localGovernmentArea: string;
+  community: string;
+  state: string;
+  postalCode: string;
+  email: string;
+  phoneNumber: string;
+  alternativePhone: string;
+  website: string;
+  businessDescription: string;
+}
+
+export interface MSMEOwnerDirector {
+  id: string;
+  fullName: string;
+  gender: string;
+  dateOfBirth: string;
+  nationality: string;
+  meansOfId: string;
+  idNumber: string;
+  residentialAddress: string;
+  occupation: string;
+  email: string;
+  phoneNumber: string;
+  position: string;
+}
+
+export interface MSMEDocumentUpload {
+  documentId: string;
+  name: string;
+  fileName?: string;
+  fileUrl?: string;
+  fileSizeBytes?: number;
+  mimeType?: string;
+  uploadedAt?: string;
+  uploadedBy?: string;
+  label?: string;
+  required?: boolean;
+  cloudinary?: {
+    publicId?: string;
+    secureUrl?: string;
+    format?: string;
+    resourceType?: string;
+    bytes?: number;
+    folder?: string;
+  };
+}
+
+export interface MSMERegistrationDocument {
+  id?: string;
+  applicationId?: string;
+  userId?: string;
+  businessInformation?: MSMERegistrationFormData;
+  ownerDirectors?: MSMEOwnerDirector[];
+  documents?: MSMEDocumentUpload[];
+  reviewSubmission?: {
+    declarationAgreed?: boolean;
+    termsAgreed?: boolean;
+    certificationAccuracy?: boolean;
+    submissionDate?: string;
+  };
+  status?: "draft" | "pending" | "submitted" | "Under Review" | "Approved" | "Rejected" | "Suspended";
+  currentStep?: number;
+  registrationNumber?: string;
+  createdAt?: any;
+  updatedAt?: any;
+  submittedAt?: any;
 }

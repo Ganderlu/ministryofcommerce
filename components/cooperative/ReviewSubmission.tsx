@@ -526,7 +526,7 @@ export default function ReviewSubmission({
                             <Box sx={{ textAlign: "right" }}>
                               <Typography
                                 sx={{
-                                  color: "#0F766E",
+                                  color: "#8C6A16",
                                   fontSize: "0.76rem",
                                   fontWeight: 700,
                                 }}
@@ -615,13 +615,13 @@ export default function ReviewSubmission({
                     bgcolor: allRequiredDocsOnCloudinary
                       ? "rgba(15, 118, 110, 0.12)"
                       : "rgba(245, 158, 11, 0.12)",
-                    color: allRequiredDocsOnCloudinary ? "#0F766E" : "#B45309",
+                    color: allRequiredDocsOnCloudinary ? "#8C6A16" : "#B45309",
                     fontWeight: 700,
                     fontSize: "0.72rem",
                     borderRadius: 10,
                     py: 0.3,
                     "& .MuiChip-icon": {
-                      color: allRequiredDocsOnCloudinary ? "#0F766E" : "#D97706",
+                      color: allRequiredDocsOnCloudinary ? "#8C6A16" : "#D97706",
                     },
                   }}
                 />
@@ -679,7 +679,7 @@ export default function ReviewSubmission({
                               height: 36,
                               borderRadius: 1.75,
                               bgcolor: isOnCloudinary ? "rgba(15,118,110,0.1)" : "rgba(212,175,55,0.1)",
-                              color: isOnCloudinary ? "#0F766E" : "#8a6e14",
+                              color: isOnCloudinary ? "#8C6A16" : "#8a6e14",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -723,8 +723,8 @@ export default function ReviewSubmission({
                                   icon={<CloudDoneIcon sx={{ fontSize: 12 }} />}
                                   label="Cloudinary"
                                   sx={{
-                                    bgcolor: "rgba(15, 118, 110, 0.1)",
-                                    color: "#0F766E",
+                                    bgcolor: "rgba(140, 106, 22, 0.1)",
+                                    color: "#8C6A16",
                                     fontWeight: 700,
                                     fontSize: "0.68rem",
                                     borderRadius: 1.1,
@@ -732,7 +732,7 @@ export default function ReviewSubmission({
                                     "& .MuiChip-label": { px: 0.75 },
                                     "& .MuiChip-icon": {
                                       fontSize: "0.7rem",
-                                      color: "#0F766E",
+                                      color: "#8C6A16",
                                     },
                                   }}
                                 />

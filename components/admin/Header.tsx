@@ -185,7 +185,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
                   px: 0.5,
                   right: 4,
                   top: 4,
-                  bgcolor: "#0B6B3A",
+                  bgcolor: "#D4AF37",
                   color: "white",
                 },
               }}
@@ -213,7 +213,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
             "&:hover": { bgcolor: "#F8FAFC" },
           }}
         >
-          <DateRangeIcon sx={{ color: "#0B6B3A", fontSize: 18 }} />
+          <DateRangeIcon sx={{ color: "#D4AF37", fontSize: 18 }} />
           <Typography sx={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
             May 24, 2025
           </Typography>
@@ -226,7 +226,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
           startIcon={<DownloadIcon sx={{ fontSize: 17 }} />}
           sx={{
             ml: 1.5,
-            bgcolor: "#0B6B3A",
+            bgcolor: "#D4AF37",
             color: "white",
             borderRadius: "10px",
             px: 2,

@@ -650,13 +650,13 @@ export default function DocumentsUploadForm({
                         icon={onCloudinary ? <CloudDoneIcon sx={{ fontSize: 15 }} /> : <CheckCircleIcon sx={{ fontSize: 15 }} />}
                         label={onCloudinary ? "Uploaded to Cloudinary" : "Uploaded"}
                         sx={{
-                          bgcolor: onCloudinary ? "rgba(15, 118, 110, 0.12)" : "rgba(16, 185, 129, 0.12)",
+                          bgcolor: onCloudinary ? "rgba(15, 118, 110, 0.12)" : "rgba(212, 175, 55, 0.12)",
                           color: onCloudinary ? "#0F766E" : "#047857",
                           fontWeight: 700,
                           fontSize: "0.72rem",
                           borderRadius: 10,
                           py: 0.4,
-                          "& .MuiChip-icon": { color: onCloudinary ? "#0F766E" : "#10B981" },
+                          "& .MuiChip-icon": { color: onCloudinary ? "#0F766E" : "#D4AF37" },
                         }}
                       />
                     )}

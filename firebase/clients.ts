@@ -9,6 +9,7 @@ import {
   User,
 } from "firebase/auth";
 import {
+  initializeFirestore,
   getFirestore,
   Firestore,
   collection as _collection,
@@ -24,6 +25,11 @@ import {
   orderBy as _orderBy,
   limit as _limit,
   serverTimestamp as _serverTimestamp,
+  disableNetwork as _disableNetwork,
+  enableNetwork as _enableNetwork,
+  memoryLocalCache,
+  memoryLruGarbageCollector,
+  CACHE_SIZE_UNLIMITED,
   Timestamp,
   FieldValue,
 } from "firebase/firestore";
@@ -60,10 +66,33 @@ const firebaseConfig = {
 export const app: FirebaseApp =
   getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 
-// Firestore initialized with explicit databaseId for safety and cross-compat
+// Firestore initialized WITHOUT IndexedDB offline persistence.
+// Using only an in-memory cache so:
+//   (a) PERMISSION_DENIED surfaces INSTANTLY instead of being silently
+//       queued+retried (which caused the 60s "Saving…" hang), and
+//   (b) we never lose the user's explicitly-acknowledged error state
+//       to a stale background retry.
+//
+// App-wide pattern: registration pages save user progress locally via
+// sessionStorage/localStorage directly instead of relying on Firestore
+// offline queue.
 export const db: Firestore = (() => {
   try {
-    return getFirestore(app);
+    // If already initialized by earlier client-side route, reuse singleton.
+    if (getApps().length > 0) {
+      try {
+        return getFirestore(app);
+      } catch {
+        // falls through to initializeFirestore below
+      }
+    }
+    return initializeFirestore(app, {
+      localCache: memoryLocalCache({
+        garbageCollector: memoryLruGarbageCollector({
+          cacheSizeBytes: CACHE_SIZE_UNLIMITED,
+        }),
+      }),
+    });
   } catch {
     return getFirestore(app, "(default)");
   }
@@ -92,6 +121,8 @@ export const where = _where;
 export const orderBy = _orderBy;
 export const limit = _limit;
 export const serverTimestamp = _serverTimestamp;
+export const disableNetwork = _disableNetwork;
+export const enableNetwork = _enableNetwork;
 export const storageRef = _ref;
 export const uploadBytes = _uploadBytes;
 export const uploadString = _uploadString;

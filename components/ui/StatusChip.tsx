@@ -18,7 +18,7 @@ const statusConfig: Record<string, { color: string; bgcolor: string; border: str
     border: "rgba(59, 130, 246, 0.3)",
   },
   Approved: {
-    color: "#166534",
+    color: "#8C6A16",
     bgcolor: "rgba(22, 163, 74, 0.12)",
     border: "rgba(22, 163, 74, 0.3)",
   },

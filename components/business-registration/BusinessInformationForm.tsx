@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   businessTypes,
   businessCategories,
@@ -25,6 +25,8 @@ import type { BusinessRegistrationFormData } from "@/types";
 
 const MotionCard = motion(Card);
 const MotionBox = motion(Box);
+
+const STORAGE_KEY = "business_registration_step1_draft";
 
 const initialFormData: BusinessRegistrationFormData = {
   businessName: "",
@@ -48,10 +50,45 @@ const initialFormData: BusinessRegistrationFormData = {
   owners: [],
 };
 
-export default function BusinessInformationForm() {
+interface BusinessInformationFormProps {
+  initialData?: BusinessRegistrationFormData;
+  onSaveAndContinue: (data: BusinessRegistrationFormData) => void;
+  saving: boolean;
+}
+
+export default function BusinessInformationForm({
+  initialData,
+  onSaveAndContinue,
+  saving,
+}: BusinessInformationFormProps) {
   const primaryColor = "#D4AF37";
-  const [formData, setFormData] = useState<BusinessRegistrationFormData>(initialFormData);
+  const [formData, setFormData] = useState<BusinessRegistrationFormData>(() => {
+    if (initialData && initialData.businessName) return initialData;
+    try {
+      const saved =
+        typeof window !== "undefined" ? localStorage.getItem(STORAGE_KEY) : null;
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.businessName) return parsed;
+      }
+    } catch {}
+    return initialFormData;
+  });
   const [errors, setErrors] = useState<Partial<Record<keyof BusinessRegistrationFormData, string>>>({});
+
+  useEffect(() => {
+    if (initialData && initialData.businessName) {
+      setFormData(initialData);
+    }
+  }, [initialData]);
+
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+      }
+    } catch {}
+  }, [formData]);
 
   const requiredFields: (keyof BusinessRegistrationFormData)[] = [
     "businessName",
@@ -101,7 +138,8 @@ export default function BusinessInformationForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    validateForm();
+    if (!validateForm()) return;
+    onSaveAndContinue(formData);
   };
 
   const textFieldProps = {
@@ -436,6 +474,7 @@ export default function BusinessInformationForm() {
               type="submit"
               variant="contained"
               endIcon={<ArrowForward />}
+              disabled={saving}
               sx={{
                 backgroundColor: primaryColor,
                 px: 5,
@@ -446,15 +485,19 @@ export default function BusinessInformationForm() {
                 fontFamily: "var(--font-poppins)",
                 boxShadow: `0 6px 20px ${primaryColor}40`,
                 "&:hover": {
-                  backgroundColor: "#D4AF37",
+                  backgroundColor: "#B8952D",
                   transform: "translateY(-2px)",
                   boxShadow: `0 8px 24px ${primaryColor}50`,
+                },
+                "&:disabled": {
+                  backgroundColor: `${primaryColor}90`,
+                  color: "white",
                 },
                 transition: "all 0.3s ease",
                 textTransform: "none",
               }}
             >
-              Save & Continue
+              {saving ? "Saving..." : "Save & Continue"}
             </Button>
           </Stack>
         </Box>

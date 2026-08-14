@@ -34,6 +34,16 @@ import {
   BusinessStatus,
   CooperativeCategoryItem,
   CooperativeRow,
+  SMEBenefit,
+  SMEEligibility,
+  SMEDocument,
+  SMEProcessStep,
+  NumberOfEmployees as INumberOfEmployees,
+  AnnualTurnover as IAnnualTurnover,
+  MSMEBenefit,
+  MSMEEligibility,
+  MSMEDocument,
+  MSMEProcessStep,
 } from "@/types";
 import {
   Phone,
@@ -334,6 +344,36 @@ export const teamMembers: TeamMember[] = [
     image: "/images/mi4.jpg",
     name: "Mrs. Odegbunam Chinyere B.",
     position: "Director of Cooperative Department",
+  },
+  {
+    id: "6",
+    image: "/images/d1.png",
+    name: "Mrs. Eboh Nwosu J.N",
+    position: "Director of Industry, Ministry of Commerce",
+  },
+  {
+    id: "7",
+    image: "/images/d3.jpg",
+    name: "Mr IIoduba Ifeatu Francis JP",
+    position: "Director of Market Department",
+  },
+  {
+    id: "8",
+    image: "/images/d2.png",
+    name: "Henrietta Basil Ideh",
+    position: "Ag. D. Commerce",
+  },
+  {
+    id: "9",
+    image: "/images/d5.png",
+    name: "Nweze Nkiru Mercy",
+    position: "Ag. D. (PRS) Ministry of Commerce",
+  },
+  {
+    id: "10",
+    image: "/images/d4.jpg",
+    name: "Mrs Nwakpudolu Juliet Ifeoma",
+    position: "Director SMES Department, Ministry of Commerce",
   },
 ];
 
@@ -1451,3 +1491,408 @@ export const cooperativeRows: CooperativeRow[] = [
 ];
 
 export const TOTAL_COOPERATIVES = 654;
+
+/* ============ SME Registration Data ============ */
+
+export const smeBenefits: SMEBenefit[] = [
+  {
+    id: "1",
+    icon: "Gavel",
+    title: "Legal Recognition",
+    description: "Gain official recognition and credibility for businesses operating in Anambra State.",
+  },
+  {
+    id: "2",
+    icon: "EmojiEvents",
+    title: "Access to Opportunities",
+    description: "Government tenders, contracts, grants and business support programmes.",
+  },
+  {
+    id: "3",
+    icon: "AccountBalanceWallet",
+    title: "Financial Support",
+    description: "Access to loans, grants and funding opportunities for SMEs.",
+  },
+  {
+    id: "4",
+    icon: "School",
+    title: "Capacity Building",
+    description: "Training, workshops, mentorship and entrepreneurship programmes.",
+  },
+  {
+    id: "5",
+    icon: "Public",
+    title: "Market Visibility",
+    description: "Improve visibility and access to new markets and business networks.",
+  },
+  {
+    id: "6",
+    icon: "SupportAgent",
+    title: "Business Advisory",
+    description: "Access professional business development guidance and consultancy.",
+  },
+  {
+    id: "7",
+    icon: "People",
+    title: "Networking",
+    description: "Connect with other SMEs, investors and industry stakeholders.",
+  },
+  {
+    id: "8",
+    icon: "Policy",
+    title: "Policy Support",
+    description: "Access government policies and initiatives supporting SME growth.",
+  },
+];
+
+export const smeEligibility: SMEEligibility[] = [
+  {
+    id: "1",
+    text: "Business is registered or operating in Anambra State.",
+  },
+  {
+    id: "2",
+    text: "Business qualifies as a Small or Medium Enterprise.",
+  },
+  {
+    id: "3",
+    text: "Business has a valid means of identification.",
+  },
+  {
+    id: "4",
+    text: "Applicant provides accurate and verifiable information.",
+  },
+  {
+    id: "5",
+    text: "Applicant agrees to comply with Ministry requirements.",
+  },
+];
+
+export const smeDocuments: SMEDocument[] = [
+  {
+    id: "1",
+    icon: "Description",
+    name: "CAC Certificate",
+    note: "If registered.",
+  },
+  {
+    id: "2",
+    icon: "Badge",
+    name: "Means of Identification",
+    note: "National ID, Voter's Card or Driver's Licence.",
+  },
+  {
+    id: "3",
+    icon: "Home",
+    name: "Proof of Address",
+    note: "Utility Bill or Tenancy Agreement.",
+  },
+  {
+    id: "4",
+    icon: "Article",
+    name: "Business Profile",
+    note: "Brief description of the business.",
+  },
+  {
+    id: "5",
+    icon: "PermContactCalendar",
+    name: "Passport Photograph",
+    note: "Recent passport photograph.",
+  },
+];
+
+export const smeProcessSteps: SMEProcessStep[] = [
+  {
+    id: "1",
+    step: 1,
+    title: "Create Account",
+    description: "Sign up or log in to your account.",
+  },
+  {
+    id: "2",
+    step: 2,
+    title: "Fill Application",
+    description: "Provide your business information.",
+  },
+  {
+    id: "3",
+    step: 3,
+    title: "Upload Documents",
+    description: "Upload required documents.",
+  },
+  {
+    id: "4",
+    step: 4,
+    title: "Review & Submit",
+    description: "Review and submit your application.",
+  },
+];
+
+export const smeBusinessTypes: IBusinessType[] = [
+  { id: "1", name: "Sole Proprietorship" },
+  { id: "2", name: "Partnership" },
+  { id: "3", name: "Limited Liability Company" },
+  { id: "4", name: "Cooperative" },
+  { id: "5", name: "Family Business" },
+  { id: "6", name: "Other" },
+];
+
+export const smeBusinessCategories: IBusinessCategory[] = [
+  { id: "1", name: "Agriculture" },
+  { id: "2", name: "Manufacturing" },
+  { id: "3", name: "Retail" },
+  { id: "4", name: "ICT" },
+  { id: "5", name: "Construction" },
+  { id: "6", name: "Transportation" },
+  { id: "7", name: "Hospitality" },
+  { id: "8", name: "Food & Beverage" },
+  { id: "9", name: "Fashion" },
+  { id: "10", name: "Professional Services" },
+  { id: "11", name: "Other" },
+];
+
+export const smeBusinessNatures: IBusinessNature[] = [
+  { id: "1", name: "Trading / Commerce" },
+  { id: "2", name: "Manufacturing / Production" },
+  { id: "3", name: "Services" },
+  { id: "4", name: "Agriculture / Agro-Allied" },
+  { id: "5", name: "Construction / Real Estate" },
+  { id: "6", name: "Hospitality / Tourism" },
+  { id: "7", name: "Information Technology" },
+  { id: "8", name: "Healthcare" },
+  { id: "9", name: "Education" },
+  { id: "10", name: "Fashion & Textiles" },
+  { id: "11", name: "Food Processing" },
+  { id: "12", name: "Other" },
+];
+
+export const smeBusinessStructures: IBusinessStructure[] = [
+  { id: "1", name: "B2B (Business to Business)" },
+  { id: "2", name: "B2C (Business to Consumer)" },
+  { id: "3", name: "B2G (Business to Government)" },
+  { id: "4", name: "D2C (Direct to Consumer)" },
+  { id: "5", name: "Hybrid / Mixed" },
+];
+
+export const numberOfEmployees: INumberOfEmployees[] = [
+  { id: "1", name: "1–5" },
+  { id: "2", name: "6–10" },
+  { id: "3", name: "11–20" },
+  { id: "4", name: "21–50" },
+  { id: "5", name: "51–100" },
+  { id: "6", name: "100+" },
+];
+
+export const annualTurnover: IAnnualTurnover[] = [
+  { id: "1", name: "Below ₦5 Million" },
+  { id: "2", name: "₦5 Million – ₦20 Million" },
+  { id: "3", name: "₦20 Million – ₦50 Million" },
+  { id: "4", name: "₦50 Million – ₦100 Million" },
+  { id: "5", name: "₦100 Million – ₦250 Million" },
+  { id: "6", name: "₦250 Million – ₦500 Million" },
+  { id: "7", name: "Above ₦500 Million" },
+];
+
+export const smeRequiredDocs: RequiredDocument[] = [
+  { id: "1", name: "CAC Certificate (if registered)" },
+  { id: "2", name: "Means of Identification" },
+  { id: "3", name: "Proof of Address" },
+  { id: "4", name: "Business Profile" },
+  { id: "5", name: "Passport Photograph" },
+];
+
+export const smeRegistrationGuidelines: RegistrationGuideline[] = [
+  {
+    id: "1",
+    icon: "Verified",
+    text: "Provide accurate and valid information.",
+  },
+  {
+    id: "2",
+    icon: "Star",
+    text: "All fields marked with * are required.",
+  },
+  {
+    id: "3",
+    icon: "Save",
+    text: "You can save and continue later.",
+  },
+  {
+    id: "4",
+    icon: "UploadFile",
+    text: "Upload clear and valid documents.",
+  },
+  {
+    id: "5",
+    icon: "FactCheck",
+    text: "Review all information before final submission.",
+  },
+];
+
+/* ============ MSME Registration Data ============ */
+
+export const msmeBenefits: MSMEBenefit[] = [
+  {
+    id: "1",
+    icon: "Gavel",
+    title: "Legal Recognition",
+    description: "Gain official recognition and credibility for your business in Anambra State.",
+  },
+  {
+    id: "2",
+    icon: "EmojiEvents",
+    title: "Access to Opportunities",
+    description: "Get access to government tenders, contracts, grants and business support programs.",
+  },
+  {
+    id: "3",
+    icon: "AccountBalanceWallet",
+    title: "Financial Support",
+    description: "Qualify for loans, grants and funding opportunities to grow your business.",
+  },
+  {
+    id: "4",
+    icon: "School",
+    title: "Capacity Building",
+    description: "Participate in training, workshops and mentorship programs.",
+  },
+  {
+    id: "5",
+    icon: "Public",
+    title: "Market Access",
+    description: "Increase your visibility and access new markets locally and globally.",
+  },
+  {
+    id: "6",
+    icon: "SupportAgent",
+    title: "Business Advisory",
+    description: "Receive expert guidance and advisory services to improve your business performance.",
+  },
+  {
+    id: "7",
+    icon: "People",
+    title: "Networking",
+    description: "Connect with other MSMEs, investors, industry players and stakeholders.",
+  },
+  {
+    id: "8",
+    icon: "Policy",
+    title: "Policy Support",
+    description: "Benefit from government policies and initiatives that promote MSME growth.",
+  },
+];
+
+export const msmeEligibility: MSMEEligibility[] = [
+  {
+    id: "1",
+    text: "Your business is registered or operating in Anambra State.",
+  },
+  {
+    id: "2",
+    text: "You are a Micro, Small or Medium Enterprise (MSME) as defined by the Federal Government.",
+  },
+  {
+    id: "3",
+    text: "You have a valid means of identification.",
+  },
+  {
+    id: "4",
+    text: "You are committed to providing accurate and verifiable information.",
+  },
+];
+
+export const msmeDocuments: MSMEDocument[] = [
+  {
+    id: "1",
+    icon: "Description",
+    name: "CAC Certificate",
+    note: "If registered",
+  },
+  {
+    id: "2",
+    icon: "Badge",
+    name: "Means of Identification",
+    note: "NIN, Voter's Card or Driver's License",
+  },
+  {
+    id: "3",
+    icon: "Home",
+    name: "Proof of Address",
+    note: "Utility Bill or Tenancy Agreement",
+  },
+  {
+    id: "4",
+    icon: "Article",
+    name: "Business Profile",
+    note: "Brief description of your business",
+  },
+  {
+    id: "5",
+    icon: "PermContactCalendar",
+    name: "Passport Photograph",
+    note: "Recent passport photograph",
+  },
+];
+
+export const msmeProcessSteps: MSMEProcessStep[] = [
+  {
+    id: "1",
+    step: 1,
+    title: "Create Account",
+    description: "Sign up or log in to your account.",
+  },
+  {
+    id: "2",
+    step: 2,
+    title: "Fill Application",
+    description: "Provide your business and owner information.",
+  },
+  {
+    id: "3",
+    step: 3,
+    title: "Upload Documents",
+    description: "Upload required documents.",
+  },
+  {
+    id: "4",
+    step: 4,
+    title: "Review & Submit",
+    description: "Review and submit your application.",
+  },
+];
+
+export const msmeRequiredDocs: RequiredDocument[] = [
+  { id: "1", name: "CAC Certificate (if registered)" },
+  { id: "2", name: "Means of Identification" },
+  { id: "3", name: "Proof of Address" },
+  { id: "4", name: "Business Profile" },
+  { id: "5", name: "Passport Photograph" },
+];
+
+export const msmeRegistrationGuidelines: RegistrationGuideline[] = [
+  {
+    id: "1",
+    icon: "Verified",
+    text: "Provide accurate and valid information.",
+  },
+  {
+    id: "2",
+    icon: "Star",
+    text: "All fields marked with * are required.",
+  },
+  {
+    id: "3",
+    icon: "Save",
+    text: "You can save and continue later.",
+  },
+  {
+    id: "4",
+    icon: "UploadFile",
+    text: "Upload clear and valid documents.",
+  },
+  {
+    id: "5",
+    icon: "FactCheck",
+    text: "Review all information before final submission.",
+  },
+];

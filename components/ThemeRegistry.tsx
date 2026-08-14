@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 const baseTheme = createTheme({
   palette: {
     primary: {
-      main: "#0B6B3A",
+      main: "#D4AF37",
       dark: "#084C2E",
     },
     secondary: {

@@ -63,7 +63,7 @@ export default function SearchField({
                 onClick={onSearch}
                 edge="end"
                 sx={{
-                  color: "#0B6B3A",
+                  color: "#D4AF37",
                   p: size === "small" ? 0.5 : 0.75,
                   "&:hover": {
                     bgcolor: "rgba(11, 107, 58, 0.08)",
@@ -91,8 +91,8 @@ export default function SearchField({
               borderColor: "#CBD5E1",
             },
             "&.Mui-focused": {
-              borderColor: "#0B6B3A",
-              boxShadow: "0 0 0 2px rgba(11, 107, 58, 0.25)",
+              borderColor: "#D4AF37",
+              boxShadow: "0 0 0 2px rgba(212, 175, 55, 0.25)",
             },
           },
           "& .MuiOutlinedInput-notchedOutline": {

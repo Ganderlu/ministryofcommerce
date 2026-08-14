@@ -312,15 +312,19 @@ export default function AboutSection() {
                   <Box
                     sx={{
                       position: "relative",
-                      height: { xs: 220, md: 280 },
+                      height: { xs: 300, md: 380 },
                       width: "100%",
+                      backgroundColor: "#f5f5f5",
                     }}
                   >
                     <Image
                       src={member.image}
                       alt={member.name}
                       fill
-                      style={{ objectFit: "cover" }}
+                      style={{
+                        objectFit: "contain",
+                        objectPosition: "center top",
+                      }}
                     />
                   </Box>
                   <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>

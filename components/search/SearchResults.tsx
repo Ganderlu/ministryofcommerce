@@ -136,8 +136,8 @@ const CATEGORY_META: Record<
   },
   registration: {
     label: "Registration",
-    color: "#10B981",
-    chipBg: "rgba(16,185,129,0.1)",
+    color: "#D4AF37",
+    chipBg: "rgba(212,175,55,0.1)",
     Icon: AppRegistration,
   },
   contact: {
