@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Box, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Icon, styled, useTheme, Tooltip } from "@mui/material";
@@ -112,16 +113,19 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: 24,
-            color: "#084C2E",
-            fontWeight: 800,
             boxShadow: "0 0 0 2px #D4AF37 inset",
-            background: "radial-gradient(circle at 30% 30%, #F5D76E 0%, #D4AF37 50%, #A8882C 100%)",
           }}
         >
-          <Icon>
-            <ShieldIcon sx={{ color: "#084C2E", fontSize: 26 }} />
-          </Icon>
+          <Image
+            src="/images/anambralogo.jpg"
+            alt="Anambra State Logo"
+            width={50}
+            height={50}
+            style={{
+              borderRadius: "50%",
+              objectFit: "cover",
+            }}
+          />
         </Box>
         {!collapsed && (
           <Box sx={{ minWidth: 0 }}>
