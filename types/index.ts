@@ -518,7 +518,7 @@ export interface SMERegistrationFormData {
   businessDescription: string;
 }
 
-export type SMERegistrationStatus = "draft" | "pending" | "under_review" | "approved" | "rejected";
+export type SMERegistrationStatus = "draft" | "pending" | "submitted" | "under_review" | "approved" | "rejected";
 
 export interface SMEOwnerDirector {
   id: string;
