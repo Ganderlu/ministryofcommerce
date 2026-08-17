@@ -45,10 +45,14 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Analytics requires a browser environment with cookies / window.
+// Skip during Next.js SSR / SSG prerender to avoid "window is not defined".
+export const analytics =
+  typeof window !== "undefined" ? getAnalytics(app) : null;
 
 // Re-export Firestore & Auth utilities so components can import everything from @/firebase/clients
 export {

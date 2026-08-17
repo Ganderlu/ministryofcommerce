@@ -1,5 +1,12 @@
 import { Metadata } from "next";
-import BusinessRegistrationClient from "@/components/business-registration/BusinessRegistrationClient";
+import { Suspense } from "react";
+import { Box, CircularProgress } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const BusinessRegistrationClient = dynamic(
+  () => import("@/components/business-registration/BusinessRegistrationClient"),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: "Register Business | Anambra State Ministry of Commerce",
@@ -30,5 +37,23 @@ export const metadata: Metadata = {
 };
 
 export default function BusinessRegisterPage() {
-  return <BusinessRegistrationClient />;
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: "#F8FAFC",
+          }}
+        >
+          <CircularProgress sx={{ color: "#D4AF37" }} />
+        </Box>
+      }
+    >
+      <BusinessRegistrationClient />
+    </Suspense>
+  );
 }

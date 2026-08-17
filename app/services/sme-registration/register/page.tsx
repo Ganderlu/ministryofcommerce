@@ -1,5 +1,12 @@
 import { Metadata } from "next";
-import SMERegistrationClient from "@/components/sme-registration/SMERegistrationClient";
+import { Suspense } from "react";
+import { Box, CircularProgress } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const SMERegistrationClient = dynamic(
+  () => import("@/components/sme-registration/SMERegistrationClient"),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: "Register SME | Anambra State Ministry of Commerce",
@@ -32,5 +39,23 @@ export const metadata: Metadata = {
 };
 
 export default function SMERegisterPage() {
-  return <SMERegistrationClient />;
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: "#F8FAFC",
+          }}
+        >
+          <CircularProgress sx={{ color: "#D4AF37" }} />
+        </Box>
+      }
+    >
+      <SMERegistrationClient />
+    </Suspense>
+  );
 }

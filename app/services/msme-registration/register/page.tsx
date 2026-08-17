@@ -1,5 +1,12 @@
 import { Metadata } from "next";
-import MSMERegistrationClient from "@/components/msme-registration/MSMERegistrationClient";
+import { Suspense } from "react";
+import { Box, CircularProgress } from "@mui/material";
+import dynamic from "next/dynamic";
+
+const MSMERegistrationClient = dynamic(
+  () => import("@/components/msme-registration/MSMERegistrationClient"),
+  { ssr: false }
+);
 
 export const metadata: Metadata = {
   title: "Register MSME | Anambra State Ministry of Commerce",
@@ -32,5 +39,23 @@ export const metadata: Metadata = {
 };
 
 export default function MSMERegisterPage() {
-  return <MSMERegistrationClient />;
+  return (
+    <Suspense
+      fallback={
+        <Box
+          sx={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: "#F8FAFC",
+          }}
+        >
+          <CircularProgress sx={{ color: "#D4AF37" }} />
+        </Box>
+      }
+    >
+      <MSMERegistrationClient />
+    </Suspense>
+  );
 }
