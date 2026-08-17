@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Register Business | Anambra State Ministry of Commerce",
-    description: "Complete your business registration form online.",
+    description: "Complete your business registration form online....",
   },
 };
 

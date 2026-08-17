@@ -12,8 +12,7 @@ import {
 import { motion } from "framer-motion";
 import { Email, Send } from "@mui/icons-material";
 import { useState } from "react";
-import { db } from "@/lib/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db, addDoc, collection, serverTimestamp } from "@/firebase/clients";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);

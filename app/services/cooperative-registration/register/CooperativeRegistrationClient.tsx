@@ -31,47 +31,7 @@ import type {
 
 const COLLECTION_PATH = "cooperativeRegistrations";
 const STORAGE_DOC_KEY = "coopRegDocId";
-const STORAGE_DATA_KEY = "coopRegDraft";
 const SAVE_TIMEOUT_MS = 60_000;
-const SUBMIT_TIMEOUT_MS = 120_000;
-
-const RULES_HINT_MSG =
-  "Firestore rules may not be deployed yet. Run `npx firebase deploy --only firestore:rules` from the project folder, or paste firestore.rules into: console.firebase.google.com/project/state-project-20464/firestore/rules then click PUBLISH.";
-
-function classifyFirestoreError(rawError: string | null | undefined): {
-  level: "error" | "info";
-  userMessage: string;
-} {
-  if (!rawError) return { level: "info", userMessage: "Unknown error" };
-  const e = String(rawError);
-  if (
-    /PERMISSION[_-]DENIED|permission[_-]denied|Missing or insufficient permissions|permission-denied/i.test(
-      e
-    )
-  ) {
-    return {
-      level: "error",
-      userMessage: `Access to Firestore was DENIED. ${RULES_HINT_MSG}.`,
-    };
-  }
-  if (/TIMEOUT|timed out|exceeded.*ms/i.test(e)) {
-    return {
-      level: "error",
-      userMessage: `Save did not respond within the allowed time. If this keeps happening, ${RULES_HINT_MSG.toLowerCase()}.`,
-    };
-  }
-  if (
-    /network|offline|internet|connection|DNS|CORS|Failed to fetch|fetch failed|socket/i.test(
-      e
-    )
-  ) {
-    return {
-      level: "error",
-      userMessage: `Network issue: ${e.substring(0, 140)}. Check your connection and try again.`,
-    };
-  }
-  return { level: "error", userMessage: e };
-}
 
 type SerializableRecord = Record<string, any>;
 
@@ -186,10 +146,9 @@ export default function CooperativeRegistrationClient() {
     if (closeNotifyTimer.current) {
       clearTimeout(closeNotifyTimer.current);
     }
-    const durationMs = type === "error" ? 15_000 : 7_000;
     closeNotifyTimer.current = setTimeout(() => {
       setNotify((n) => ({ ...n, open: false }));
-    }, durationMs);
+    }, 7000);
   };
 
   const hydrateFromFirestore = async (id: string) => {
@@ -219,96 +178,135 @@ export default function CooperativeRegistrationClient() {
   };
 
   useEffect(() => {
-    const storedDocId = typeof window !== "undefined" ? window.sessionStorage.getItem(STORAGE_DOC_KEY) : null;
-    const storedDraft = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_DATA_KEY) : null;
-    
-    if (storedDocId) {
-      setDocId(storedDocId);
-      hydrateFromFirestore(storedDocId);
-    } else if (storedDraft) {
-      try {
-        const parsed = JSON.parse(storedDraft) as CooperativeRegistrationDocument;
-        setDocumentData(parsed);
-        if (parsed.id) setDocId(parsed.id);
-        if (typeof parsed.currentStep === "number") {
-          setActiveStep(Math.min(parsed.currentStep, 3));
-        }
-      } catch {}
+    const stored = typeof window !== "undefined" ? window.sessionStorage.getItem(STORAGE_DOC_KEY) : null;
+    if (stored) {
+      setDocId(stored);
+      hydrateFromFirestore(stored);
     }
     return () => {
       if (closeNotifyTimer.current) clearTimeout(closeNotifyTimer.current);
     };
   }, []);
 
-  // =============== STEP 1 → 2 (Save to localStorage only, NOT Firebase) ===============
-  const handleSaveStep1 = async (
+  // =============== STEP 1 → 2 ===============
+const handleSaveStep1 = async (
   data: CooperativeRegistrationFormData
 ) => {
+  if (saving) return;
+
   setSaving(true);
 
-  const registrationDocId =
-    docId || doc(collection(db, COLLECTION_PATH)).id;
-
-  const updatedData = {
-    ...(documentData ?? {}),
-    id: registrationDocId,
-    cooperativeDetails: data,
-    members: documentData?.members ?? [],
-    documents: documentData?.documents ?? [],
-    status: "draft",
-    currentStep: 1,
-  } as CooperativeRegistrationDocument;
-
   try {
-    window.localStorage.setItem(
-      STORAGE_DATA_KEY,
-      JSON.stringify(updatedData)
+    // Reuse existing document ID or create a new one
+    const registrationDocId =
+      docId || doc(collection(db, COLLECTION_PATH)).id;
+
+    const payload = stripUndefined({
+      cooperativeDetails: data,
+      members: documentData?.members ?? [],
+      documents: documentData?.documents ?? [],
+      status: "draft",
+      currentStep: 1,
+      createdAt:
+        documentData?.createdAt ?? serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+
+    console.log("Saving cooperative registration...");
+    console.log("Document ID:", registrationDocId);
+    console.log("Payload:", payload);
+
+    const result = await withTimeout(
+      setDoc(
+        doc(db, COLLECTION_PATH, registrationDocId),
+        payload,
+        { merge: true }
+      ),
+      SAVE_TIMEOUT_MS,
+      "Save cooperative details"
     );
-  } catch {}
 
-  setDocId(registrationDocId);
+    if (!result.ok) {
+      throw new Error(
+        result.error || "Unable to save cooperative details."
+      );
+    }
 
-  try {
-    window.sessionStorage.setItem(
+    // Only update the local state AFTER Firestore succeeds
+    setDocId(registrationDocId);
+
+    sessionStorage.setItem(
       STORAGE_DOC_KEY,
       registrationDocId
     );
-  } catch {}
 
-  setDocumentData(updatedData);
-  setSaving(false);
-  setActiveStep(1);
+    setDocumentData({
+      ...(documentData ?? {}),
+      id: registrationDocId,
+      cooperativeDetails: data,
+      members: documentData?.members ?? [],
+      documents: documentData?.documents ?? [],
+      status: "draft",
+      currentStep: 1,
+    } as CooperativeRegistrationDocument);
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+    // Move to Members Information
+    setActiveStep(1);
 
-  notifyOf(
-    "success",
-    "Cooperative details saved. Continuing to Members Information…"
-  );
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    notifyOf(
+      "success",
+      "Cooperative details saved successfully."
+    );
+
+  } catch (error: any) {
+    console.error(
+      "COOPERATIVE REGISTRATION SAVE ERROR:",
+      error
+    );
+
+    if (error?.code === "permission-denied") {
+      notifyOf(
+        "error",
+        "Firebase rejected this registration. Please check the Firestore field permissions."
+      );
+    } else if (error?.code === "unavailable") {
+      notifyOf(
+        "error",
+        "Firebase is currently unavailable. Please check your internet connection."
+      );
+    } else if (
+      error?.message?.startsWith("TIMEOUT:")
+    ) {
+      notifyOf(
+        "error",
+        "The save request timed out. Please check your Firebase connection and try again."
+      );
+    } else {
+      notifyOf(
+        "error",
+        error?.message ||
+          "Unable to save cooperative details."
+      );
+    }
+
+  } finally {
+    setSaving(false);
+  }
 };
 
-  // =============== STEP 2 → 3 (Save to localStorage only, NOT Firebase) ===============
+  // =============== STEP 2 → 3 ===============
   const handleSaveStep2 = async (members: CooperativeMember[]) => {
     setSaving(true);
-
-    const updatedData = {
-      ...(documentData ?? {}),
-      id: docId,
-      members,
-      currentStep: 2,
-    } as CooperativeRegistrationDocument;
-
-    setDocumentData(updatedData);
-
-    try {
-      window.localStorage.setItem(
-        STORAGE_DATA_KEY,
-        JSON.stringify(updatedData)
-      );
-    } catch {}
+    setDocumentData((prev) =>
+      prev
+        ? ({ ...prev, members, currentStep: 2 } as CooperativeRegistrationDocument)
+        : prev
+    );
 
     if (!docId) {
       setSaving(false);
@@ -317,60 +315,113 @@ export default function CooperativeRegistrationClient() {
       return;
     }
 
-    setSaving(false);
-    setActiveStep(2);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    notifyOf(
-      "success",
-      "Members information saved. Continuing to Documents Upload…"
-    );
+    let saveError: string | null = null;
+try {
+  const payload = stripUndefined({
+    members,
+    currentStep: 2,
+    updatedAt: serverTimestamp(),
+  });
+
+  await setDoc(
+    doc(db, COLLECTION_PATH, docId),
+    payload,
+    { merge: true }
+  );
+
+  setDocumentData((prev) =>
+    prev
+      ? {
+          ...prev,
+          members,
+          currentStep: 2,
+        }
+      : prev
+  );
+
+  setActiveStep(2);
+
+  notifyOf(
+    "success",
+    "Members information saved successfully."
+  );
+} catch (error: any) {
+  console.error(
+    "STEP 2 FIRESTORE SAVE ERROR:",
+    error
+  );
+
+  notifyOf(
+    "error",
+    `Unable to save members information: ${
+      error?.message || "Unknown Firebase error"
+    }`
+  );
+} finally {
+  setSaving(false);
+}
   };
 
-  // =============== STEP 3 → 4 (Save to localStorage only, NOT Firebase) ===============
+  // =============== STEP 3 → 4 (Documents already on Cloudinary, save URLs then review) ===============
   const handleSaveStep3 = async (documents: CooperativeDocument[]) => {
     setSaving(true);
+    setDocumentData((prev) =>
+      prev
+        ? ({ ...prev, documents, currentStep: 3 } as CooperativeRegistrationDocument)
+        : prev
+    );
+
+    if (!docId) {
+      setSaving(false);
+      notifyOf("error", "Please complete Step 1 (Cooperative Details) first.");
+      setActiveStep(0);
+      return;
+    }
 
     const totalCloudinary = documents.filter((d) => !!d.cloudinary).length;
     const totalDocs = documents.length;
 
-    const updatedData = {
-      ...(documentData ?? {}),
-      id: docId,
-      documents,
-      currentStep: 3,
-      status: "draft",
-      documentsSummary: {
-        total: totalDocs,
-        onCloudinary: totalCloudinary,
-      },
-    } as CooperativeRegistrationDocument;
-
-    setDocumentData(updatedData);
-
+    let saveError: string | null = null;
     try {
-      window.localStorage.setItem(
-        STORAGE_DATA_KEY,
-        JSON.stringify(updatedData)
+      const payload = stripUndefined({
+        documents,
+        currentStep: 3,
+        status: "draft",
+        documentsSummary: {
+          total: totalDocs,
+          onCloudinary: totalCloudinary,
+        },
+        updatedAt: serverTimestamp(),
+      });
+      const res = await withTimeout(
+        setDoc(doc(db, COLLECTION_PATH, docId), payload, { merge: true }),
+        SAVE_TIMEOUT_MS,
+        "Save Cloudinary document URLs"
       );
-    } catch {}
-
-    if (!docId) {
+      if (!res.ok) saveError = res.error || "Save failed";
+    } catch (e: any) {
+      saveError = e?.message || String(e) || "Unexpected save error";
+    } finally {
       setSaving(false);
-      notifyOf("error", "Please complete Step 1 (Cooperative Details) first.");
-      setActiveStep(0);
-      return;
+      setActiveStep(3);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (saveError) {
+        notifyOf(
+          "info",
+          "Your documents are saved locally. Server save encountered an issue: " +
+            saveError.substring(0, 140) +
+            ". You may still continue to review."
+        );
+      } else {
+        notifyOf(
+          "success",
+          `${totalCloudinary}/${totalDocs} documents saved with Cloudinary URLs. Continuing to Review & Submit…`
+        );
+      }
     }
-
-    setSaving(false);
-    setActiveStep(3);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    notifyOf(
-      "success",
-      `${totalCloudinary}/${totalDocs} documents saved with Cloudinary URLs. Continuing to Review & Submit…`
-    );
   };
 
-  // =============== STEP 4 — Final Submit (Firebase Firestore: SAVE EVERYTHING HERE ONLY) ===============
+  // =============== STEP 4 — Final Submit (Firebase Firestore finalize) ===============
   const handleFinalSubmit = async (submissionData: {
     declarationAgreed: boolean;
     termsAgreed: boolean;
@@ -414,17 +465,12 @@ export default function CooperativeRegistrationClient() {
 
     let submitError: string | null = null;
     try {
-      // Save ALL data at final submit — cooperativeDetails, members, documents, submission
       const finalPayload: Record<string, unknown> = stripUndefined({
-        cooperativeDetails: docToSubmit.cooperativeDetails,
-        members: docToSubmit.members,
-        documents: docToSubmit.documents,
         status: "submitted",
         currentStep: 4,
         registrationNumber,
-        createdAt: Timestamp.now(),
-        submittedAt: Timestamp.now(),
-        updatedAt: Timestamp.now(),
+        submittedAt: serverTimestamp(),
+        updatedAt: serverTimestamp(),
         reviewSubmission: {
           declarationAgreed: submissionData.declarationAgreed,
           termsAgreed: submissionData.termsAgreed,
@@ -448,8 +494,8 @@ export default function CooperativeRegistrationClient() {
       } as any);
 
       const res = await withTimeout(
-        setDoc(doc(db, COLLECTION_PATH, docId), finalPayload),
-        SUBMIT_TIMEOUT_MS,
+        setDoc(doc(db, COLLECTION_PATH, docId), finalPayload, { merge: true }),
+        120_000,
         "Submit cooperative registration"
       );
 
@@ -460,7 +506,11 @@ export default function CooperativeRegistrationClient() {
           prev
             ? ({
                 ...prev,
-                ...finalPayload,
+                status: "submitted",
+                currentStep: 4,
+                registrationNumber,
+                submittedAt: finalPayload.submittedAt,
+                reviewSubmission: finalPayload.reviewSubmission as any,
               } as CooperativeRegistrationDocument)
             : prev
         );
@@ -491,14 +541,17 @@ export default function CooperativeRegistrationClient() {
                     prev
                       ? ({
                           ...prev,
-                          ...latest,
+                          status: "submitted",
+                          currentStep: 4,
+                          registrationNumber: latest.registrationNumber,
+                          submittedAt: latest.submittedAt,
+                          reviewSubmission: latest.reviewSubmission as any,
                         } as CooperativeRegistrationDocument)
                       : prev
                   );
                   setSuccessData({ registrationNumber: latest.registrationNumber, docId });
                   try {
                     window.sessionStorage.removeItem(STORAGE_DOC_KEY);
-                    window.localStorage.removeItem(STORAGE_DATA_KEY);
                   } catch {}
                   setActiveStep(4);
                   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -514,20 +567,16 @@ export default function CooperativeRegistrationClient() {
         }
 
         notifyOf(
-          (() => {
-            const classified = classifyFirestoreError(submitError);
-            return classified.level;
-          })(),
-          (() => {
-            const classified = classifyFirestoreError(submitError);
-            return classified.userMessage +
-              " Your data is still saved locally — please try submitting again.";
-          })()
+          isTimeout ? "info" : "error",
+          (isTimeout
+            ? "Your submission is being processed: "
+            : "We couldn't finalize this submission: ") +
+            submitError.substring(0, 260) +
+            ". Please check your internet connection and try submitting again. Your data is still saved as a draft."
         );
       } else {
         try {
           window.sessionStorage.removeItem(STORAGE_DOC_KEY);
-          window.localStorage.removeItem(STORAGE_DATA_KEY);
         } catch {}
         setActiveStep(4);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -575,7 +624,6 @@ export default function CooperativeRegistrationClient() {
                     setActiveStep(0);
                     try {
                       window.sessionStorage.removeItem(STORAGE_DOC_KEY);
-                      window.localStorage.removeItem(STORAGE_DATA_KEY);
                     } catch {}
                   }}
                 />
@@ -807,7 +855,7 @@ function SubmissionSuccessCard({
               sx={{
                 fontSize: "0.85rem",
                 fontWeight: 700,
-                color: "#8C6A16",
+                color: "#0F766E",
                 fontFamily: "var(--font-poppins)",
               }}
             >

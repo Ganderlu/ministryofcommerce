@@ -33,7 +33,7 @@ const STORAGE_DATA_KEY = "businessRegDraft";
 const SUBMIT_TIMEOUT_MS = 120_000;
 
 const RULES_HINT_MSG =
-  "Firestore rules may not be deployed yet. Run `npx firebase deploy --only firestore:rules` from the project folder, or paste firestore.rules into: console.firebase.google.com/project/state-project-20464/firestore/rules then click PUBLISH.";
+  "Firestore rules may not be deployed yet. Run `npx firebase deploy --only firestore:rules` from the project folder, or paste firestore.rules into: console.firebase.google.com/project/anambra-commerce-d6fa7/firestore/rules then click PUBLISH.";
 
 function classifyFirestoreError(rawError: string | null | undefined): {
   level: "error" | "info";

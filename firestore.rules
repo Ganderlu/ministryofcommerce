@@ -1,270 +1,119 @@
 rules_version = '2';
 
-// ============================================================
-// DEPLOYING THIS FILE — TWO OPTIONS
-//
-// OPTION A (CLI — fastest, recommended):
-//   cd c:\Users\user\Desktop\sme anambra
-//   npx firebase login
-//   npx firebase deploy --only firestore:rules
-//
-// OPTION B (Firebase Console — no CLI install needed):
-//   1. Open https://console.firebase.google.com/project/state-project-20464/firestore/rules
-//   2. Replace ALL the rules in the editor with the EXACT contents
-//      of this file (fireestore.rules on disk).
-//   3. Click "PUBLISH".
-//
-// YOU MUST DEPLOY FOR "Save & Continue" TO WORK. If you don't,
-// every client-side write gets PERMISSION_DENIED (or times out
-// waiting for the offline queue to retry) because Firebase
-// expired the 30-day test-mode rules already.
-// ============================================================
-
 service cloud.firestore {
   match /databases/{database}/documents {
-
-    // ============================================================
-    // ADMIN HELPERS
-    // Admin SDK (server-side) always bypasses rules. These helpers
-    // apply only to client-side authenticated users with custom
-    // claims issued via adminAuth.setCustomUserClaims(uid, claims).
-    // ============================================================
 
     function isSignedIn() {
       return request.auth != null;
     }
 
-    function isAdminUser() {
-      return isSignedIn() && (
-        request.auth.token.admin == true ||
-        request.auth.token.role == 'Super Admin' ||
-        request.auth.token.role == 'Commissioner' ||
-        request.auth.token.role == 'Permanent Secretary' ||
-        request.auth.token.role == 'Director' ||
-        request.auth.token.role == 'Staff Administrator' ||
-        request.auth.token.role == 'Content Manager' ||
-        request.auth.token.role == 'Finance Officer' ||
-        request.auth.token.role == 'ICT Administrator'
-      );
+    function isValidEmail(email) {
+      return email is string && email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
     }
 
-    // True if the write is NOT changing the `status` field at all.
-    // Safe for merge-updates that only touch members/documents/etc.
-    function statusUnchanged() {
-      return resource.data.status == request.resource.data.status;
+    function isValidStatus(status) {
+      return status is string && (status == 'draft' || status == 'submitted');
     }
-
-    // Admin-only status values that the public must never set.
-    function isAdminOnlyStatus(s) {
-      return s in ['Under Review', 'Approved', 'Rejected', 'Suspended', 'under_review', 'approved', 'rejected'];
-    }
-
-    // ============================================================
-    // 1. COOPERATIVE REGISTRATIONS
-    // Collection: cooperativeRegistrations
-    // Usage: /services/cooperative-registration/register
-    // ============================================================
-
-    match /cooperativeRegistrations/{docId} {
-      // Public read allowed (docId is a secret held in sessionStorage).
-      // Admins always read everything.
-      allow read: if true;
-
-      // Create: anyone (even unauthenticated) can create a draft.
-      // Require status == 'draft' + basic required-field types only
-      // (no hasOnly — future fields must not break submissions).
-      allow create: if
-        request.resource.data.status is string
-        && request.resource.data.status == 'draft'
-        && request.resource.data.cooperativeDetails is map;
-
-      // Update: admin OR (public write with strict guards):
-      //  - No admin-only status values ever
-      //  - If status is unchanged -> allow (merge writes, e.g. Step 2/3)
-      //  - If status changes -> only draft -> submitted is allowed
-      //  - registrationNumber write-protected once issued
-      allow update: if
-        isAdminUser()
-        || (
-          !isAdminOnlyStatus(request.resource.data.status)
-          && (
-            statusUnchanged()
-            || (resource.data.status == 'draft' && request.resource.data.status == 'submitted')
-          )
-          && (
-            !('registrationNumber' in resource.data.keys())
-            || resource.data.registrationNumber == request.resource.data.registrationNumber
-          )
-        );
-
-      // Client-side deletes never allowed. Use Admin SDK (server).
-      allow delete: if false;
-    }
-
-    // ============================================================
-    // 2. SME REGISTRATIONS
-    // Collection: sme_registrations
-    // Usage: /services/sme-registration/register
-    // ============================================================
-
-    match /sme_registrations/{docId} {
-      allow read: if true;
-
-      allow create: if
-        request.resource.data.status is string
-        && request.resource.data.status == 'draft';
-
-      allow update: if
-        isAdminUser()
-        || (
-          !isAdminOnlyStatus(request.resource.data.status)
-          && (
-            statusUnchanged()
-            || (resource.data.status == 'draft' && request.resource.data.status in ['pending', 'submitted'])
-            || (resource.data.status == 'pending' && request.resource.data.status == 'submitted')
-          )
-        );
-
-      allow delete: if false;
-    }
-
-    // ============================================================
-    // 2B. MSME REGISTRATIONS
-    // Collection: msme_registrations
-    // Usage: /services/msme-registration/register
-    // Public registration allowed (unauthenticated OK) for MSME
-    // (Micro, Small, Medium Enterprise) — broader tier than SME.
-    // ============================================================
 
     match /msme_registrations/{docId} {
-      allow read: if true;
-
       allow create: if
-        request.resource.data.status is string
-        && request.resource.data.status == 'draft';
+        isValidStatus(request.resource.data.status) &&
+        request.resource.data.status == 'draft';
+
+      allow get: if
+        (true) || isSignedIn();
+
+      allow list: if isSignedIn();
 
       allow update: if
-        isAdminUser()
-        || (
-          !isAdminOnlyStatus(request.resource.data.status)
-          && (
-            statusUnchanged()
-            || (resource.data.status == 'draft' && request.resource.data.status in ['pending', 'submitted'])
-            || (resource.data.status == 'pending' && request.resource.data.status == 'submitted')
-          )
+        isValidStatus(request.resource.data.status) &&
+        (
+          request.resource.data.status == 'draft' ||
+          request.resource.data.status == 'submitted'
         );
 
       allow delete: if false;
     }
 
-    // ============================================================
-    // 3. BUSINESS REGISTRATIONS
-    // Collection: businessRegistrations
-    // Placeholder pattern — registration UI exists, Firestore
-    // wiring pending. Same rules as SME / Cooperative.
-    // ============================================================
-
-    match /businessRegistrations/{docId} {
-      allow read: if true;
-
+    match /sme_registrations/{docId} {
       allow create: if
-        !('status' in request.resource.data.keys())
-        || request.resource.data.status == 'draft';
+        isValidStatus(request.resource.data.status) &&
+        request.resource.data.status == 'draft';
+
+      allow get: if
+        (true) || isSignedIn();
+
+      allow list: if isSignedIn();
 
       allow update: if
-        isAdminUser()
-        || (
-          !isAdminOnlyStatus(
-            ('status' in request.resource.data.keys())
-              ? request.resource.data.status
-              : resource.data.status
-          )
-          && (
-            statusUnchanged()
-            || (resource.data.status == 'draft' && request.resource.data.status in ['pending', 'submitted'])
-          )
+        isValidStatus(request.resource.data.status) &&
+        (
+          request.resource.data.status == 'draft' ||
+          request.resource.data.status == 'submitted'
         );
 
       allow delete: if false;
     }
 
-    // ============================================================
-    // 4. NEWSLETTER SUBSCRIBERS
-    // Collection: newsletter_subscribers
-    // Usage: components/contact/Newsletter.tsx
-    // ============================================================
+    match /business_registrations/{docId} {
+      allow create: if
+        isValidStatus(request.resource.data.status) &&
+        request.resource.data.status == 'draft';
+
+      allow get: if
+        (true) || isSignedIn();
+
+      allow list: if isSignedIn();
+
+      allow update: if
+        isValidStatus(request.resource.data.status) &&
+        (
+          request.resource.data.status == 'draft' ||
+          request.resource.data.status == 'submitted'
+        );
+
+      allow delete: if false;
+    }
+
+    match /cooperativeRegistrations/{docId} {
+      allow create: if
+        isValidStatus(request.resource.data.status) &&
+        request.resource.data.status == 'draft';
+
+      allow get: if
+        (true) || isSignedIn();
+
+      allow list: if isSignedIn();
+
+      allow update: if
+        isValidStatus(request.resource.data.status) &&
+        (
+          request.resource.data.status == 'draft' ||
+          request.resource.data.status == 'submitted'
+        );
+
+      allow delete: if false;
+    }
 
     match /newsletter_subscribers/{docId} {
       allow create: if
-        request.resource.data.email is string
-        && request.resource.data.email.matches(
-          '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
-        );
+        isValidEmail(request.resource.data.email);
 
-      // Emails = PII → public read blocked forever.
-      allow read: if isAdminUser();
-      allow update, delete: if false;
+      allow list: if isSignedIn();
+      allow get: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if false;
     }
 
-    // ============================================================
-    // 5. PUBLIC CONTENT COLLECTIONS
-    // Currently sourced from data/seed.ts; move to Firestore via
-    // admin when CMS is built. Public read, admin-only write.
-    // ============================================================
-
-    match /news/{docId}                 { allow read: if true; allow write: if isAdminUser(); }
-    match /events/{docId}               { allow read: if true; allow write: if isAdminUser(); }
-    match /gallery/{docId}              { allow read: if true; allow write: if isAdminUser(); }
-    match /team_members/{docId}         { allow read: if true; allow write: if isAdminUser(); }
-    match /services/{docId}             { allow read: if true; allow write: if isAdminUser(); }
-    match /partners/{docId}             { allow read: if true; allow write: if isAdminUser(); }
-    match /site_settings/{docId}        { allow read: if true; allow write: if isAdminUser(); }
-    match /contact_info/{docId}         { allow read: if true; allow write: if isAdminUser(); }
-    match /footer_links/{docId}         { allow read: if true; allow write: if isAdminUser(); }
-
-    // ============================================================
-    // 6. CONTACT FORM SUBMISSIONS
-    // Collection: contact_messages (placeholder)
-    // ============================================================
-
-    match /contact_messages/{docId} {
-      allow create: if
-        request.resource.data.name is string
-        && request.resource.data.email is string
-        && request.resource.data.email.matches(
-          '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
-        )
-        && request.resource.data.message is string;
-
-      allow read: if isAdminUser();
-      allow update, delete: if false;
+    match /users/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if isSignedIn() && request.auth.uid == userId;
     }
 
-    // ============================================================
-    // 7. ADMIN USERS / ROLES METADATA
-    // Collection: admin_users — custom claims on auth users are
-    // the source of truth (see isAdminUser). This is for listing.
-    // ============================================================
-
-    match /admin_users/{uid} {
-      allow read: if isAdminUser();
-      allow write: if isAdminUser() && request.auth.uid == uid;
+    match /admin_users/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow write: if isSignedIn() && request.auth.uid == userId;
     }
-
-    // ============================================================
-    // 8. AUDIT LOGS
-    // Admin SDK writes only; Admin users read only.
-    // ============================================================
-
-    match /audit_logs/{docId} {
-      allow read: if isAdminUser();
-      allow write: if false; // Admin SDK bypasses rules anyway.
-    }
-
-    // ============================================================
-    // CATCH-ALL — Deny everything not explicitly allowed above.
-    // Admin SDK (server-side) bypasses all rules regardless.
-    // ============================================================
 
     match /{document=**} {
       allow read, write: if false;

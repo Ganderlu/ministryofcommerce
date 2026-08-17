@@ -49,7 +49,7 @@ const MAX_DESCRIPTION_LENGTH = 1000;
 const MSME_SAVE_TIMEOUT_MS = 30_000;
 
 const MSME_RULES_HINT =
-  "Firestore rules may not be deployed yet. Run `npx firebase deploy --only firestore:rules` from the project folder, or paste firestore.rules into: console.firebase.google.com/project/state-project-20464/firestore/rules then click PUBLISH.";
+  "Firestore rules may not be deployed yet. Run `npx firebase deploy --only firestore:rules` from the project folder, or paste firestore.rules into: console.firebase.google.com/project/anambra-commerce-d6fa7/firestore/rules then click PUBLISH.";
 
 function classifyMsmeFirestoreError(rawError: string | null | undefined): {
   severity: "error" | "info" | "warning";

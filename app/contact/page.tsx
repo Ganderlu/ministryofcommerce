@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Us | Anambra State Ministry of Commerce",
     description:
-      "Get in touch with the Anambra State Ministry of Commerce for enquiries, feedback, partnerships, or assistance.",
+      "Get in touch with the Anambraa State Ministry of Commerce for enquiries, feedback, partnerships, or assistance.",
   },
 };
 
