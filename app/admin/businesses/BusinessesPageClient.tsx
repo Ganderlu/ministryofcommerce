@@ -126,7 +126,7 @@ export default function BusinessesPageClient() {
               lineHeight: 1.1,
             }}
           >
-            Businesses
+            Businesses Management Module
           </Typography>
           <Typography
             sx={{

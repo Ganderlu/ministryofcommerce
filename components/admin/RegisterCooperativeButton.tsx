@@ -61,7 +61,7 @@ export default function RegisterCooperativeButton({
       whileHover={{ scale: 1.015 }}
       style={{ display: "inline-block" }}
     >
-      <Button {...buttonProps}>Register New Cooperative</Button>
+      <Button {...buttonProps}>Registerrrr  New Cooperative</Button>
     </MotionBox>
   );
 }

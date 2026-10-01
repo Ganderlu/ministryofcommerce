@@ -861,7 +861,7 @@ function SubmissionSuccessCard({
               },
             }}
           >
-            Register Another Business
+            Registerr Another Business
           </Box>
           <Box
             component="a"
