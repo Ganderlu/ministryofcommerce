@@ -27,13 +27,31 @@ function requireEnv(name: string): string {
   return value;
 }
 
-function buildServiceAccount(): ServiceAccount {
-  const privateKeyRaw = requireEnv("FIREBASE_ADMIN_PRIVATE_KEY");
-  const privateKey = privateKeyRaw.replace(/\\n/g, "\n");
+/**
+ * Normalizes a service-account private key into valid PEM.
+ *
+ * Hosts such as Vercel store environment variables verbatim and do NOT apply
+ * `.env` file parsing, so a value copied from a `.env` file may retain the
+ * surrounding double quotes and the literal `\n` escape sequences. Feeding such
+ * a value to the Admin SDK makes `crypto.createPrivateKey` throw
+ * `ERR_OSSL_UNSUPPORTED` (DECODER routines::unsupported) at import time, which
+ * surfaces as "Failed to collect page data" during `next build`.
+ */
+function normalizePrivateKey(raw: string): string {
+  let key = raw.trim();
+  if (
+    (key.startsWith('"') && key.endsWith('"')) ||
+    (key.startsWith("'") && key.endsWith("'"))
+  ) {
+    key = key.slice(1, -1);
+  }
+  return key.replace(/\\n/g, "\n").trim();
+}
 
+function buildServiceAccount(): ServiceAccount {
   return {
     projectId: requireEnv("FIREBASE_PROJECT_ID"),
-    privateKey,
+    privateKey: normalizePrivateKey(requireEnv("FIREBASE_ADMIN_PRIVATE_KEY")),
     clientEmail: requireEnv("FIREBASE_ADMIN_CLIENT_EMAIL"),
   };
 }
