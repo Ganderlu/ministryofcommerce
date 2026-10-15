@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Button, Box } from "@mui/material";
@@ -31,17 +31,17 @@ export default function RegisterBusinessButton({
     startIcon: <AddIcon sx={{ fontSize: size === "small" ? 17 : 19 }} />,
     onClick: href ? undefined : onClick,
     sx: {
-      bgcolor: "#0B6B3A",
+      bgcolor: "#FFAA00",
       color: "white",
       fontWeight: 700,
       textTransform: "none",
       borderRadius: "12px",
-      boxShadow: "0 3px 8px rgba(11,107,58,0.28)",
+      boxShadow: "0 3px 8px rgba(255, 170, 0,0.28)",
       ...sizeStyles,
       transition: "all 0.2s",
       "&:hover": {
-        bgcolor: "#084C2E",
-        boxShadow: "0 6px 16px rgba(11,107,58,0.4)",
+        bgcolor: "#CC8800",
+        boxShadow: "0 6px 16px rgba(255, 170, 0,0.4)",
         transform: "translateY(-1px)",
       },
       ...sx,

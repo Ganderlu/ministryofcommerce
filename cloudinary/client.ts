@@ -1,8 +1,20 @@
 import { Cloudinary } from "@cloudinary/url-gen";
 
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "m7yxk6za";
-const uploadPreset =
-  process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "anambra_sme_uploads";
+function requirePublicEnv(name: string, value: string | undefined): string {
+  // NOTE: env vars MUST be passed via direct access (process.env.NEXT_PUBLIC_*)
+  // so Next.js can inline them for client-side code. Dynamic access
+  // (process.env[name]) is NOT available in the browser bundle.
+  if (!value) {
+    const msg = `[cloudinary/client] Missing required public env var: ${name}. Set it in .env.local before running.`;
+    if (process.env.NODE_ENV === "production") throw new Error(msg);
+    console.warn(msg);
+    return "";
+  }
+  return value;
+}
+
+const cloudName = requirePublicEnv("NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+const uploadPreset = requirePublicEnv("NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
 
 export const cld = new Cloudinary({
   cloud: {

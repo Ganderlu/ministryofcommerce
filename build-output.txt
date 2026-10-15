@@ -1,0 +1,70 @@
+﻿
+> anambra-sme-portal@0.1.0 build
+> next build
+
+  ▲ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/41) ...
+   Generating static pages (10/41) 
+   Generating static pages (20/41) 
+   Generating static pages (30/41) 
+ ✓ Generating static pages (41/41)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                         Size     First Load JS
+┌ ○ /                                               5.27 kB         249 kB
+├ ○ /_not-found                                     880 B          88.4 kB
+├ ○ /about                                          3.22 kB         244 kB
+├ ○ /admin                                          115 kB          330 kB
+├ ○ /admin/businesses                               7.83 kB         395 kB
+├ ○ /admin/cooperatives                             5.81 kB         389 kB
+├ ƒ /api/cloudinary/delete                          0 B                0 B
+├ ƒ /api/cloudinary/sign                            0 B                0 B
+├ ƒ /api/cloudinary/upload                          0 B                0 B
+├ ƒ /api/newsletter/subscribe                       0 B                0 B
+├ ○ /contact                                        3.91 kB         246 kB
+├ ○ /departments/administration-and-human-resource  174 B           242 kB
+├ ○ /departments/commerce                           173 B           242 kB
+├ ○ /departments/cooperatives                       174 B           242 kB
+├ ○ /departments/finance-and-account                174 B           242 kB
+├ ○ /departments/inspectorate-and-monitoring        174 B           242 kB
+├ ○ /departments/investment-promotion               173 B           242 kB
+├ ○ /departments/trade-industry                     174 B           242 kB
+├ ○ /media                                          2.79 kB         246 kB
+├ ○ /search                                         7.48 kB         260 kB
+├ ○ /services                                       492 B           205 kB
+├ ○ /services/business-registration                 6.87 kB         249 kB
+├ ○ /services/business-registration/register        20.2 kB         414 kB
+├ ○ /services/cooperative-registration              7.15 kB         250 kB
+├ ○ /services/cooperative-registration/register     21 kB           399 kB
+├ ○ /services/export-promotion                      2.1 kB          212 kB
+├ ○ /services/loan-grants                           1.68 kB         211 kB
+├ ○ /services/msme-registration                     4.32 kB         251 kB
+├ ○ /services/msme-registration/register            20.6 kB         427 kB
+├ ○ /services/permit-licensing                      1.76 kB         211 kB
+├ ○ /services/sme-registration                      4.42 kB         251 kB
+├ ○ /services/sme-registration/register             20.5 kB         427 kB
+├ ○ /units/agribusiness-support                     173 B           242 kB
+├ ○ /units/audit                                    173 B           242 kB
+├ ○ /units/ict                                      173 B           242 kB
+├ ○ /units/legal                                    174 B           242 kB
+├ ○ /units/planning                                 174 B           242 kB
+├ ○ /units/procurement                              174 B           242 kB
+└ ○ /units/public-affairs                           174 B           242 kB
++ First Load JS shared by all                       87.5 kB
+  ├ chunks/2117-b726d57371f11d42.js                 31.9 kB
+  ├ chunks/fd9d1056-7f95666fdb41383d.js             53.6 kB
+  └ other shared chunks (total)                     1.96 kB
+
+
+ƒ Middleware                                        25.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import {
   Box,
   Container,
@@ -34,7 +34,7 @@ import {
 export const metadata: Metadata = {
   title: "Permit & Licensing | Anambra State Ministry of Commerce",
   description:
-    "Coming Soon — Apply, renew, and manage all your commercial permits and licences digitally. A streamlined licensing service for Anambra State businesses.",
+    "Apply, renew, and manage commercial permits and licences digitally — a streamlined licensing service for Anambra State businesses.",
   keywords: [
     "Anambra State",
     "Permit",
@@ -46,54 +46,56 @@ export const metadata: Metadata = {
     "Renew Permit",
     "Anambra Business",
   ],
+  alternates: { canonical: "/services/permit-licensing" },
   openGraph: {
     title: "Permit & Licensing | Anambra State Ministry of Commerce",
     description:
-      "Coming Soon — Digital permits and licensing for Anambra State businesses.",
+      "Digital permits and licensing for Anambra State businesses.",
     type: "website",
+    url: "/services/permit-licensing",
     siteName: "Anambra State Ministry of Commerce",
   },
   twitter: {
     card: "summary_large_image",
     title: "Permit & Licensing | Anambra State Ministry of Commerce",
     description:
-      "Coming Soon — Digital permits and licensing for Anambra State businesses.",
+      "Digital permits and licensing for Anambra State businesses.",
   },
 };
 
 const comingSoonFeatures = [
   {
-    icon: <Badge sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <Badge sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Online Applications",
     description:
       "Submit new permit and licence applications from anywhere with a guided digital process and clear checklists.",
   },
   {
-    icon: <VerifiedUser sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <VerifiedUser sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Instant Verification",
     description:
       "Verify existing permits, confirm authenticity, and share digitally verifiable credentials with third parties.",
   },
   {
-    icon: <ReceiptLong sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <ReceiptLong sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Seamless Renewals",
     description:
       "Receive timely reminders and complete renewals in a few clicks without visiting physical offices.",
   },
   {
-    icon: <FactCheck sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <FactCheck sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Document Management",
     description:
       "Upload, store, and manage all your supporting documents in a secure personal workspace for every application.",
   },
   {
-    icon: <TaskAlt sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <TaskAlt sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Real-time Status",
     description:
       "Track every stage of your application — from submission to review, approval, and permit issuance.",
   },
   {
-    icon: <History sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <History sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Payment & History",
     description:
       "Secure integrated payments with receipts, and a complete history of all permits, fees, and transactions.",
@@ -147,7 +149,7 @@ export default function PermitLicensingPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 0.5,
-                  "&:hover": { color: "#D4AF37" },
+                  "&:hover": { color: "#FFAA00" },
                 }}
               >
                 <Home fontSize="small" />
@@ -159,7 +161,7 @@ export default function PermitLicensingPage() {
               >
                 Services
               </Typography>
-              <Typography sx={{ color: "#D4AF37", fontWeight: 600 }}>
+              <Typography sx={{ color: "#FFAA00", fontWeight: 600 }}>
                 Permit & Licensing
               </Typography>
             </Breadcrumbs>
@@ -170,7 +172,7 @@ export default function PermitLicensingPage() {
               sx={{
                 mb: 3,
                 backgroundColor: "rgba(212, 175, 55, 0.2)",
-                color: "#D4AF37",
+                color: "#FFAA00",
                 fontWeight: 700,
                 px: 1.5,
                 py: 0.5,
@@ -236,15 +238,15 @@ export default function PermitLicensingPage() {
                     width: 12,
                     height: 12,
                     borderRadius: "50%",
-                    backgroundColor: "#D4AF37",
-                    boxShadow: "0 0 0 6px rgba(212, 175, 55, 0.15)",
+                    backgroundColor: "#FFAA00",
+                    boxShadow: "0 0 0 6px rgba(255, 170, 0, 0.14)",
                     animation: "coming-soon-pulse 1.8s infinite",
                   }}
                 />
                 <Typography
                   variant="overline"
                   sx={{
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                     fontWeight: 800,
                     letterSpacing: "2px",
                     fontSize: "0.8rem",
@@ -262,7 +264,7 @@ export default function PermitLicensingPage() {
                   fontFamily: "var(--font-poppins)",
                   fontSize: { xs: "2rem", md: "2.75rem" },
                   lineHeight: 1.15,
-                  color: "#D4AF37",
+                  color: "#FFAA00",
                 }}
               >
                 Digital Permits for Every Anambra Enterprise
@@ -298,17 +300,17 @@ export default function PermitLicensingPage() {
                   href="/contact"
                   endIcon={<ChevronRight />}
                   sx={{
-                    backgroundColor: "#D4AF37",
+                    backgroundColor: "#FFAA00",
                     color: "white",
                     px: 3.5,
                     py: 1.6,
                     fontWeight: 700,
                     borderRadius: 2,
-                    boxShadow: "0 6px 16px rgba(212, 175, 55, 0.35)",
+                    boxShadow: "0 6px 16px rgba(15, 23, 42, 0.12)",
                     "&:hover": {
                       backgroundColor: "#b8972e",
                       transform: "translateY(-1px)",
-                      boxShadow: "0 10px 24px rgba(212, 175, 55, 0.45)",
+                      boxShadow: "0 10px 24px rgba(15, 23, 42, 0.18)",
                     },
                     transition: "all 0.25s ease",
                   }}
@@ -321,8 +323,8 @@ export default function PermitLicensingPage() {
                   href="/"
                   endIcon={<Home />}
                   sx={{
-                    borderColor: "#D4AF37",
-                    color: "#D4AF37",
+                    borderColor: "#FFAA00",
+                    color: "#FFAA00",
                     px: 3.5,
                     py: 1.6,
                     fontWeight: 700,
@@ -343,7 +345,7 @@ export default function PermitLicensingPage() {
               sx={{
                 position: "relative",
                 minHeight: { xs: "320px", lg: "100%" },
-                backgroundColor: "#D4AF37",
+                backgroundColor: "#FFAA00",
               }}
             >
               <Image
@@ -371,7 +373,7 @@ export default function PermitLicensingPage() {
           <Typography
             variant="overline"
             sx={{
-              color: "#D4AF37",
+              color: "#FFAA00",
               fontWeight: 800,
               letterSpacing: "2px",
               fontSize: "0.8rem",
@@ -429,7 +431,7 @@ export default function PermitLicensingPage() {
                 "&:hover": {
                   transform: "translateY(-4px)",
                   boxShadow:
-                    "0 18px 40px -10px rgba(212, 175, 55, 0.15)",
+                    "0 18px 40px -10px rgba(15, 23, 42, 0.08)",
                   borderColor: "rgba(212, 175, 55, 0.3)",
                 },
               }}
@@ -455,7 +457,7 @@ export default function PermitLicensingPage() {
                     fontWeight: 700,
                     mb: 1.5,
                     fontFamily: "var(--font-poppins)",
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                   }}
                 >
                   {feature.title}
@@ -479,7 +481,7 @@ export default function PermitLicensingPage() {
       {/* Contact CTA Strip */}
       <Box
         sx={{
-          backgroundColor: "#D4AF37",
+          backgroundColor: "#FFAA00",
           py: { xs: 6, md: 8 },
           position: "relative",
           overflow: "hidden",
@@ -538,15 +540,15 @@ export default function PermitLicensingPage() {
                 variant="contained"
                 size="large"
                 startIcon={<Email />}
-                href="mailto:info@commerce.anambrastate.gov.ng"
+                href="mailto:commerce@anambrastate.gov.ng"
                 sx={{
-                  backgroundColor: "#D4AF37",
+                  backgroundColor: "#FFAA00",
                   color: "white",
                   px: 3.5,
                   py: 1.6,
                   fontWeight: 700,
                   borderRadius: 2,
-                  boxShadow: "0 6px 18px rgba(212, 175, 55, 0.35)",
+                  boxShadow: "0 6px 18px rgba(15, 23, 42, 0.12)",
                   "&:hover": {
                     backgroundColor: "#b8972e",
                   },
@@ -567,7 +569,7 @@ export default function PermitLicensingPage() {
                   fontWeight: 700,
                   borderRadius: 2,
                   "&:hover": {
-                    borderColor: "#D4AF37",
+                    borderColor: "#FFAA00",
                     backgroundColor: "rgba(212, 175, 55, 0.1)",
                   },
                 }}

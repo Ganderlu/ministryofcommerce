@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import {
   Box,
   Container,
@@ -35,7 +35,7 @@ import {
 export const metadata: Metadata = {
   title: "Loan & Grants | Anambra State Ministry of Commerce",
   description:
-    "Coming Soon — Access financial support, loans, and grant opportunities for MSMEs and cooperatives in Anambra State through the Ministry of Commerce.",
+    "Financial support, loans, and grant opportunities for MSMEs and cooperatives in Anambra State through the Ministry of Commerce.",
   keywords: [
     "Anambra State",
     "Loan",
@@ -47,54 +47,56 @@ export const metadata: Metadata = {
     "Cooperative Grants",
     "Anambra Business",
   ],
+  alternates: { canonical: "/services/loan-grants" },
   openGraph: {
     title: "Loan & Grants | Anambra State Ministry of Commerce",
     description:
-      "Coming Soon — Financial support, loans, and grant opportunities for Anambra State businesses.",
+      "Financial support, loans, and grant opportunities for Anambra State businesses.",
     type: "website",
+    url: "/services/loan-grants",
     siteName: "Anambra State Ministry of Commerce",
   },
   twitter: {
     card: "summary_large_image",
     title: "Loan & Grants | Anambra State Ministry of Commerce",
     description:
-      "Coming Soon — Financial support, loans, and grant opportunities for Anambra State businesses.",
+      "Financial support, loans, and grant opportunities for Anambra State businesses.",
   },
 };
 
 const comingSoonFeatures = [
   {
-    icon: <AccountBalance sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <AccountBalance sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Low-Interest Loans",
     description:
       "Access affordable credit facilities tailored for micro, small, and medium-scale enterprises across Anambra State.",
   },
   {
-    icon: <Description sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <Description sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Government Grants",
     description:
       "Explore grant programs designed to empower entrepreneurs, women-owned businesses, and cooperative societies.",
   },
   {
-    icon: <HowToReg sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <HowToReg sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Simplified Application",
     description:
       "A step-by-step digital application process with eligibility checks, document uploads, and status tracking.",
   },
   {
-    icon: <SupportAgent sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <SupportAgent sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Dedicated Support",
     description:
       "Receive guidance from our financial inclusion team to help you prepare and submit winning applications.",
   },
   {
-    icon: <TrendingUp sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <TrendingUp sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Enterprise Growth",
     description:
       "Programs specifically designed to scale businesses, create jobs, and drive economic prosperity in Anambra.",
   },
   {
-    icon: <Shield sx={{ fontSize: "2rem", color: "#D4AF37" }} />,
+    icon: <Shield sx={{ fontSize: "2rem", color: "#FFAA00" }} />,
     title: "Transparent Processes",
     description:
       "Clear criteria, open timelines, and honest communication at every stage of the review and disbursement cycle.",
@@ -148,7 +150,7 @@ export default function LoanGrantsPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: 0.5,
-                  "&:hover": { color: "#D4AF37" },
+                  "&:hover": { color: "#FFAA00" },
                 }}
               >
                 <Home fontSize="small" />
@@ -160,7 +162,7 @@ export default function LoanGrantsPage() {
               >
                 Services
               </Typography>
-              <Typography sx={{ color: "#D4AF37", fontWeight: 600 }}>
+              <Typography sx={{ color: "#FFAA00", fontWeight: 600 }}>
                 Loan & Grants
               </Typography>
             </Breadcrumbs>
@@ -171,7 +173,7 @@ export default function LoanGrantsPage() {
               sx={{
                 mb: 3,
                 backgroundColor: "rgba(212, 175, 55, 0.2)",
-                color: "#D4AF37",
+                color: "#FFAA00",
                 fontWeight: 700,
                 px: 1.5,
                 py: 0.5,
@@ -237,15 +239,15 @@ export default function LoanGrantsPage() {
                     width: 12,
                     height: 12,
                     borderRadius: "50%",
-                    backgroundColor: "#D4AF37",
-                    boxShadow: "0 0 0 6px rgba(212, 175, 55, 0.15)",
+                    backgroundColor: "#FFAA00",
+                    boxShadow: "0 0 0 6px rgba(255, 170, 0, 0.14)",
                     animation: "coming-soon-pulse 1.8s infinite",
                   }}
                 />
                 <Typography
                   variant="overline"
                   sx={{
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                     fontWeight: 800,
                     letterSpacing: "2px",
                     fontSize: "0.8rem",
@@ -263,7 +265,7 @@ export default function LoanGrantsPage() {
                   fontFamily: "var(--font-poppins)",
                   fontSize: { xs: "2rem", md: "2.75rem" },
                   lineHeight: 1.15,
-                  color: "#D4AF37",
+                  color: "#FFAA00",
                 }}
               >
                 A Financial Gateway for Anambra Enterprises
@@ -298,17 +300,17 @@ export default function LoanGrantsPage() {
                   href="/contact"
                   endIcon={<ChevronRight />}
                   sx={{
-                    backgroundColor: "#D4AF37",
+                    backgroundColor: "#FFAA00",
                     color: "white",
                     px: 3.5,
                     py: 1.6,
                     fontWeight: 700,
                     borderRadius: 2,
-                    boxShadow: "0 6px 16px rgba(212, 175, 55, 0.35)",
+                    boxShadow: "0 6px 16px rgba(15, 23, 42, 0.12)",
                     "&:hover": {
                       backgroundColor: "#b8972e",
                       transform: "translateY(-1px)",
-                      boxShadow: "0 10px 24px rgba(212, 175, 55, 0.45)",
+                      boxShadow: "0 10px 24px rgba(15, 23, 42, 0.18)",
                     },
                     transition: "all 0.25s ease",
                   }}
@@ -321,8 +323,8 @@ export default function LoanGrantsPage() {
                   href="/"
                   endIcon={<Home />}
                   sx={{
-                    borderColor: "#D4AF37",
-                    color: "#D4AF37",
+                    borderColor: "#FFAA00",
+                    color: "#FFAA00",
                     px: 3.5,
                     py: 1.6,
                     fontWeight: 700,
@@ -343,7 +345,7 @@ export default function LoanGrantsPage() {
               sx={{
                 position: "relative",
                 minHeight: { xs: "320px", lg: "100%" },
-                backgroundColor: "#D4AF37",
+                backgroundColor: "#FFAA00",
               }}
             >
               <Image
@@ -371,7 +373,7 @@ export default function LoanGrantsPage() {
           <Typography
             variant="overline"
             sx={{
-              color: "#D4AF37",
+              color: "#FFAA00",
               fontWeight: 800,
               letterSpacing: "2px",
               fontSize: "0.8rem",
@@ -429,7 +431,7 @@ export default function LoanGrantsPage() {
                 "&:hover": {
                   transform: "translateY(-4px)",
                   boxShadow:
-                    "0 18px 40px -10px rgba(212, 175, 55, 0.15)",
+                    "0 18px 40px -10px rgba(15, 23, 42, 0.08)",
                   borderColor: "rgba(212, 175, 55, 0.3)",
                 },
               }}
@@ -455,7 +457,7 @@ export default function LoanGrantsPage() {
                     fontWeight: 700,
                     mb: 1.5,
                     fontFamily: "var(--font-poppins)",
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                   }}
                 >
                   {feature.title}
@@ -479,7 +481,7 @@ export default function LoanGrantsPage() {
       {/* Contact CTA Strip */}
       <Box
         sx={{
-          backgroundColor: "#D4AF37",
+          backgroundColor: "#FFAA00",
           py: { xs: 6, md: 8 },
           position: "relative",
           overflow: "hidden",
@@ -537,15 +539,15 @@ export default function LoanGrantsPage() {
                 variant="contained"
                 size="large"
                 startIcon={<Email />}
-                href="mailto:info@commerce.anambrastate.gov.ng"
+                href="mailto:commerce@anambrastate.gov.ng"
                 sx={{
-                  backgroundColor: "#D4AF37",
+                  backgroundColor: "#FFAA00",
                   color: "white",
                   px: 3.5,
                   py: 1.6,
                   fontWeight: 700,
                   borderRadius: 2,
-                  boxShadow: "0 6px 18px rgba(212, 175, 55, 0.35)",
+                  boxShadow: "0 6px 18px rgba(15, 23, 42, 0.12)",
                   "&:hover": {
                     backgroundColor: "#b8972e",
                   },
@@ -566,7 +568,7 @@ export default function LoanGrantsPage() {
                   fontWeight: 700,
                   borderRadius: 2,
                   "&:hover": {
-                    borderColor: "#D4AF37",
+                    borderColor: "#FFAA00",
                     backgroundColor: "rgba(212, 175, 55, 0.1)",
                   },
                 }}

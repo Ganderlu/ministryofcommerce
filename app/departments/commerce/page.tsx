@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Commerce Department | Anambra State Ministry of Commerce",
   description:
     "The Commerce Department of Anambra State Ministry of Commerce is responsible for promoting and developing commercial activities across the state.",
+  keywords: [
+    "Anambra State",
+    "Commerce Department",
+    "Ministry of Commerce",
+    "Commercial Activities",
+    "Market Development",
+    "Trade Promotion",
+    "Business Environment",
+    "Anambra Markets",
+    "Onitsha Markets",
+    "Wholesale Retail Trade",
+  ],
+  alternates: { canonical: "/departments/commerce" },
+  openGraph: {
+    title: "Commerce Department | Anambra State Ministry of Commerce",
+    description:
+      "The Commerce Department of Anambra State Ministry of Commerce is responsible for promoting and developing commercial activities across the state.",
+    type: "website",
+    url: "/departments/commerce",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Commerce Department | Anambra State Ministry of Commerce",
+    description:
+      "The Commerce Department of Anambra State Ministry of Commerce is responsible for promoting and developing commercial activities across the state.",
+  },
 };
 
 export default function CommercePage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function CommercePage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

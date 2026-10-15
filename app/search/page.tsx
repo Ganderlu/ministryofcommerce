@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import TopBar from "@/components/layout/TopBar";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     "Search the Anambra State Ministry of Commerce portal for services, news, events, departments, units, team members, registration resources, and contact information.",
   keywords:
     "Anambra, Ministry of Commerce, search, services, news, events, departments, units, registration",
+  alternates: { canonical: "/search" },
   openGraph: {
     title: "Search | Anambra State Ministry of Commerce",
     description:
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function SearchPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <SearchHero />
@@ -45,13 +46,13 @@ export default function SearchPage() {
               backgroundColor: "#FAFBFC",
             }}
           >
-            <CircularProgress sx={{ color: "#D4AF37" }} />
+            <CircularProgress sx={{ color: "#FFAA00" }} />
           </Box>
         }
       >
         <SearchResults />
       </Suspense>
       <Footer />
-    </main>
+    </>
   );
 }

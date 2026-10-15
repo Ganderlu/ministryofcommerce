@@ -25,11 +25,13 @@ export const metadata: Metadata = {
     "Business Support",
     "Anambra Business",
   ],
+  alternates: { canonical: "/services/business-registration" },
   openGraph: {
     title: "Business Registration | Anambra State Ministry of Commerce",
     description:
       "Register your business with the Anambra State Ministry of Commerce. Start. Register. Grow.",
     type: "website",
+    url: "/services/business-registration",
     siteName: "Anambra State Ministry of Commerce",
   },
   twitter: {

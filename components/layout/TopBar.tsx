@@ -1,118 +1,48 @@
 "use client";
-import { Box, Container, Typography, IconButton, Stack } from "@mui/material";
-import { Facebook, Twitter, Instagram, Email, Phone } from "@mui/icons-material";
-import Image from "next/image";
+import { Box, Container, Typography, Stack } from "@mui/material";
+
+const NigeriaFlag = () => (
+  <Box
+    component="span"
+    sx={{
+      display: "inline-flex",
+      width: 22,
+      height: 16,
+      flexShrink: 0,
+      borderRadius: "2px",
+      overflow: "hidden",
+      boxShadow: "0 1px 2px rgba(15,23,42,0.15)",
+    }}
+    aria-label="Nigeria flag"
+  >
+    <Box sx={{ width: "33.33%", height: "100%", backgroundColor: "#008751" }} />
+    <Box sx={{ width: "33.33%", height: "100%", backgroundColor: "#FFFFFF" }} />
+    <Box sx={{ width: "33.34%", height: "100%", backgroundColor: "#008751" }} />
+  </Box>
+);
 
 export default function TopBar() {
   return (
-    <Box sx={{ backgroundColor: "#D4AF37", py: 1.5 }}>
+    <Box sx={{ backgroundColor: "#FFFFFF", py: 1.5 }}>
       <Container maxWidth="xl">
         <Stack
-          direction={{ xs: "column", sm: "row" }}
-          justifyContent="space-between"
-          alignItems={{ xs: "center", sm: "center" }}
-          spacing={{ xs: 1.5, sm: 2 }}
+          direction="row"
+          alignItems="center"
+          justifyContent={{ xs: "center", sm: "flex-start" }}
+          spacing={1.5}
         >
-          {/* Left: Welcome Message */}
+          <NigeriaFlag />
           <Typography
             variant="body2"
             sx={{
               color: "black",
-              fontSize: { xs: "0.8rem", sm: "0.875rem" },
+              fontSize: { xs: "0.78rem", sm: "0.875rem" },
               fontWeight: 500,
-              textAlign: "center",
+              textAlign: { xs: "center", sm: "left" },
             }}
           >
-            Welcome to Anambra State Ministry of Commerce
+            Welcome to the official website of Anambra State Ministry of Commerce, Industry and Trade..
           </Typography>
-
-          {/* Right: Contact & Socials */}
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            alignItems={{ xs: "center", sm: "center" }}
-            spacing={{ xs: 1, sm: 3 }}
-          >
-            {/* Email */}
-            <Stack direction="row" alignItems="center" spacing={0.8}>
-              <Email sx={{ color: "black", fontSize: { xs: 16, sm: 18 } }} />
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "black",
-                  fontSize: { xs: "0.78rem", sm: "0.85rem" },
-                  fontWeight: 500,
-                }}
-              >
-                info@commerce.anambrastate.gov.ng
-              </Typography>
-            </Stack>
-
-            {/* Phone */}
-            <Stack direction="row" alignItems="center" spacing={0.8}>
-              <Phone sx={{ color: "black", fontSize: { xs: 16, sm: 18 } }} />
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "black",
-                  fontSize: { xs: "0.78rem", sm: "0.85rem" },
-                  fontWeight: 500,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                +234 (0) 813 423 4567
-              </Typography>
-            </Stack>
-
-            {/* Social Icons */}
-            <Stack direction="row" spacing={{ xs: 0.5, sm: 1 }}>
-              <IconButton
-                size="small"
-                sx={{
-                  color: "black",
-                  padding: 0.5,
-                  "&:hover": { backgroundColor: "rgba(0,0,0,0.08)" },
-                }}
-              >
-                <Facebook fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: "black",
-                  padding: 0.5,
-                  "&:hover": { backgroundColor: "rgba(0,0,0,0.08)" },
-                }}
-              >
-                <Twitter fontSize="small" />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: "black",
-                  padding: 0.5,
-                  "&:hover": { backgroundColor: "rgba(0,0,0,0.08)" },
-                }}
-              >
-                <Image
-                  src="/images/let.png"
-                  alt="LET"
-                  width={20}
-                  height={20}
-                  style={{ objectFit: "contain" }}
-                />
-              </IconButton>
-              <IconButton
-                size="small"
-                sx={{
-                  color: "black",
-                  padding: 0.5,
-                  "&:hover": { backgroundColor: "rgba(0,0,0,0.08)" },
-                }}
-              >
-                <Instagram fontSize="small" />
-              </IconButton>
-            </Stack>
-          </Stack>
         </Stack>
       </Container>
     </Box>

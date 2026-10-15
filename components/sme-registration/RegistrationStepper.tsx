@@ -22,12 +22,14 @@ interface RegistrationStepperProps {
 
 export default function RegistrationStepper({ activeStep }: RegistrationStepperProps) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const primaryColor = "#D4AF37";
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"), {
+    defaultMatches: false,
+  });
+  const primaryColor = "#FFAA00";
   const greyColor = "#CBD5E1";
 
   return (
-    <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: "white", borderBottom: "1px solid #F1F5F9" }}>
+    <Box sx={{ py: { xs: 3, md: 5 }, backgroundColor: "#FFFDF5", borderBottom: "1px solid #F1F5F9" }}>
       <Container maxWidth="xl">
         <MotionBox
           initial={{ opacity: 0, y: 10 }}
@@ -64,7 +66,7 @@ export default function RegistrationStepper({ activeStep }: RegistrationStepperP
               },
               "& .MuiStepIcon-root.Mui-active": {
                 color: primaryColor,
-                filter: `drop-shadow(0 4px 8px ${primaryColor}30)`,
+                filter: "drop-shadow(0 4px 8px rgba(15, 23, 42, 0.18))",
                 transform: "scale(1.1)",
               },
               "& .MuiStepIcon-root.Mui-completed": {

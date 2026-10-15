@@ -27,11 +27,13 @@ export const metadata: Metadata = {
     "Government Programmes",
     "MSME",
   ],
+  alternates: { canonical: "/services/sme-registration" },
   openGraph: {
     title: "SME Registration | Anambra State Ministry of Commerce",
     description:
       "Register your Small and Medium Enterprise (SME) with the Anambra State Ministry of Commerce. Empowering Small Businesses. Building a Prosperous Anambra.",
     type: "website",
+    url: "/services/sme-registration",
     siteName: "Anambra State Ministry of Commerce",
   },
   twitter: {

@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Inspectorate & Monitoring Department | Anambra State Ministry of Commerce",
   description:
     "The Inspectorate & Monitoring Department ensures compliance with commercial laws and regulations, protecting consumers and businesses.",
+  keywords: [
+    "Anambra State",
+    "Inspectorate",
+    "Monitoring Department",
+    "Ministry of Commerce",
+    "Compliance",
+    "Consumer Protection",
+    "Commercial Regulations",
+    "Business Inspection",
+    "Quality Standards",
+    "Market Monitoring",
+  ],
+  alternates: { canonical: "/departments/inspectorate-and-monitoring" },
+  openGraph: {
+    title: "Inspectorate & Monitoring Department | Anambra State Ministry of Commerce",
+    description:
+      "The Inspectorate & Monitoring Department ensures compliance with commercial laws and regulations, protecting consumers and businesses.",
+    type: "website",
+    url: "/departments/inspectorate-and-monitoring",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Inspectorate & Monitoring Department | Anambra State Ministry of Commerce",
+    description:
+      "The Inspectorate & Monitoring Department ensures compliance with commercial laws and regulations, protecting consumers and businesses.",
+  },
 };
 
 export default function InspectorateMonitoringPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function InspectorateMonitoringPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

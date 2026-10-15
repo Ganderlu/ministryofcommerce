@@ -8,11 +8,39 @@ export const metadata: Metadata = {
   title: "Trade & Industry Department | Anambra State Ministry of Commerce",
   description:
     "The Trade & Industry Department promotes industrial development, trade facilitation, and manufacturing growth across Anambra State.",
+  keywords: [
+    "Anambra State",
+    "Trade",
+    "Industry Department",
+    "Ministry of Commerce",
+    "Industrial Development",
+    "Manufacturing",
+    "Industrial Parks",
+    "Made in Anambra",
+    "Trade Facilitation",
+    "SMI",
+    "Small Medium Industries",
+  ],
+  alternates: { canonical: "/departments/trade-industry" },
+  openGraph: {
+    title: "Trade & Industry Department | Anambra State Ministry of Commerce",
+    description:
+      "The Trade & Industry Department promotes industrial development, trade facilitation, and manufacturing growth across Anambra State.",
+    type: "website",
+    url: "/departments/trade-industry",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Trade & Industry Department | Anambra State Ministry of Commerce",
+    description:
+      "The Trade & Industry Department promotes industrial development, trade facilitation, and manufacturing growth across Anambra State.",
+  },
 };
 
 export default function TradeIndustryPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +67,6 @@ export default function TradeIndustryPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

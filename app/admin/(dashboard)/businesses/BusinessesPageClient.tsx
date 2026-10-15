@@ -12,22 +12,30 @@ import Pagination from "@/components/admin/Pagination";
 import {
   businessAdminCategories,
   businessStatusOptions,
-  businessRows,
   lgas,
-  TOTAL_BUSINESSES,
 } from "@/data/seed";
 import type { BusinessRow, BusinessCategoryItem } from "@/types";
+import { updateApplicationStatus, COLLECTION_KEYS } from "@/lib/admin-actions";
 
 const MotionBox = motion(Box);
 
-export default function BusinessesPageClient() {
+interface BusinessesPageClientProps {
+  initialRows: BusinessRow[];
+}
+
+export default function BusinessesPageClient({ initialRows }: BusinessesPageClientProps) {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("");
   const [lga, setLga] = useState("");
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
-  const [snack, setSnack] = useState<{ open: boolean; severity: "success" | "info" | "warning" | "error"; message: string }>({
+  const [rows, setRows] = useState<BusinessRow[]>(initialRows);
+  const [snack, setSnack] = useState<{
+    open: boolean;
+    severity: "success" | "info" | "warning" | "error";
+    message: string;
+  }>({
     open: false,
     severity: "info",
     message: "",
@@ -42,7 +50,10 @@ export default function BusinessesPageClient() {
     return m;
   }, []);
 
-  const notify = (severity: "success" | "info" | "warning" | "error", message: string) => {
+  const notify = (
+    severity: "success" | "info" | "warning" | "error",
+    message: string
+  ) => {
     setSnack({ open: true, severity, message });
   };
 
@@ -52,43 +63,37 @@ export default function BusinessesPageClient() {
   );
 
   const filteredRows = useMemo<BusinessRow[]>(() => {
-    const q = search.trim().toLowerCase();
-    return businessRows.filter((r) => {
-      if (category) {
-        const picked = businessAdminCategories.find((c) => c.id === category);
-        if (picked && r.categoryId !== picked.id && r.categoryName !== picked.name) return false;
-      }
-      if (status && r.status !== status) return false;
-      if (lga) {
-        const lgaOpt = lgas.find((l) => l.id === lga)?.name ?? lga;
-        if (r.lga !== lgaOpt) return false;
-      }
-      if (q) {
-        const match =
-          r.businessName.toLowerCase().includes(q) ||
-          r.ownerName.toLowerCase().includes(q) ||
-          r.ownerEmail.toLowerCase().includes(q) ||
-          r.applicationNumber.toLowerCase().includes(q) ||
-          r.ownerPhone.toLowerCase().includes(q);
-        if (!match) return false;
-      }
-      return true;
-    });
-  }, [search, category, status, lga]);
+    let r = rows;
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      r = r.filter(
+        (row) =>
+          row.businessName.toLowerCase().includes(q) ||
+          row.applicationNumber.toLowerCase().includes(q) ||
+          row.ownerName.toLowerCase().includes(q) ||
+          row.ownerEmail.toLowerCase().includes(q)
+      );
+    }
+    if (category) {
+      r = r.filter(
+        (row) => row.categoryName === category || row.categoryId === category
+      );
+    }
+    if (status) {
+      r = r.filter((row) => row.status === status);
+    }
+    if (lga) {
+      r = r.filter((row) => row.lga === lga);
+    }
+    return r;
+  }, [rows, search, category, status, lga]);
 
-  const totalCount = TOTAL_BUSINESSES;
+  const totalCount = filteredRows.length;
   const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
 
   const paginatedRows = useMemo<BusinessRow[]>(() => {
     const start = page * pageSize;
-    if (filteredRows.length >= pageSize && filteredRows.length >= start + pageSize) {
-      return filteredRows.slice(start, start + pageSize);
-    }
-    if (filteredRows.length > 0) {
-      if (start > filteredRows.length) return filteredRows.slice(0, pageSize);
-      return filteredRows.slice(start, start + pageSize);
-    }
-    return [];
+    return filteredRows.slice(start, start + pageSize);
   }, [filteredRows, page, pageSize]);
 
   const resetFilters = () => {
@@ -100,13 +105,34 @@ export default function BusinessesPageClient() {
     notify("info", "Filters have been reset.");
   };
 
+  const handleStatus = async (
+    row: BusinessRow,
+    newStatus: BusinessRow["status"]
+  ) => {
+    const prev = rows;
+    setRows((rs) => rs.map((r) => (r.id === row.id ? { ...r, status: newStatus } : r)));
+    try {
+      await updateApplicationStatus({
+        collection: COLLECTION_KEYS.businesses,
+        id: row.id,
+        status: newStatus,
+      });
+      notify("success", `${row.businessName} → ${newStatus}`);
+    } catch (err) {
+      setRows(prev);
+      notify(
+        "error",
+        err instanceof Error ? err.message : "Failed to update status"
+      );
+    }
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2.6 }}>
-      {/* Page heading */}
       <MotionBox
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.02 }}
+        transition={{ duration: 0.35, delay: 0.04 }}
         sx={{
           display: "flex",
           alignItems: { xs: "flex-start", md: "center" },
@@ -141,16 +167,19 @@ export default function BusinessesPageClient() {
             Manage, monitor and oversee all registered businesses in the system.
           </Typography>
         </Box>
-        <Stack direction="row" spacing={1.5} alignItems="center" flexWrap="wrap">
+        <Stack
+          direction="row"
+          spacing={1.5}
+          alignItems="center"
+          flexWrap="wrap"
+        >
           <ExportButton />
           <RegisterBusinessButton href="/admin/businesses/new" />
         </Stack>
       </MotionBox>
 
-      {/* KPI Statistics */}
-      <BusinessStatistics />
+      <BusinessStatistics rows={rows} />
 
-      {/* Filters */}
       <BusinessFilters
         searchValue={search}
         onSearchChange={setSearch}
@@ -177,15 +206,15 @@ export default function BusinessesPageClient() {
         onResetClick={resetFilters}
       />
 
-      {/* Table + Pagination container */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           gap: 0,
-          bgcolor: "white",
+          bgcolor: "#FFFDF5",
           borderRadius: "16px",
           overflow: "hidden",
+          border: "1px solid #E2E8F0",
         }}
       >
         <BusinessTable
@@ -202,15 +231,30 @@ export default function BusinessesPageClient() {
           }}
           onView={(row) => notify("info", `Viewing business: ${row.businessName}`)}
           onEdit={(row) => notify("info", `Edit business: ${row.businessName}`)}
-          onApprove={(row) => notify("success", `Approved: ${row.businessName}`)}
-          onReject={(row) => notify("error", `Rejected: ${row.businessName}`)}
-          onSuspend={(row) => notify("warning", `Suspended: ${row.businessName}`)}
-          onDelete={(row) => notify("error", `Deleted: ${row.businessName}`)}
-          onDownloadCert={(row) => notify("success", `Downloading certificate for ${row.businessName}`)}
-          onViewDocs={(row) => notify("info", `Opening documents for ${row.businessName}`)}
-          onBulkApprove={(ids) => notify("success", `Approved ${ids.length} business(es).`)}
-          onBulkReject={(ids) => notify("error", `Rejected ${ids.length} business(es).`)}
-          onBulkDelete={(ids) => notify("error", `Deleted ${ids.length} business(es).`)}
+          onApprove={(row) => handleStatus(row, "Approved")}
+          onReject={(row) => handleStatus(row, "Rejected")}
+          onSuspend={(row) => handleStatus(row, "Suspended")}
+          onDelete={(row) =>
+            notify("warning", `Delete is disabled for data integrity: ${row.businessName}`)
+          }
+          onDownloadCert={(row) =>
+            notify(
+              "success",
+              `Downloading certificate for ${row.businessName}`
+            )
+          }
+          onViewDocs={(row) =>
+            notify("info", `Opening documents for ${row.businessName}`)
+          }
+          onBulkApprove={(ids) =>
+            notify("success", `Approved ${ids.length} business(es).`)
+          }
+          onBulkReject={(ids) =>
+            notify("error", `Rejected ${ids.length} business(es).`)
+          }
+          onBulkDelete={(ids) =>
+            notify("warning", `Bulk delete is disabled for ${ids.length} business(es).`)
+          }
         />
 
         <Pagination

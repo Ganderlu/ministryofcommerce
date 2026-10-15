@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Planning Unit | Anambra State Ministry of Commerce",
   description:
     "The Planning Unit coordinates strategic planning, policy development, and program monitoring in the Ministry.",
+  keywords: [
+    "Anambra State",
+    "Planning",
+    "Strategic Planning",
+    "Ministry of Commerce",
+    "Policy Development",
+    "Program Monitoring",
+    "Evaluation",
+    "Research",
+    "Data Analysis",
+    "Development Partners",
+  ],
+  alternates: { canonical: "/units/planning" },
+  openGraph: {
+    title: "Planning Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Planning Unit coordinates strategic planning, policy development, and program monitoring in the Ministry.",
+    type: "website",
+    url: "/units/planning",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Planning Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Planning Unit coordinates strategic planning, policy development, and program monitoring in the Ministry.",
+  },
 };
 
 export default function PlanningPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function PlanningPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "ICT Unit | Anambra State Ministry of Commerce",
   description:
     "The ICT Unit provides information and communication technology support, driving digital transformation in the Ministry.",
+  keywords: [
+    "Anambra State",
+    "ICT",
+    "Information Technology",
+    "Ministry of Commerce",
+    "Digital Transformation",
+    "E Services",
+    "Technology Support",
+    "Data Security",
+    "Anambra Digital",
+    "ICT Infrastructure",
+  ],
+  alternates: { canonical: "/units/ict" },
+  openGraph: {
+    title: "ICT Unit | Anambra State Ministry of Commerce",
+    description:
+      "The ICT Unit provides information and communication technology support, driving digital transformation in the Ministry.",
+    type: "website",
+    url: "/units/ict",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ICT Unit | Anambra State Ministry of Commerce",
+    description:
+      "The ICT Unit provides information and communication technology support, driving digital transformation in the Ministry.",
+  },
 };
 
 export default function ICTPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function ICTPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

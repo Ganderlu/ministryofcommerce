@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Box, Typography, Divider, Avatar } from "@mui/material";
@@ -8,10 +8,14 @@ import {
   Storage as StorageIcon,
   Schedule as ScheduleIcon,
 } from "@mui/icons-material";
-import { footerStats } from "@/data/seed";
 import { motion } from "framer-motion";
+import type { AdminDashboardData } from "@/lib/admin-data";
 
 const MotionBox = motion(Box);
+
+interface FooterStatisticsProps {
+  data: AdminDashboardData;
+}
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   Group: GroupIcon,
@@ -20,7 +24,14 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   Schedule: ScheduleIcon,
 };
 
-export default function FooterStatistics() {
+export default function FooterStatistics({ data }: FooterStatisticsProps) {
+  const stats = [
+    { id: "users", icon: "Group", label: "Platform Users", value: data.footerAggregates.platformUsers, color: "#FFAA00" },
+    { id: "verified", icon: "VerifiedUser", label: "Verified Businesses", value: data.footerAggregates.verifiedBusinesses, color: "#1D4ED8" },
+    { id: "uploads", icon: "Storage", label: "Documents Uploaded", value: data.footerAggregates.documentsUploaded, color: "#7C3AED" },
+    { id: "pending", icon: "Schedule", label: "Applications Pending", value: data.footerAggregates.pendingApplications, color: "#CC8800" },
+  ];
+
   return (
     <MotionBox
       initial={{ opacity: 0, y: 12 }}
@@ -29,8 +40,8 @@ export default function FooterStatistics() {
       sx={{
         p: 1.8,
         borderRadius: "16px",
-        bgcolor: "rgba(11, 107, 58, 0.04)",
-        border: "1px solid rgba(11, 107, 58, 0.15)",
+        bgcolor: "rgba(255, 170, 0, 0.03)",
+        border: "1px solid rgba(255, 170, 0, 0.12)",
         display: "grid",
         gridTemplateColumns: {
           xs: "repeat(2, 1fr)",
@@ -38,18 +49,20 @@ export default function FooterStatistics() {
         },
         gap: 1,
       }}
+      role="status"
+      aria-label="Platform aggregate statistics"
     >
-      {footerStats.map((stat, idx) => {
+      {stats.map((stat, idx) => {
         const Icon = iconMap[stat.icon] || GroupIcon;
         return (
           <React.Fragment key={stat.id}>
             {idx !== 0 && (
               <Divider
-                orientation={idx % 2 === 0 && idx !== 2 ? "vertical" : "vertical"}
+                orientation="vertical"
                 flexItem
                 sx={{
                   display: { xs: idx < 2 ? "none" : "block", md: "block" },
-                  borderColor: "rgba(11, 107, 58, 0.12)",
+                  borderColor: "rgba(255, 170, 0, 0.12)",
                 }}
               />
             )}
@@ -62,20 +75,15 @@ export default function FooterStatistics() {
                 py: 0.8,
                 borderRadius: "12px",
                 transition: "all 0.2s",
-                "&:hover": {
-                  bgcolor: "white",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 4px 12px rgba(15, 23, 42, 0.06)",
-                },
               }}
+              aria-label={`${stat.label}: ${stat.value}`}
             >
               <Avatar
                 sx={{
                   width: 42,
                   height: 42,
-                  bgcolor: `${stat.color}15`,
+                  bgcolor: `${stat.color}12`,
                   color: stat.color,
-                  border: `1px solid ${stat.color}25`,
                 }}
               >
                 <Icon sx={{ fontSize: 22 }} />
@@ -85,12 +93,11 @@ export default function FooterStatistics() {
                   sx={{
                     fontSize: 18,
                     fontWeight: 800,
-                    color: "#084C2E",
+                    color: "#0F172A",
                     lineHeight: 1.1,
-                    letterSpacing: -0.3,
                   }}
                 >
-                  {stat.value}
+                  {stat.value.toLocaleString("en-NG")}
                 </Typography>
                 <Typography
                   sx={{

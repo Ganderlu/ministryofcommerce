@@ -9,9 +9,9 @@ const MotionBox = motion(Box);
 const MotionPaper = motion(Paper);
 
 export default function Eligibility() {
-  const primaryColor = "#D4AF37";
-  const darkGreen = "#D4AF37";
-  const accentColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
+  const darkGreen = "#FFAA00";
+  const accentColor = "#FFAA00";
 
   return (
     <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "#F8FAFC" }}>
@@ -44,13 +44,13 @@ export default function Eligibility() {
                         alignItems: "flex-start",
                         gap: 2,
                         p: 2.5,
-                        backgroundColor: "white",
+                        backgroundColor: "#FFFDF5",
                         borderRadius: 2.5,
                         border: "1px solid #E2E8F0",
                         transition: "all 0.3s ease",
                         "&:hover": {
                           borderColor: `${primaryColor}40`,
-                          boxShadow: "0 4px 12px rgba(212, 175, 55, 0.08)",
+                          boxShadow: "0 4px 12px rgba(15, 23, 42, 0.06)",
                           transform: "translateX(4px)",
                         },
                       }}

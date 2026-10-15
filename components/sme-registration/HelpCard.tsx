@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Card, CardContent, Typography, Stack, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import { HeadsetMic, Phone, Email, Chat } from "@mui/icons-material";
@@ -6,7 +6,7 @@ import { HeadsetMic, Phone, Email, Chat } from "@mui/icons-material";
 const MotionCard = motion(Card);
 
 export default function HelpCard() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
     <MotionCard
@@ -92,11 +92,11 @@ export default function HelpCard() {
             borderRadius: 2,
             fontFamily: "var(--font-poppins)",
             textTransform: "none",
-            boxShadow: `0 4px 16px ${primaryColor}30`,
+            boxShadow: "0 4px 16px rgba(15, 23, 42, 0.18)",
             "&:hover": {
               backgroundColor: "#C9A22E",
               transform: "translateY(-1px)",
-              boxShadow: `0 6px 20px ${primaryColor}40`,
+              boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
             },
             transition: "all 0.3s ease",
           }}

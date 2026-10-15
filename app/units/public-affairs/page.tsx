@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Public Affairs Unit | Anambra State Ministry of Commerce",
   description:
     "The Public Affairs Unit manages the Ministry's communication, public relations, and stakeholder engagement.",
+  keywords: [
+    "Anambra State",
+    "Public Affairs",
+    "Public Relations",
+    "Ministry of Commerce",
+    "Communication",
+    "Media Relations",
+    "Stakeholder Engagement",
+    "Events",
+    "Social Media",
+    "Brand Communication",
+  ],
+  alternates: { canonical: "/units/public-affairs" },
+  openGraph: {
+    title: "Public Affairs Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Public Affairs Unit manages the Ministry's communication, public relations, and stakeholder engagement.",
+    type: "website",
+    url: "/units/public-affairs",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Public Affairs Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Public Affairs Unit manages the Ministry's communication, public relations, and stakeholder engagement.",
+  },
 };
 
 export default function PublicAffairsPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function PublicAffairsPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

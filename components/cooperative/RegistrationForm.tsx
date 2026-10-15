@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Card,
@@ -42,7 +42,7 @@ const initialFormData: CooperativeRegistrationFormData = {
 };
 
 export default function RegistrationForm() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   const [formData, setFormData] = useState<CooperativeRegistrationFormData>(initialFormData);
   const [errors, setErrors] = useState<Partial<Record<keyof CooperativeRegistrationFormData, string>>>({});
 
@@ -88,7 +88,7 @@ export default function RegistrationForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted:", formData);
+      // Form is valid — submission handled by parent.
     }
   };
 
@@ -375,11 +375,11 @@ export default function RegistrationForm() {
                 fontSize: "0.95rem",
                 borderRadius: 2,
                 fontFamily: "var(--font-poppins)",
-                boxShadow: `0 6px 20px ${primaryColor}40`,
+                boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                 "&:hover": {
-                  backgroundColor: "#D4AF37",
+                  backgroundColor: "#FFAA00",
                   transform: "translateY(-2px)",
-                  boxShadow: `0 8px 24px ${primaryColor}50`,
+                  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.32)",
                 },
                 transition: "all 0.3s ease",
                 textTransform: "none",

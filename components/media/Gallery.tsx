@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Container,
@@ -14,7 +14,7 @@ import { gallery } from "@/data/seed";
 const MotionCard = motion(Card);
 
 export default function GallerySection() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box id="gallery" sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#fafafa" }}>
@@ -82,13 +82,15 @@ export default function GallerySection() {
                     src={item.image}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 599px) 100vw, (max-width: 899px) 50vw, 33vw"
                     style={{ objectFit: "cover" }}
+                    loading={index < 3 ? "eager" : "lazy"}
                   />
                   <Box
                     sx={{
                       position: "absolute",
                       inset: 0,
-                      backgroundColor: "rgba(212, 175, 55, 0.45)",
+                      background: "linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(255, 170, 0, 0.82) 100%)",
                       opacity: 0,
                       transition: "opacity 0.3s ease",
                       "&:hover": { opacity: 1 },

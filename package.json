@@ -31,7 +31,17 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.35",
     "firebase-tools": "^13.35.1",
     "typescript": "^5"
+  },
+  "overrides": {
+    "undici": "^6.20.1",
+    "@fastify/busboy": "^3.2.2",
+    "uuid": "^11.1.0",
+    "tar": "^7.4.3",
+    "protobufjs": "^7.4.0",
+    "source-map-js": "^1.2.2"
   }
 }

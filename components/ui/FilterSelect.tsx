@@ -49,7 +49,7 @@ export default function FilterSelect({
             fontSize: 13.5,
             color: "#64748B",
             "&.Mui-focused": {
-              color: "#D4AF37",
+              color: "#FFAA00",
             },
           }}
         >
@@ -64,7 +64,7 @@ export default function FilterSelect({
         sx={{
           height,
           borderRadius: "12px",
-          bgcolor: "white",
+          bgcolor: "#FFFDF5",
           fontSize: 13.5,
           color: "#1E293B",
           "& .MuiOutlinedInput-notchedOutline": {
@@ -74,7 +74,7 @@ export default function FilterSelect({
             borderColor: "#CBD5E1",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#D4AF37",
+            borderColor: "#FFAA00",
             borderWidth: 1.5,
           },
           "& .MuiSelect-select": {
@@ -113,8 +113,8 @@ export default function FilterSelect({
                 bgcolor: "#F1F5F9",
               },
               "&.Mui-selected": {
-                bgcolor: "rgba(11, 107, 58, 0.08)",
-                color: "#D4AF37",
+                bgcolor: "rgba(255, 170, 0, 0.08)",
+                color: "#FFAA00",
                 fontWeight: 600,
                 "&:hover": {
                   bgcolor: "rgba(212, 175, 55, 0.12)",

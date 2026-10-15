@@ -59,9 +59,9 @@ function categoryColor(category: RequiredCooperativeDocument["category"]) {
     case "Legal":
       return { bg: "rgba(14, 116, 144, 0.1)", color: "#0E7490" };
     case "Governance":
-      return { bg: "rgba(212, 175, 55, 0.15)", color: "#8C6A16" };
+      return { bg: "rgba(212, 175, 55, 0.15)", color: "#996600" };
     case "Identity":
-      return { bg: "rgba(15, 118, 110, 0.12)", color: "#0F766E" };
+      return { bg: "rgba(255, 170, 0, 0.12)", color: "#CC8800" };
     case "Financial":
       return { bg: "rgba(124, 58, 237, 0.12)", color: "#6D28D9" };
     default:
@@ -81,7 +81,7 @@ function fileIconByType(fileName: string) {
   if (/\.(png|jpe?g|webp|gif)$/.test(lc))
     return <ImageIcon sx={{ color: "#0284C7" }} />;
   if (/\.(xlsx?|csv|numbers)$/.test(lc))
-    return <TableChartIcon sx={{ color: "#15803D" }} />;
+    return <TableChartIcon sx={{ color: "#CC8800" }} />;
   if (/\.(zip|rar|7z)$/.test(lc))
     return <FolderZipIcon sx={{ color: "#C2410C" }} />;
   if (/\.(docx?|txt|rtf)$/.test(lc))
@@ -96,7 +96,7 @@ export default function DocumentsUploadForm({
   onBack,
   saving,
 }: DocumentsUploadFormProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   const seeds = useMemo(() => [...SEED_DOCS], []);
   const [documents, setDocuments] = useState<Record<string, CooperativeDocument>>(
     () => {
@@ -475,7 +475,7 @@ export default function DocumentsUploadForm({
       sx={{
         borderRadius: 3,
         border: "1px solid #E5E7EB",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FFFDF5",
         p: { xs: 2.5, md: 4.5 },
       }}
     >
@@ -511,11 +511,11 @@ export default function DocumentsUploadForm({
                 label={`${totalCloudinaryDocs} on Cloudinary`}
                 sx={{
                   ml: 1,
-                  bgcolor: "rgba(15, 118, 110, 0.1)",
-                  color: "#0F766E",
+                  bgcolor: "rgba(255, 170, 0, 0.1)",
+                  color: "#CC8800",
                   fontWeight: 700,
                   borderRadius: 10,
-                  "& .MuiChip-icon": { color: "#0F766E" },
+                  "& .MuiChip-icon": { color: "#CC8800" },
                 }}
               />
             )}
@@ -529,8 +529,8 @@ export default function DocumentsUploadForm({
             fontWeight: 700,
             fontSize: "0.85rem",
             bgcolor: "rgba(212, 175, 55, 0.12)",
-            color: "#8C6A16",
-            "& .MuiChip-icon": { color: "#D4AF37" },
+            color: "#996600",
+            "& .MuiChip-icon": { color: "#FFAA00" },
             borderRadius: 10,
             px: 1,
           }}
@@ -547,7 +547,7 @@ export default function DocumentsUploadForm({
             bgcolor: "#F1F5F9",
             "& .MuiLinearProgress-bar": {
               borderRadius: 20,
-              background: "linear-gradient(90deg,#D4AF37,#E9C96A)",
+              background: "linear-gradient(90deg,#FFAA00,#E9C96A)",
             },
           }}
         />
@@ -597,7 +597,7 @@ export default function DocumentsUploadForm({
               sx={{
                 border: `1.5px solid ${err ? "#FECACA" : saved ? "rgba(212,175,55,0.45)" : "#E2E8F0"}`,
                 borderRadius: 3,
-                background: saved ? "#FFFEF4" : "#FFFFFF",
+                background: saved ? "#FFFEF4" : "#FFFDF5",
                 p: { xs: 2, md: 2.75 },
                 transition: "box-shadow 0.2s ease, transform 0.2s ease",
                 "&:hover": {
@@ -650,13 +650,13 @@ export default function DocumentsUploadForm({
                         icon={onCloudinary ? <CloudDoneIcon sx={{ fontSize: 15 }} /> : <CheckCircleIcon sx={{ fontSize: 15 }} />}
                         label={onCloudinary ? "Uploaded to Cloudinary" : "Uploaded"}
                         sx={{
-                          bgcolor: onCloudinary ? "rgba(15, 118, 110, 0.12)" : "rgba(212, 175, 55, 0.12)",
-                          color: onCloudinary ? "#0F766E" : "#047857",
+                          bgcolor: onCloudinary ? "rgba(255, 170, 0, 0.12)" : "rgba(212, 175, 55, 0.12)",
+                          color: onCloudinary ? "#CC8800" : "#CC8800",
                           fontWeight: 700,
                           fontSize: "0.72rem",
                           borderRadius: 10,
                           py: 0.4,
-                          "& .MuiChip-icon": { color: onCloudinary ? "#0F766E" : "#D4AF37" },
+                          "& .MuiChip-icon": { color: onCloudinary ? "#CC8800" : "#FFAA00" },
                         }}
                       />
                     )}
@@ -704,7 +704,7 @@ export default function DocumentsUploadForm({
                           width: 44,
                           height: 44,
                           borderRadius: 2,
-                          bgcolor: "#FFFFFF",
+                          bgcolor: "#FFFDF5",
                           border: "1px solid #E2E8F0",
                           display: "flex",
                           alignItems: "center",
@@ -775,14 +775,14 @@ export default function DocumentsUploadForm({
                           bgcolor: "#F1F5F9",
                           "& .MuiLinearProgress-bar": {
                             borderRadius: 20,
-                            bgcolor: "#D4AF37",
+                            bgcolor: "#FFAA00",
                           },
                         }}
                       />
                       <Typography
                         sx={{
                           mt: 0.5,
-                          color: "#8C6A16",
+                          color: "#996600",
                           fontSize: "0.76rem",
                           fontWeight: 600,
                         }}
@@ -830,16 +830,16 @@ export default function DocumentsUploadForm({
                     startIcon={isUploading ? <CloudUploadIcon /> : <UploadFileIcon />}
                     sx={{
                       minWidth: 140,
-                      bgcolor: saved ? "transparent" : "#D4AF37",
-                      color: saved ? "#8C6A16" : "#FFFFFF",
-                      borderColor: saved ? "#D4AF37" : "transparent",
+                      bgcolor: saved ? "transparent" : "#FFAA00",
+                      color: saved ? "#996600" : "#FFFFFF",
+                      borderColor: saved ? "#FFAA00" : "transparent",
                       borderRadius: 2,
                       textTransform: "none",
                       fontFamily: "var(--font-poppins)",
                       fontWeight: 700,
                       px: 2.25,
                       py: 1,
-                      boxShadow: saved ? "none" : "0 10px 24px rgba(212,175,55,0.28)",
+                      boxShadow: saved ? "none" : "0 10px 24px rgba(15, 23, 42, 0.12)",
                       "&:hover": {
                         bgcolor: saved ? "rgba(212,175,55,0.08)" : "#BFA02F",
                         borderColor: "#BFA02F",
@@ -882,7 +882,7 @@ export default function DocumentsUploadForm({
             fontWeight: 700,
             color: "#334155",
             borderColor: "#CBD5E1",
-            "&:hover": { borderColor: "#D4AF37", color: "#8C6A16" },
+            "&:hover": { borderColor: "#FFAA00", color: "#996600" },
           }}
         >
           Back
@@ -898,12 +898,12 @@ export default function DocumentsUploadForm({
             px: { xs: 2.5, sm: 3.5 },
             py: 1.25,
             borderRadius: 2.5,
-            bgcolor: "#D4AF37",
+            bgcolor: "#FFAA00",
             color: "#0F172A",
             fontWeight: 800,
             textTransform: "none",
             fontFamily: "var(--font-poppins)",
-            boxShadow: "0 14px 32px rgba(212, 175, 55, 0.32)",
+            boxShadow: "0 14px 32px rgba(15, 23, 42, 0.15)",
             "&:hover": { bgcolor: "#BFA02F" },
             "&:disabled": { bgcolor: "#F1F5F9", color: "#94A3B8", boxShadow: "none" },
           }}

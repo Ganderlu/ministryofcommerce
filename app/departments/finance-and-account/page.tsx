@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Finance & Account Department | Anambra State Ministry of Commerce",
   description:
     "The Finance & Account Department manages the Ministry's financial resources, ensuring fiscal responsibility and transparency.",
+  keywords: [
+    "Anambra State",
+    "Finance",
+    "Account Department",
+    "Ministry of Commerce",
+    "Budget Management",
+    "Fiscal Responsibility",
+    "Transparency",
+    "Financial Reporting",
+    "Accountability",
+    "Anambra State Finance",
+  ],
+  alternates: { canonical: "/departments/finance-and-account" },
+  openGraph: {
+    title: "Finance & Account Department | Anambra State Ministry of Commerce",
+    description:
+      "The Finance & Account Department manages the Ministry's financial resources, ensuring fiscal responsibility and transparency.",
+    type: "website",
+    url: "/departments/finance-and-account",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Finance & Account Department | Anambra State Ministry of Commerce",
+    description:
+      "The Finance & Account Department manages the Ministry's financial resources, ensuring fiscal responsibility and transparency.",
+  },
 };
 
 export default function FinanceAccountPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function FinanceAccountPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

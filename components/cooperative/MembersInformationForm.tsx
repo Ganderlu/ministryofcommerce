@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowBack, ArrowForward, Add as AddIcon, Delete as DeleteIcon, Person as PersonIcon, WarningAmber as WarningAmberIcon } from "@mui/icons-material";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useId } from "react";
 import type { CooperativeMember, CooperativeMemberRole } from "@/types";
 
 const MotionCard = motion(Card);
@@ -48,8 +48,11 @@ const EXECUTIVE_ROLES: CooperativeMemberRole[] = [
   "Ex-Officio",
 ];
 
-const createEmptyMember = (role: CooperativeMemberRole = "Member"): CooperativeMember => ({
-  id: Math.random().toString(36).slice(2) + Date.now().toString(36),
+const createEmptyMember = (
+  role: CooperativeMemberRole = "Member",
+  stableId?: string
+): CooperativeMember => ({
+  id: stableId ?? Math.random().toString(36).slice(2) + Date.now().toString(36),
   role,
   fullName: "",
   position: "",
@@ -78,13 +81,14 @@ export default function MembersInformationForm({
   onBack,
   saving = false,
 }: MembersInformationFormProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#CC8800";
+  const formUid = useId();
   const [members, setMembers] = useState<CooperativeMember[]>(() => {
     if (initialMembers && initialMembers.length > 0) return initialMembers;
     return [
-      createEmptyMember("Chairman"),
-      createEmptyMember("Secretary"),
-      createEmptyMember("Treasurer"),
+      createEmptyMember("Chairman", "default-chairman"),
+      createEmptyMember("Secretary", "default-secretary"),
+      createEmptyMember("Treasurer", "default-treasurer"),
     ];
   });
   const [errors, setErrors] = useState<Record<string, Partial<Record<keyof CooperativeMember, string>>>>({});
@@ -230,6 +234,32 @@ export default function MembersInformationForm({
     }
   };
 
+  const fieldId = (memberIdx: number, name: string) => `${formUid}-m${memberIdx}-${name}`;
+  const errorId = (memberIdx: number, name: string) => `${formUid}-m${memberIdx}-${name}-error`;
+
+  const fieldA11y = (
+    memberIdx: number,
+    field: keyof CooperativeMember,
+    required = false,
+    memberErrors: Partial<Record<keyof CooperativeMember, string>> | undefined = errors[memberIdx]
+  ) => {
+    const hasErr = Boolean(memberErrors?.[field]);
+    return {
+      id: fieldId(memberIdx, String(field)),
+      error: hasErr,
+      required,
+      "aria-invalid": hasErr || undefined,
+      "aria-required": required || undefined,
+      "aria-describedby": hasErr ? errorId(memberIdx, String(field)) : undefined,
+      FormHelperTextProps: hasErr
+        ? {
+            id: errorId(memberIdx, String(field)),
+            role: "alert" as const,
+          }
+        : undefined,
+    };
+  };
+
   const textFieldProps = useMemo(
     () => ({
       fullWidth: true,
@@ -322,6 +352,7 @@ export default function MembersInformationForm({
           {globalErrors && globalErrors.length > 0 && (
             <Alert
               id="members-validation-summary"
+              role="alert"
               severity="error"
               icon={<WarningAmberIcon />}
               sx={{
@@ -426,8 +457,8 @@ export default function MembersInformationForm({
                               fontSize: "0.76rem",
                               borderRadius: 10,
                               cursor: has ? "default" : "pointer",
-                              bgcolor: has ? "rgba(16,185,129,0.12)" : "rgba(220,38,38,0.06)",
-                              color: has ? "#047857" : "#B91C1C",
+                              bgcolor: has ? "rgba(255, 170, 0,0.12)" : "rgba(220,38,38,0.06)",
+                              color: has ? "#CC8800" : "#B91C1C",
                               border: `1px solid ${has ? "rgba(212,175,55,0.4)" : "rgba(220,38,38,0.25)"}`,
                               "&:hover": has ? {} : { bgcolor: "rgba(220,38,38,0.1)" },
                             }}
@@ -468,7 +499,7 @@ export default function MembersInformationForm({
                             cursor: "pointer",
                             border: isActive ? `2px solid ${primaryColor}` : "2px solid transparent",
                             bgcolor: isActive ? "#FFFEF2" : "white",
-                            boxShadow: isActive ? `0 4px 14px ${primaryColor}25` : "0 1px 3px rgba(0,0,0,0.05)",
+                            boxShadow: isActive ? "0 4px 14px rgba(15, 23, 42, 0.14)" : "0 1px 3px rgba(0,0,0,0.05)",
                             transition: "all 0.2s ease",
                             "&:hover": { bgcolor: isActive ? "#FFFEF2" : "#FAF7EA" },
                           }}
@@ -628,7 +659,7 @@ export default function MembersInformationForm({
                           bgcolor: primaryColor,
                           fontWeight: 800,
                           fontSize: "1.25rem",
-                          boxShadow: `0 6px 16px ${primaryColor}40`,
+                          boxShadow: "0 6px 16px rgba(15, 23, 42, 0.25)",
                         }}
                       >
                         {currentMember.fullName?.trim()
@@ -664,8 +695,8 @@ export default function MembersInformationForm({
                           label="Role *"
                           value={currentMember.role}
                           onChange={(e) => updateMember(activeMemberIndex, { role: e.target.value as CooperativeMemberRole })}
-                          error={!!errors[activeMemberIndex]?.role}
                           helperText={errors[activeMemberIndex]?.role}
+                          {...fieldA11y(activeMemberIndex, "role", true)}
                           {...textFieldProps}
                         >
                           {MEMBER_ROLES.map((r) => (
@@ -679,8 +710,8 @@ export default function MembersInformationForm({
                           placeholder="Surname Firstname Middlename"
                           value={currentMember.fullName}
                           onChange={(e) => updateMember(activeMemberIndex, { fullName: e.target.value })}
-                          error={!!errors[activeMemberIndex]?.fullName}
                           helperText={errors[activeMemberIndex]?.fullName}
+                          {...fieldA11y(activeMemberIndex, "fullName", true)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -691,8 +722,8 @@ export default function MembersInformationForm({
                           label="Gender *"
                           value={currentMember.gender}
                           onChange={(e) => updateMember(activeMemberIndex, { gender: e.target.value as any })}
-                          error={!!errors[activeMemberIndex]?.gender}
                           helperText={errors[activeMemberIndex]?.gender}
+                          {...fieldA11y(activeMemberIndex, "gender", true)}
                           {...textFieldProps}
                         >
                           <MenuItem value="Male">Male</MenuItem>
@@ -707,6 +738,7 @@ export default function MembersInformationForm({
                           InputLabelProps={{ shrink: true }}
                           value={currentMember.dateOfBirth || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { dateOfBirth: e.target.value })}
+                          {...fieldA11y(activeMemberIndex, "dateOfBirth", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -718,8 +750,8 @@ export default function MembersInformationForm({
                           placeholder="+234..."
                           value={currentMember.phoneNumber}
                           onChange={(e) => updateMember(activeMemberIndex, { phoneNumber: e.target.value })}
-                          error={!!errors[activeMemberIndex]?.phoneNumber}
                           helperText={errors[activeMemberIndex]?.phoneNumber}
+                          {...fieldA11y(activeMemberIndex, "phoneNumber", true)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -730,8 +762,8 @@ export default function MembersInformationForm({
                           placeholder="name@example.com"
                           value={currentMember.emailAddress}
                           onChange={(e) => updateMember(activeMemberIndex, { emailAddress: e.target.value })}
-                          error={!!errors[activeMemberIndex]?.emailAddress}
                           helperText={errors[activeMemberIndex]?.emailAddress}
+                          {...fieldA11y(activeMemberIndex, "emailAddress", true)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -742,8 +774,8 @@ export default function MembersInformationForm({
                           placeholder="House No, Street Name, City/Town"
                           value={currentMember.residentialAddress}
                           onChange={(e) => updateMember(activeMemberIndex, { residentialAddress: e.target.value })}
-                          error={!!errors[activeMemberIndex]?.residentialAddress}
                           helperText={errors[activeMemberIndex]?.residentialAddress}
+                          {...fieldA11y(activeMemberIndex, "residentialAddress", true)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -754,8 +786,8 @@ export default function MembersInformationForm({
                           placeholder="e.g. Farmer, Trader, Teacher"
                           value={currentMember.occupation}
                           onChange={(e) => updateMember(activeMemberIndex, { occupation: e.target.value })}
-                          error={!!errors[activeMemberIndex]?.occupation}
                           helperText={errors[activeMemberIndex]?.occupation}
+                          {...fieldA11y(activeMemberIndex, "occupation", true)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -765,6 +797,7 @@ export default function MembersInformationForm({
                           placeholder="e.g. Community leader, Marketing officer"
                           value={currentMember.position || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { position: e.target.value })}
+                          {...fieldA11y(activeMemberIndex, "position", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -778,6 +811,7 @@ export default function MembersInformationForm({
                           value={currentMember.bvn || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { bvn: e.target.value })}
                           inputProps={{ maxLength: 11 }}
+                          {...fieldA11y(activeMemberIndex, "bvn", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -788,6 +822,7 @@ export default function MembersInformationForm({
                           value={currentMember.nin || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { nin: e.target.value })}
                           inputProps={{ maxLength: 11 }}
+                          {...fieldA11y(activeMemberIndex, "nin", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -799,6 +834,7 @@ export default function MembersInformationForm({
                           placeholder="e.g. 100000"
                           value={currentMember.shareHolding || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { shareHolding: e.target.value })}
+                          {...fieldA11y(activeMemberIndex, "shareHolding", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -809,6 +845,7 @@ export default function MembersInformationForm({
                           placeholder="e.g. 3"
                           value={currentMember.yearsInCooperative || ""}
                           onChange={(e) => updateMember(activeMemberIndex, { yearsInCooperative: e.target.value })}
+                          {...fieldA11y(activeMemberIndex, "yearsInCooperative", false)}
                           {...textFieldProps}
                         />
                       </Grid>
@@ -868,11 +905,11 @@ export default function MembersInformationForm({
                   fontSize: "0.95rem",
                   borderRadius: 2,
                   fontFamily: "var(--font-poppins)",
-                  boxShadow: `0 6px 20px ${primaryColor}40`,
+                  boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                   "&:hover": {
                     backgroundColor: "#c49f2d",
                     transform: "translateY(-1.5px)",
-                    boxShadow: `0 8px 24px ${primaryColor}55`,
+                    boxShadow: "0 8px 24px rgba(15, 23, 42, 0.35)",
                   },
                   transition: "all 0.3s ease",
                   textTransform: "none",

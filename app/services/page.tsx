@@ -6,17 +6,35 @@ import { Box, Container, Typography } from "@mui/material";
 
 export const metadata: Metadata = {
   title: "Services | Anambra State Ministry of Commerce",
-  description: "Services page - Coming Soon",
+  description:
+    "Explore the services offered by the Anambra State Ministry of Commerce — business, SME, MSME and cooperative registration, export promotion, loans and grants, and permits and licensing.",
+  keywords:
+    "Anambra State, Ministry of Commerce, services, business registration, cooperative registration, MSME, SME, export promotion, loan grants, permit licensing",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services | Anambra State Ministry of Commerce",
+    description:
+      "Explore the services offered by the Anambra State Ministry of Commerce — registration, export promotion, financing and licensing.",
+    url: "/services",
+    siteName: "Anambra State Ministry of Commerce",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Services | Anambra State Ministry of Commerce",
+    description:
+      "Explore the services offered by the Anambra State Ministry of Commerce — registration, export promotion, financing and licensing.",
+  },
 };
 
 export default function ServicesPage() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
   
   return (
     <Box>
       <TopBar />
       <Navbar />
-      <Box sx={{ py: { xs: 16, md: 24 }, backgroundColor: "white" }}>
+      <Box sx={{ py: { xs: 16, md: 24 }, backgroundColor: "#FFFDF5" }}>
         <Container maxWidth="xl" sx={{ textAlign: "center" }}>
           <Typography
             variant="overline"

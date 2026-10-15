@@ -41,7 +41,7 @@ export default function DashboardCard({ item, index }: Props) {
       sx={{
         p: 2.2,
         borderRadius: "16px",
-        bgcolor: "white",
+        bgcolor: "#FFFDF5",
         border: "1px solid #E2E8F0",
         boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.05)",
         position: "relative",
@@ -112,8 +112,8 @@ export default function DashboardCard({ item, index }: Props) {
                 py: 0.25,
                 borderRadius: "999px",
                 bgcolor:
-                  item.changeDirection === "up" ? "rgba(22, 163, 74, 0.1)" : "rgba(220, 38, 38, 0.1)",
-                color: item.changeDirection === "up" ? "#16A34A" : "#DC2626",
+                  item.changeDirection === "up" ? "rgba(255, 170, 0, 0.1)" : "rgba(220, 38, 38, 0.1)",
+                color: item.changeDirection === "up" ? "#FFAA00" : "#DC2626",
               }}
             >
               {item.changeDirection === "up" ? (

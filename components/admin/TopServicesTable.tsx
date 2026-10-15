@@ -1,28 +1,23 @@
-"use client";
+﻿"use client";
 
 import React from "react";
-import { Typography, Box, Button, Avatar, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { Typography, Box, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import SectionCard from "@/components/ui/SectionCard";
-import {
-  ArrowUpward as ArrowUpIcon,
-  Business as BusinessIcon,
-  Diversity3 as Diversity3Icon,
-  VerifiedUser as VerifiedUserIcon,
-  Storefront as StorefrontIcon,
-} from "@mui/icons-material";
-import { topServices } from "@/data/seed";
 import { motion } from "framer-motion";
+import type { AdminDashboardData } from "@/lib/admin-data";
 
-const MotionTableRow = motion(TableRow);
+const MotionBox = motion(Box);
 
-const iconMap: Record<string, React.ComponentType<any>> = {
-  Business: BusinessIcon,
-  Diversity3: Diversity3Icon,
-  VerifiedUser: VerifiedUserIcon,
-  Storefront: StorefrontIcon,
-};
+interface TopServicesTableProps {
+  data: AdminDashboardData;
+}
 
-export default function TopServicesTable() {
+const ICON_COLORS = ["#FFAA00", "#1D4ED8", "#7C3AED", "#CC8800", "#CC8800"];
+
+export default function TopServicesTable({ data }: TopServicesTableProps) {
+  const services = data.topServices;
+  const maxCount = Math.max(1, ...services.map((s) => s.count));
+
   return (
     <SectionCard
       delay={0.22}
@@ -31,24 +26,8 @@ export default function TopServicesTable() {
           Top Services
         </Typography>
       }
-      action={
-        <Button
-          size="small"
-          sx={{
-            color: "#0B6B3A",
-            fontWeight: 700,
-            fontSize: 12,
-            textTransform: "none",
-            p: 0,
-            minWidth: 0,
-            "&:hover": { bgcolor: "transparent", textDecoration: "underline" },
-          }}
-        >
-          View All
-        </Button>
-      }
     >
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.24 }}>
+      <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.24 }}>
         <Table size="small" sx={{ minWidth: 0 }}>
           <TableHead>
             <TableRow sx={{ "& .MuiTableCell-head": { border: "none", p: 1.2, py: 0.8, pb: 1.5 } }}>
@@ -92,90 +71,73 @@ export default function TopServicesTable() {
                   borderBottomRightRadius: 10,
                 }}
               >
-                Trend
+                Share
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {topServices.map((row, idx) => {
-              const Icon = iconMap[row.icon] || BusinessIcon;
+            {services.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={3} sx={{ border: "none", p: 2, textAlign: "center", color: "#94A3B8", fontSize: 12 }}>
+                  No applications yet.
+                </TableCell>
+              </TableRow>
+            )}
+            {services.map((svc, idx) => {
+              const color = ICON_COLORS[idx % ICON_COLORS.length];
+              const pct = Math.round((svc.count / maxCount) * 100);
               return (
-                <MotionTableRow
-                  key={row.id}
-                  initial={{ opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.26 + idx * 0.05 }}
+                <TableRow
+                  key={svc.name}
                   sx={{
                     "&:last-child .MuiTableCell-body": { border: "none" },
                     transition: "all 0.18s",
-                    "&:hover": { bgcolor: "#FAFBFC" },
                   }}
                 >
-                    <TableCell sx={{ borderBottom: "1px solid #F1F5F9", p: 1.4, py: 1.6 }}>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1.3 }}>
-                        <Avatar
-                          sx={{
-                            width: 34,
-                            height: 34,
-                            bgcolor: `${row.color}15`,
-                            color: row.color,
-                            border: `1px solid ${row.color}25`,
-                          }}
-                        >
-                          <Icon sx={{ fontSize: 17 }} />
-                        </Avatar>
-                        <Typography
-                          sx={{
-                            fontSize: 13,
-                            fontWeight: 600,
-                            color: "#1E293B",
-                          }}
-                        >
-                          {row.serviceName}
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                    <TableCell
-                      align="center"
-                      sx={{
-                        borderBottom: "1px solid #F1F5F9",
-                        p: 1.4,
-                        py: 1.6,
-                        fontSize: 13,
-                        fontWeight: 700,
-                        color: "#084C2E",
-                      }}
-                    >
-                      {row.applications.toLocaleString()}
-                    </TableCell>
-                    <TableCell
-                      align="right"
-                      sx={{ borderBottom: "1px solid #F1F5F9", p: 1.4, py: 1.6 }}
-                    >
+                  <TableCell sx={{ borderBottom: "1px solid #F1F5F9", p: 1.4, py: 1.6 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.3 }}>
                       <Box
                         sx={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 0.4,
-                          px: 1,
-                          py: 0.3,
-                          borderRadius: "999px",
-                          bgcolor: "rgba(22, 163, 74, 0.1)",
-                          color: "#16A34A",
+                          width: 34,
+                          height: 34,
+                          borderRadius: "10px",
+                          bgcolor: `${color}12`,
+                          border: `1px solid ${color}30`,
                         }}
-                      >
-                        <ArrowUpIcon sx={{ fontSize: 12 }} />
-                        <Typography sx={{ fontSize: 11.5, fontWeight: 700 }}>
-                          {row.growth.toFixed(1)}%
-                        </Typography>
-                      </Box>
-                    </TableCell>
-                  </MotionTableRow>
+                      />
+                      <Typography sx={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
+                        {svc.name}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{ borderBottom: "1px solid #F1F5F9", p: 1.4, py: 1.6, fontSize: 13, fontWeight: 700, color: "#0F172A" }}
+                  >
+                    {svc.count}
+                  </TableCell>
+                  <TableCell align="right" sx={{ borderBottom: "1px solid #F1F5F9", p: 1.4, py: 1.6 }}>
+                    <Box
+                      sx={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 0.4,
+                        px: 1,
+                        py: 0.3,
+                        borderRadius: "999px",
+                        bgcolor: `${color}10`,
+                        color,
+                      }}
+                    >
+                      <Typography sx={{ fontSize: 11.5, fontWeight: 700 }}>{pct}%</Typography>
+                    </Box>
+                  </TableCell>
+                </TableRow>
               );
             })}
           </TableBody>
         </Table>
-      </motion.div>
+      </MotionBox>
     </SectionCard>
   );
 }

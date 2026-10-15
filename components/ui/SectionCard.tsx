@@ -40,7 +40,7 @@ export default function SectionCard({
         border: "1px solid #E2E8F0",
         boxShadow:
           "0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06)",
-        bgcolor: "white",
+        bgcolor: "#FFFDF5",
         overflow: "hidden",
         transition: "all 0.25s",
         "&:hover": {

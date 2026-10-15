@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Agribusiness Support Unit | Anambra State Ministry of Commerce",
   description:
     "The Agribusiness Support Unit promotes agricultural commerce, value addition, and agribusiness development in Anambra State.",
+  keywords: [
+    "Anambra State",
+    "Agribusiness",
+    "Agricultural Support",
+    "Ministry of Commerce",
+    "Value Addition",
+    "Agro Processing",
+    "Farmer Support",
+    "Anambra Agriculture",
+    "Agricultural Export",
+    "Agribusiness Investment",
+  ],
+  alternates: { canonical: "/units/agribusiness-support" },
+  openGraph: {
+    title: "Agribusiness Support Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Agribusiness Support Unit promotes agricultural commerce, value addition, and agribusiness development in Anambra State.",
+    type: "website",
+    url: "/units/agribusiness-support",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Agribusiness Support Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Agribusiness Support Unit promotes agricultural commerce, value addition, and agribusiness development in Anambra State.",
+  },
 };
 
 export default function AgribusinessSupportPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function AgribusinessSupportPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

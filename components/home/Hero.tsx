@@ -36,8 +36,9 @@ export default function Hero() {
         >
           <Image
             src={images[currentImageIndex]}
-            alt="Anambra State"
+            alt="Anambra State Government House — Governor's Executive Briefing"
             fill
+            sizes="100vw"
             style={{ objectFit: "cover", objectPosition: "center" }}
             priority
           />

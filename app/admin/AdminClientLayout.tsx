@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Box } from "@mui/material";
@@ -6,14 +6,15 @@ import { ThemeProvider, createTheme, alpha as alphaFn, lighten as lightenFn, dar
 import CssBaseline from "@mui/material/CssBaseline";
 import AdminSidebar from "@/components/admin/Sidebar";
 import AdminHeader from "@/components/admin/Header";
+import type { AdminIdentity } from "./(dashboard)/layout";
 
 const baseTheme = createTheme({
   palette: {
     mode: "light",
-    primary: { main: "#D4AF37" },
-    secondary: { main: "#D4AF37" },
-    success: { main: "#16A34A" },
-    warning: { main: "#F59E0B" },
+    primary: { main: "#FFAA00" },
+    secondary: { main: "#FFAA00" },
+    success: { main: "#FFAA00" },
+    warning: { main: "#FFAA00" },
     error: { main: "#DC2626" },
     info: { main: "#3B82F6" },
   },
@@ -63,7 +64,13 @@ const theme = {
   darken: darkenFn,
 } as typeof baseTheme & ColorFns;
 
-export default function AdminClientLayout({ children }: { children: React.ReactNode }) {
+export default function AdminClientLayout({
+  children,
+  admin,
+}: {
+  children: React.ReactNode;
+  admin?: AdminIdentity;
+}) {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
@@ -79,7 +86,7 @@ export default function AdminClientLayout({ children }: { children: React.ReactN
       >
         <AdminSidebar collapsed={collapsed} />
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column", minWidth: 0 }}>
-          <AdminHeader onSidebarToggle={() => setCollapsed((c) => !c)} />
+          <AdminHeader onSidebarToggle={() => setCollapsed((c) => !c)} admin={admin} />
           <Box
             component="main"
             sx={{

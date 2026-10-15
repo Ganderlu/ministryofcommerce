@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     "Get in touch with the Anambra State Ministry of Commerce for enquiries, feedback, partnerships, or assistance. We are here to help businesses, investors, and citizens.",
   keywords:
     "Anambra, Ministry of Commerce, contact, enquiry, partnership, support",
+  alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact Us | Anambra State Ministry of Commerce",
     description:
@@ -24,19 +25,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Contact Us | Anambra State Ministry of Commerce",
     description:
-      "Get in touch with the Anambraa State Ministry of Commerce for enquiries, feedback, partnerships, or assistance.",
+      "Get in touch with the Anambra State Ministry of Commerce for enquiries, feedback, partnerships, or assistance.",
   },
 };
 
 export default function ContactPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <ContactHero />
       <ContactCards />
       <SupportSection />
       <Footer />
-    </main>
+    </>
   );
 }

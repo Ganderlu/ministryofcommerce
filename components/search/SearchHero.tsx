@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Container, Typography, Breadcrumbs, Link } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -64,13 +64,13 @@ export default function SearchHero() {
                   display: "flex",
                   alignItems: "center",
                   gap: 0.5,
-                  "&:hover": { color: "#D4AF37" },
+                  "&:hover": { color: "#FFAA00" },
                 }}
               >
                 <Home fontSize="small" />
                 Home
               </Link>
-              <Typography sx={{ color: "#D4AF37", fontWeight: 600 }}>
+              <Typography sx={{ color: "#FFAA00", fontWeight: 600 }}>
                 Search
               </Typography>
             </Breadcrumbs>

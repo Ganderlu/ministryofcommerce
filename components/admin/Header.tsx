@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   AppBar,
   Toolbar,
@@ -35,6 +36,7 @@ import {
   Security as SecurityIcon,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
+import type { AdminIdentity } from "@/app/admin/(dashboard)/layout";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -79,7 +81,7 @@ const ShortcutChip = styled("div")(() => ({
   marginRight: 10,
   border: "1px solid #CBD5E1",
   borderRadius: 6,
-  backgroundColor: "white",
+  backgroundColor: "#FFFDF5",
   fontSize: 11,
   fontFamily: "inherit",
   color: "#64748B",
@@ -89,18 +91,46 @@ const ShortcutChip = styled("div")(() => ({
 
 interface AdminHeaderProps {
   onSidebarToggle?: () => void;
+  admin?: AdminIdentity;
 }
 
-export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
+function getInitials(name: string | null, email: string | null): string {
+  if (name && name.trim()) {
+    const parts = name.trim().split(/\s+/);
+    return (parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "");
+  }
+  if (email) {
+    return email.slice(0, 2).toUpperCase();
+  }
+  return "AU";
+}
+
+export default function AdminHeader({ onSidebarToggle, admin }: AdminHeaderProps) {
+  const router = useRouter();
   const [profileAnchor, setProfileAnchor] = useState<HTMLButtonElement | null>(null);
+  const [loggingOut, setLoggingOut] = useState(false);
 
   const openProfile = Boolean(profileAnchor);
+  const displayName = admin?.displayName || admin?.email || "Admin User";
+  const initials = getInitials(admin?.displayName ?? null, admin?.email ?? null);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // ignore network errors; still redirect
+    } finally {
+      router.push("/admin/login");
+      router.refresh();
+    }
+  };
 
   return (
     <AppBar
       position="sticky"
       sx={{
-        bgcolor: "white",
+        bgcolor: "#FFFDF5",
         color: "#1E293B",
         boxShadow: "0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04)",
         borderBottom: "1px solid #E2E8F0",
@@ -150,7 +180,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
               color: "#475569",
               borderRadius: "10px",
               border: "1px solid #E2E8F0",
-              bgcolor: "white",
+              bgcolor: "#FFFDF5",
               p: 1.2,
               "&:hover": { bgcolor: "#F8FAFC" },
             }}
@@ -169,7 +199,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
               color: "#475569",
               borderRadius: "10px",
               border: "1px solid #E2E8F0",
-              bgcolor: "white",
+              bgcolor: "#FFFDF5",
               p: 1.2,
               ml: 0.5,
               "&:hover": { bgcolor: "#F8FAFC" },
@@ -185,7 +215,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
                   px: 0.5,
                   right: 4,
                   top: 4,
-                  bgcolor: "#D4AF37",
+                  bgcolor: "#FFAA00",
                   color: "white",
                 },
               }}
@@ -207,13 +237,13 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
             py: 1.1,
             borderRadius: "10px",
             border: "1px solid #E2E8F0",
-            bgcolor: "white",
+            bgcolor: "#FFFDF5",
             cursor: "pointer",
             transition: "all 0.15s",
             "&:hover": { bgcolor: "#F8FAFC" },
           }}
         >
-          <DateRangeIcon sx={{ color: "#D4AF37", fontSize: 18 }} />
+          <DateRangeIcon sx={{ color: "#FFAA00", fontSize: 18 }} />
           <Typography sx={{ fontSize: 13, fontWeight: 600, color: "#1E293B" }}>
             May 24, 2025
           </Typography>
@@ -226,7 +256,7 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
           startIcon={<DownloadIcon sx={{ fontSize: 17 }} />}
           sx={{
             ml: 1.5,
-            bgcolor: "#D4AF37",
+            bgcolor: "#FFAA00",
             color: "white",
             borderRadius: "10px",
             px: 2,
@@ -234,10 +264,10 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
             textTransform: "none",
             fontSize: 13,
             fontWeight: 600,
-            boxShadow: "0 2px 6px rgba(11, 107, 58, 0.3)",
+            boxShadow: "0 2px 6px rgba(255, 170, 0, 0.3)",
             "&:hover": {
-              bgcolor: "#084C2E",
-              boxShadow: "0 4px 12px rgba(11, 107, 58, 0.45)",
+              bgcolor: "#CC8800",
+              boxShadow: "0 4px 12px rgba(255, 170, 0, 0.45)",
             },
           }}
         >
@@ -268,21 +298,21 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
             sx={{
               width: 38,
               height: 38,
-              bgcolor: "#D4AF37",
-              color: "#084C2E",
+              bgcolor: "#FFAA00",
+              color: "#CC8800",
               fontWeight: 700,
               fontSize: 14,
-              border: "2px solid rgba(11, 107, 58, 0.15)",
+              border: "2px solid rgba(255, 170, 0, 0.15)",
             }}
           >
-            AU
+            {initials}
           </Avatar>
           <Box sx={{ display: { xs: "none", md: "block" }, textAlign: "left" }}>
             <Typography sx={{ fontSize: 13, fontWeight: 700, color: "#1E293B", lineHeight: 1.1 }}>
-              Admin User
+              {displayName}
             </Typography>
             <Typography sx={{ fontSize: 11, color: "#64748B", fontWeight: 500 }}>
-              Super Administrator
+              Administrator
             </Typography>
           </Box>
           <KeyboardArrowDownIcon sx={{ color: "#94A3B8", fontSize: 18 }} />
@@ -298,10 +328,12 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
         >
           <Box sx={{ p: 2, width: 260 }}>
             <Box sx={{ display: "flex", gap: 1.5, mb: 2 }}>
-              <Avatar sx={{ width: 48, height: 48, bgcolor: "#D4AF37", color: "#084C2E", fontWeight: 700 }}>AU</Avatar>
+              <Avatar sx={{ width: 48, height: 48, bgcolor: "#FFAA00", color: "#CC8800", fontWeight: 700 }}>{initials}</Avatar>
               <Box>
-                <Typography sx={{ fontWeight: 700, fontSize: 14, color: "#1E293B" }}>Admin User</Typography>
-                <Typography sx={{ fontSize: 12, color: "#64748B" }}>Super Administrator</Typography>
+                <Typography sx={{ fontWeight: 700, fontSize: 14, color: "#1E293B" }}>{displayName}</Typography>
+                <Typography sx={{ fontSize: 12, color: "#64748B" }}>
+                  {admin?.email ?? "Administrator"}
+                </Typography>
                 <Chip
                   size="small" label="Online" color="success" variant="outlined" sx={{ mt: 0.6, height: 20, fontSize: 10.5, fontWeight: 600 }}
                 />
@@ -326,11 +358,18 @@ export default function AdminHeader({ onSidebarToggle }: AdminHeaderProps) {
             </List>
             <Divider sx={{ my: 1 }} />
             <ListItem disablePadding>
-              <ListItemButton sx={{ borderRadius: "10px", color: "#DC2626" }}>
+              <ListItemButton
+                sx={{ borderRadius: "10px", color: "#DC2626" }}
+                onClick={handleLogout}
+                disabled={loggingOut}
+              >
                 <ListItemIcon sx={{ minWidth: 36, color: "inherit" }}>
                   <LogoutIcon sx={{ fontSize: 18 }} />
                 </ListItemIcon>
-                <ListItemText primary="Sign Out" primaryTypographyProps={{ fontSize: 13, fontWeight: 600 }} />
+                <ListItemText
+                  primary={loggingOut ? "Signing out…" : "Sign Out"}
+                  primaryTypographyProps={{ fontSize: 13, fontWeight: 600 }}
+                />
               </ListItemButton>
             </ListItem>
           </Box>

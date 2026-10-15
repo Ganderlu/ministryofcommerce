@@ -18,9 +18,9 @@ const statusConfig: Record<
   }
 > = {
   Approved: {
-    bgcolor: "rgba(22, 163, 74, 0.10)",
-    color: "#16A34A",
-    border: "rgba(22, 163, 74, 0.25)",
+    bgcolor: "rgba(255, 170, 0, 0.10)",
+    color: "#FFAA00",
+    border: "rgba(255, 170, 0, 0.25)",
   },
   "Under Review": {
     bgcolor: "rgba(59, 130, 246, 0.10)",
@@ -29,7 +29,7 @@ const statusConfig: Record<
   },
   Pending: {
     bgcolor: "rgba(245, 158, 11, 0.10)",
-    color: "#F59E0B",
+    color: "#FFAA00",
     border: "rgba(245, 158, 11, 0.25)",
   },
   Rejected: {

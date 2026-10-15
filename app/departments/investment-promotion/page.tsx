@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Investment Promotion Department | Anambra State Ministry of Commerce",
   description:
     "The Investment Promotion Department attracts, facilitates, and retains investments in Anambra State, driving economic growth and job creation.",
+  keywords: [
+    "Anambra State",
+    "Investment Promotion",
+    "Ministry of Commerce",
+    "Investment Destination",
+    "Foreign Direct Investment",
+    "FDI",
+    "Investor Support",
+    "Ease of Doing Business",
+    "Anambra Investment",
+    "Economic Growth",
+  ],
+  alternates: { canonical: "/departments/investment-promotion" },
+  openGraph: {
+    title: "Investment Promotion Department | Anambra State Ministry of Commerce",
+    description:
+      "The Investment Promotion Department attracts, facilitates, and retains investments in Anambra State, driving economic growth and job creation.",
+    type: "website",
+    url: "/departments/investment-promotion",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Investment Promotion Department | Anambra State Ministry of Commerce",
+    description:
+      "The Investment Promotion Department attracts, facilitates, and retains investments in Anambra State, driving economic growth and job creation.",
+  },
 };
 
 export default function InvestmentPromotionPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function InvestmentPromotionPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

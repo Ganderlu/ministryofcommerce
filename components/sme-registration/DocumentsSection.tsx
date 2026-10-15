@@ -23,10 +23,10 @@ const iconMap: { [key: string]: SvgIconComponent } = {
 };
 
 export default function RequiredDocuments() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
-    <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "white" }}>
+    <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <SectionTitle
           overline="REQUIRED DOCUMENTS"
@@ -54,7 +54,7 @@ export default function RequiredDocuments() {
                     transition: "all 0.3s ease",
                     "&:hover": {
                       borderColor: `${primaryColor}40`,
-                      boxShadow: `0 8px 24px ${primaryColor}15`,
+                      boxShadow: "0 8px 24px rgba(15, 23, 42, 0.08)",
                     },
                     "&::before": {
                       content: '""',

@@ -1,5 +1,5 @@
-"use client";
-import { useMemo, useState } from "react";
+﻿"use client";
+import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Card,
@@ -67,12 +67,23 @@ export default function ReviewSubmission({
   onSubmit,
   submitting,
 }: ReviewSubmissionProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   const [declaration, setDeclaration] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
   const [certification, setCertification] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string>("");
+  const [todayText, setTodayText] = useState<string>("");
+  useEffect(() => {
+    setTodayText(
+      new Date().toLocaleDateString("en-NG", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+  }, []);
 
   const businessInformation = useMemo<
     SMERegistrationFormData | Record<string, unknown>
@@ -278,7 +289,7 @@ export default function ReviewSubmission({
                     <CheckCircleIcon sx={{ color: primaryColor, fontSize: "1.05rem" }} />
                   )}
                   {row.status === "warning" && (
-                    <WarningAmberIcon sx={{ color: "#F59E0B", fontSize: "1.05rem" }} />
+                    <WarningAmberIcon sx={{ color: "#FFAA00", fontSize: "1.05rem" }} />
                   )}
                   <Typography
                     sx={{
@@ -494,7 +505,7 @@ export default function ReviewSubmission({
                                 bgcolor: primaryColor,
                                 fontWeight: 800,
                                 fontSize: "0.85rem",
-                                boxShadow: `0 4px 12px ${primaryColor}30`,
+                                boxShadow: "0 4px 12px rgba(15, 23, 42, 0.18)",
                               }}
                             >
                               {m.fullName?.trim()
@@ -632,13 +643,13 @@ export default function ReviewSubmission({
                     bgcolor: allRequiredDocsOnCloudinary
                       ? `${primaryColor}1A`
                       : "rgba(245, 158, 11, 0.12)",
-                    color: allRequiredDocsOnCloudinary ? primaryColor : "#B45309",
+                    color: allRequiredDocsOnCloudinary ? primaryColor : "#CC8800",
                     fontWeight: 700,
                     fontSize: "0.72rem",
                     borderRadius: 10,
                     py: 0.3,
                     "& .MuiChip-icon": {
-                      color: allRequiredDocsOnCloudinary ? primaryColor : "#D97706",
+                      color: allRequiredDocsOnCloudinary ? primaryColor : "#E69500",
                     },
                   }}
                 />
@@ -696,7 +707,7 @@ export default function ReviewSubmission({
                               height: 36,
                               borderRadius: 1.75,
                               bgcolor: isOnCloudinary ? `${primaryColor}1A` : "#FFF7E6",
-                              color: isOnCloudinary ? primaryColor : "#B45309",
+                              color: isOnCloudinary ? primaryColor : "#CC8800",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -944,12 +955,7 @@ export default function ReviewSubmission({
                     fontFamily: "var(--font-poppins)",
                   }}
                 >
-                  {new Date().toLocaleDateString("en-NG", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
+                  {todayText}
                 </Typography>
               </Box>
             </Stack>
@@ -1031,11 +1037,11 @@ export default function ReviewSubmission({
               fontSize: "0.95rem",
               borderRadius: 2,
               fontFamily: "var(--font-poppins)",
-              boxShadow: canSubmit ? `0 6px 20px ${primaryColor}40` : "none",
+              boxShadow: canSubmit ? "0 6px 20px rgba(15, 23, 42, 0.25)" : "none",
               "&:hover": {
-                backgroundColor: canSubmit ? "#B8941F" : "#CBD5E1",
+                backgroundColor: canSubmit ? "#CC8800" : "#CBD5E1",
                 transform: canSubmit ? "translateY(-2px)" : "none",
-                boxShadow: canSubmit ? `0 8px 24px ${primaryColor}50` : "none",
+                boxShadow: canSubmit ? "0 8px 24px rgba(15, 23, 42, 0.32)" : "none",
               },
               transition: "all 0.3s ease",
               textTransform: "none",
@@ -1051,7 +1057,7 @@ export default function ReviewSubmission({
 }
 
 function OwnerDirectorDetails({ person }: { person: SMEOwnerDirector }) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   const rows: { label: string; value: string }[] = [
     { label: "Position", value: person.position || "—" },
     { label: "Full Name", value: person.fullName || "—" },

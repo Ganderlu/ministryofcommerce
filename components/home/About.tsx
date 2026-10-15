@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Container, Grid, Typography, Button } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -20,7 +20,7 @@ const galleryImages = [
 ];
 
 export default function About() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box sx={{ py: 12, position: "relative", overflow: "hidden" }}>
@@ -68,17 +68,11 @@ export default function About() {
                     <Box sx={{ position: "relative", height: 140 }}>
                       <Image
                         src={img}
-                        alt={`Gallery image ${idx + 1}`}
+                        alt={`Ministry of Commerce — gallery item ${idx + 1}`}
                         fill
+                        sizes="(max-width: 767px) 33vw, 20vw"
                         style={{ objectFit: "cover" }}
-                      />
-                      {/* Faded yellow overlay on gallery images */}
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          inset: 0,
-                          backgroundColor: "rgba(212, 175, 55, 0.15)"
-                        }}
+                        loading={idx < 3 ? "eager" : "lazy"}
                       />
                     </Box>
                   </Grid>

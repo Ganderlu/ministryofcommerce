@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Card,
@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward, ArrowBack, CheckCircleOutline } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -166,7 +166,8 @@ export default function BusinessInformationForm({
   saving,
   onBack,
 }: BusinessInformationFormProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#CC8800";
+  const formUid = useId();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [existingDocId, setExistingDocId] = useState<string | null>(null);
   const [snackbar, setSnackbar] = useState<{
@@ -262,6 +263,30 @@ export default function BusinessInformationForm({
       setIsSubmitting(false);
       onSaveAndContinue(data);
     }, 400);
+  };
+
+  const fieldId = (name: string) => `${formUid}-${name}`;
+  const errorId = (name: string) => `${formUid}-${name}-error`;
+
+  const fieldAccessibilityProps = (
+    field: keyof MSMERegistrationFormData,
+    required = false
+  ) => {
+    const hasErr = Boolean(errors[field]);
+    return {
+      id: fieldId(String(field)),
+      error: hasErr,
+      required,
+      "aria-invalid": hasErr || undefined,
+      "aria-required": required || undefined,
+      "aria-describedby": hasErr ? errorId(String(field)) : undefined,
+      FormHelperTextProps: hasErr
+        ? {
+            id: errorId(String(field)),
+            role: "alert" as const,
+          }
+        : undefined,
+    };
   };
 
   const textFieldSx = {
@@ -360,8 +385,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="Business Name *"
                       placeholder="Enter your business name"
-                      error={!!errors.businessName}
                       helperText={errors.businessName?.message}
+                      {...fieldAccessibilityProps("businessName", true)}
                       sx={textFieldSx}
                     />
                   )}
@@ -378,8 +403,8 @@ export default function BusinessInformationForm({
                       select
                       label="Business Type *"
                       placeholder="Select business type"
-                      error={!!errors.businessType}
                       helperText={errors.businessType?.message}
+                      {...fieldAccessibilityProps("businessType", true)}
                       sx={textFieldSx}
                     >
                       {smeBusinessTypes.map((t) => (
@@ -403,8 +428,8 @@ export default function BusinessInformationForm({
                       select
                       label="Business Category *"
                       placeholder="Select category"
-                      error={!!errors.businessCategory}
                       helperText={errors.businessCategory?.message}
+                      {...fieldAccessibilityProps("businessCategory", true)}
                       sx={textFieldSx}
                     >
                       {smeBusinessCategories.map((c) => (
@@ -427,8 +452,8 @@ export default function BusinessInformationForm({
                       select
                       label="Nature of Business *"
                       placeholder="Select nature of business"
-                      error={!!errors.natureOfBusiness}
                       helperText={errors.natureOfBusiness?.message}
+                      {...fieldAccessibilityProps("natureOfBusiness", true)}
                       sx={textFieldSx}
                     >
                       {smeBusinessNatures.map((n) => (
@@ -451,8 +476,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="CAC Registration Number (If registered)"
                       placeholder="Enter CAC registration number"
-                      error={!!errors.cacRegistrationNumber}
                       helperText={errors.cacRegistrationNumber?.message}
+                      {...fieldAccessibilityProps("cacRegistrationNumber", false)}
                       sx={{ ...textFieldSx, mb: 2.5 }}
                     />
                   )}
@@ -468,9 +493,9 @@ export default function BusinessInformationForm({
                       fullWidth
                       type="date"
                       label="Date of Incorporation / Commencement *"
-                      error={!!errors.dateOfCommencement}
                       helperText={errors.dateOfCommencement?.message}
                       InputLabelProps={{ shrink: true }}
+                      {...fieldAccessibilityProps("dateOfCommencement", true)}
                       sx={{ ...textFieldSx, mb: 2.5 }}
                     />
                   )}
@@ -488,8 +513,8 @@ export default function BusinessInformationForm({
                       select
                       label="Business Structure *"
                       placeholder="Select structure"
-                      error={!!errors.businessStructure}
                       helperText={errors.businessStructure?.message}
+                      {...fieldAccessibilityProps("businessStructure", true)}
                       sx={textFieldSx}
                     >
                       {smeBusinessStructures.map((s) => (
@@ -512,8 +537,8 @@ export default function BusinessInformationForm({
                       select
                       label="Number of Employees *"
                       placeholder="Select range"
-                      error={!!errors.numberOfEmployees}
                       helperText={errors.numberOfEmployees?.message}
+                      {...fieldAccessibilityProps("numberOfEmployees", true)}
                       sx={textFieldSx}
                     >
                       {numberOfEmployees.map((n) => (
@@ -537,8 +562,8 @@ export default function BusinessInformationForm({
                       select
                       label="Annual Turnover Range *"
                       placeholder="Select range"
-                      error={!!errors.annualTurnoverRange}
                       helperText={errors.annualTurnoverRange?.message}
+                      {...fieldAccessibilityProps("annualTurnoverRange", true)}
                       sx={textFieldSx}
                     >
                       {annualTurnover.map((a) => (
@@ -560,8 +585,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="Business Address *"
                       placeholder="Enter full street address"
-                      error={!!errors.businessAddress}
                       helperText={errors.businessAddress?.message}
+                      {...fieldAccessibilityProps("businessAddress", true)}
                       sx={{ ...textFieldSx, mb: 2.5 }}
                     />
                   )}
@@ -579,8 +604,8 @@ export default function BusinessInformationForm({
                       select
                       label="Local Government Area *"
                       placeholder="Select LGA"
-                      error={!!errors.localGovernmentArea}
                       helperText={errors.localGovernmentArea?.message}
+                      {...fieldAccessibilityProps("localGovernmentArea", true)}
                       sx={textFieldSx}
                     >
                       {lgas.map((lga) => (
@@ -602,8 +627,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="Community / Town *"
                       placeholder="Enter community or town"
-                      error={!!errors.community}
                       helperText={errors.community?.message}
+                      {...fieldAccessibilityProps("community", true)}
                       sx={textFieldSx}
                     />
                   )}
@@ -620,8 +645,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       select
                       label="State *"
-                      error={!!errors.state}
                       helperText={errors.state?.message}
+                      {...fieldAccessibilityProps("state", true)}
                       sx={textFieldSx}
                     >
                       {nigerianStates.map((s) => (
@@ -643,8 +668,8 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="Postal Code *"
                       placeholder="Enter postal code"
-                      error={!!errors.postalCode}
                       helperText={errors.postalCode?.message}
+                      {...fieldAccessibilityProps("postalCode", true)}
                       sx={textFieldSx}
                     />
                   )}
@@ -662,8 +687,8 @@ export default function BusinessInformationForm({
                       type="email"
                       label="Email Address *"
                       placeholder="Enter email address"
-                      error={!!errors.email}
                       helperText={errors.email?.message}
+                      {...fieldAccessibilityProps("email", true)}
                       sx={textFieldSx}
                     />
                   )}
@@ -680,8 +705,8 @@ export default function BusinessInformationForm({
                       type="tel"
                       label="Phone Number *"
                       placeholder="Enter phone number"
-                      error={!!errors.phoneNumber}
                       helperText={errors.phoneNumber?.message}
+                      {...fieldAccessibilityProps("phoneNumber", true)}
                       sx={textFieldSx}
                     />
                   )}
@@ -699,8 +724,8 @@ export default function BusinessInformationForm({
                       type="tel"
                       label="Alternative Phone Number"
                       placeholder="Enter alternative phone number"
-                      error={!!errors.alternativePhone}
                       helperText={errors.alternativePhone?.message}
+                      {...fieldAccessibilityProps("alternativePhone", false)}
                       sx={textFieldSx}
                     />
                   )}
@@ -716,6 +741,7 @@ export default function BusinessInformationForm({
                       fullWidth
                       label="Website"
                       placeholder="Enter website URL"
+                      {...fieldAccessibilityProps("website", false)}
                       sx={textFieldSx}
                     />
                   )}
@@ -733,11 +759,11 @@ export default function BusinessInformationForm({
                         fullWidth
                         label="Brief Description of Your Business *"
                         placeholder="Tell us about your business, products or services"
-                        error={!!errors.businessDescription}
                         helperText={errors.businessDescription?.message}
                         multiline
                         rows={5}
                         inputProps={{ maxLength: MAX_DESCRIPTION_LENGTH }}
+                        {...fieldAccessibilityProps("businessDescription", true)}
                         sx={textFieldSx}
                       />
                     )}
@@ -805,11 +831,11 @@ export default function BusinessInformationForm({
                   fontSize: "0.95rem",
                   borderRadius: 2,
                   fontFamily: "var(--font-poppins)",
-                  boxShadow: `0 6px 20px ${primaryColor}40`,
+                  boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                   "&:hover": {
-                    backgroundColor: "#B8941F",
+                    backgroundColor: "#CC8800",
                     transform: "translateY(-2px)",
-                    boxShadow: `0 8px 24px ${primaryColor}50`,
+                    boxShadow: "0 8px 24px rgba(15, 23, 42, 0.32)",
                   },
                   "&:disabled": {
                     backgroundColor: `${primaryColor}90`,

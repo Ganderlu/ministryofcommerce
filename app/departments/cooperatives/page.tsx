@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Cooperatives Department | Anambra State Ministry of Commerce",
   description:
     "The Cooperatives Department supports and regulates cooperative societies across Anambra State, promoting collective enterprise and economic empowerment.",
+  keywords: [
+    "Anambra State",
+    "Cooperatives Department",
+    "Cooperative Society",
+    "Ministry of Commerce",
+    "Cooperative Registration",
+    "Collective Enterprise",
+    "Economic Empowerment",
+    "Anambra Cooperatives",
+    "Farmer Cooperatives",
+    "Cooperative Development",
+  ],
+  alternates: { canonical: "/departments/cooperatives" },
+  openGraph: {
+    title: "Cooperatives Department | Anambra State Ministry of Commerce",
+    description:
+      "The Cooperatives Department supports and regulates cooperative societies across Anambra State, promoting collective enterprise and economic empowerment.",
+    type: "website",
+    url: "/departments/cooperatives",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cooperatives Department | Anambra State Ministry of Commerce",
+    description:
+      "The Cooperatives Department supports and regulates cooperative societies across Anambra State, promoting collective enterprise and economic empowerment.",
+  },
 };
 
 export default function CooperativesPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function CooperativesPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

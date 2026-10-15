@@ -7,6 +7,59 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    function isOwnerOrAdmin(ownerUid) {
+      return isAdmin() || (isSignedIn() && request.auth.uid == ownerUid);
+    }
+
+    function registrationReadableByCurrentUser() {
+      if (isAdmin()) {
+        return true;
+      }
+      if (isSignedIn() && resource.data.ownerUid is string && request.auth.uid == resource.data.ownerUid) {
+        return true;
+      }
+      if (resource.data.sessionToken is string && resource.data.sessionToken.size() > 16) {
+        if (request.auth != null && request.auth.token.sessionToken == resource.data.sessionToken) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function registrationWritableByCurrentUser() {
+      if (isAdmin()) {
+        return true;
+      }
+      if (resource.data.status == 'submitted') {
+        return false;
+      }
+      if (isSignedIn() && resource.data.ownerUid is string && request.auth.uid == resource.data.ownerUid) {
+        return true;
+      }
+      return false;
+    }
+
+    function setOwnerUidAllowed() {
+      if (isAdmin()) return true;
+      if (request.resource.data.ownerUid is string) {
+        if (request.auth != null && request.auth.uid == request.resource.data.ownerUid) return true;
+        if (request.resource.data.ownerUid == '') return true;
+      }
+      if (!(('ownerUid' in request.resource.data))) return true;
+      return false;
+    }
+
+    function setSessionTokenAllowed() {
+      if (!('sessionToken' in request.resource.data)) return true;
+      if (isAdmin()) return true;
+      if (!(resource.data.sessionToken is string)) return true;
+      return resource.data.sessionToken == request.resource.data.sessionToken;
+    }
+
     function isValidEmail(email) {
       return email is string && email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
     }
@@ -15,22 +68,27 @@ service cloud.firestore {
       return status is string && (status == 'draft' || status == 'submitted');
     }
 
+    function statusTransitionAllowed(oldStatus, newStatus) {
+      return newStatus == 'draft' || (oldStatus == 'draft' && newStatus == 'submitted');
+    }
+
     match /msme_registrations/{docId} {
       allow create: if
         isValidStatus(request.resource.data.status) &&
-        request.resource.data.status == 'draft';
+        request.resource.data.status == 'draft' &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed();
 
-      allow get: if
-        (true) || isSignedIn();
+      allow get: if registrationReadableByCurrentUser();
 
-      allow list: if isSignedIn();
+      allow list: if isAdmin();
 
       allow update: if
         isValidStatus(request.resource.data.status) &&
-        (
-          request.resource.data.status == 'draft' ||
-          request.resource.data.status == 'submitted'
-        );
+        statusTransitionAllowed(resource.data.status, request.resource.data.status) &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed() &&
+        registrationWritableByCurrentUser();
 
       allow delete: if false;
     }
@@ -38,19 +96,20 @@ service cloud.firestore {
     match /sme_registrations/{docId} {
       allow create: if
         isValidStatus(request.resource.data.status) &&
-        request.resource.data.status == 'draft';
+        request.resource.data.status == 'draft' &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed();
 
-      allow get: if
-        (true) || isSignedIn();
+      allow get: if registrationReadableByCurrentUser();
 
-      allow list: if isSignedIn();
+      allow list: if isAdmin();
 
       allow update: if
         isValidStatus(request.resource.data.status) &&
-        (
-          request.resource.data.status == 'draft' ||
-          request.resource.data.status == 'submitted'
-        );
+        statusTransitionAllowed(resource.data.status, request.resource.data.status) &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed() &&
+        registrationWritableByCurrentUser();
 
       allow delete: if false;
     }
@@ -58,19 +117,20 @@ service cloud.firestore {
     match /business_registrations/{docId} {
       allow create: if
         isValidStatus(request.resource.data.status) &&
-        request.resource.data.status == 'draft';
+        request.resource.data.status == 'draft' &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed();
 
-      allow get: if
-        (true) || isSignedIn();
+      allow get: if registrationReadableByCurrentUser();
 
-      allow list: if isSignedIn();
+      allow list: if isAdmin();
 
       allow update: if
         isValidStatus(request.resource.data.status) &&
-        (
-          request.resource.data.status == 'draft' ||
-          request.resource.data.status == 'submitted'
-        );
+        statusTransitionAllowed(resource.data.status, request.resource.data.status) &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed() &&
+        registrationWritableByCurrentUser();
 
       allow delete: if false;
     }
@@ -78,19 +138,20 @@ service cloud.firestore {
     match /cooperativeRegistrations/{docId} {
       allow create: if
         isValidStatus(request.resource.data.status) &&
-        request.resource.data.status == 'draft';
+        request.resource.data.status == 'draft' &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed();
 
-      allow get: if
-        (true) || isSignedIn();
+      allow get: if registrationReadableByCurrentUser();
 
-      allow list: if isSignedIn();
+      allow list: if isAdmin();
 
       allow update: if
         isValidStatus(request.resource.data.status) &&
-        (
-          request.resource.data.status == 'draft' ||
-          request.resource.data.status == 'submitted'
-        );
+        statusTransitionAllowed(resource.data.status, request.resource.data.status) &&
+        setOwnerUidAllowed() &&
+        setSessionTokenAllowed() &&
+        registrationWritableByCurrentUser();
 
       allow delete: if false;
     }
@@ -99,9 +160,9 @@ service cloud.firestore {
       allow create: if
         isValidEmail(request.resource.data.email);
 
-      allow list: if isSignedIn();
-      allow get: if isSignedIn();
-      allow update: if isSignedIn();
+      allow list: if isAdmin();
+      allow get: if isAdmin();
+      allow update: if isAdmin();
       allow delete: if false;
     }
 
@@ -111,8 +172,8 @@ service cloud.firestore {
     }
 
     match /admin_users/{userId} {
-      allow read: if isSignedIn() && request.auth.uid == userId;
-      allow write: if isSignedIn() && request.auth.uid == userId;
+      allow read: if isAdmin() && request.auth.uid == userId;
+      allow write: if isAdmin() && request.auth.uid == userId;
     }
 
     match /{document=**} {

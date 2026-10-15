@@ -39,7 +39,7 @@ export default function ExportButton({ size = "medium", sx }: ExportButtonProps)
         sx={{
           border: "1px solid #E2E8F0",
           color: "#1E293B",
-          bgcolor: "white",
+          bgcolor: "#FFFDF5",
           textTransform: "none",
           fontWeight: 600,
           borderRadius: "12px",
@@ -79,7 +79,7 @@ export default function ExportButton({ size = "medium", sx }: ExportButtonProps)
         </MenuItem>
         <MenuItem onClick={() => setAnchorEl(null)}>
           <ListItemIcon sx={{ minWidth: 36 }}>
-            <TableChartIcon sx={{ color: "#16A34A", fontSize: 20 }} />
+            <TableChartIcon sx={{ color: "#FFAA00", fontSize: 20 }} />
           </ListItemIcon>
           <ListItemText
             primary="Export as Excel"

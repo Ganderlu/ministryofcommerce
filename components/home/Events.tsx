@@ -14,13 +14,14 @@ import { ArrowForward, CalendarToday } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import { theme } from "@/theme";
 import { events } from "@/data/seed";
+import Link from "next/link";
 
 const MotionCard = motion(Card);
 
 export default function Events() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
   return (
-    <Box sx={{ py: 10, backgroundColor: "white" }}>
+    <Box sx={{ py: 10, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <Grid container spacing={4}>
           {/* Events */}
@@ -51,9 +52,11 @@ export default function Events() {
                 </Typography>
               </Box>
               <Button
+                component={Link}
+                href="/media#events"
                 variant="text"
                 endIcon={<ArrowForward />}
-                sx={{ color: accentColor, fontWeight: 600 }}
+                sx={{ color: accentColor, fontWeight: 600, textDecoration: "none" }}
               >
                 View All
               </Button>
@@ -81,6 +84,7 @@ export default function Events() {
                       >
                         <Typography
                           variant="h4"
+                          component="p"
                           sx={{
                             color: accentColor,
                             fontWeight: 700,
@@ -107,10 +111,11 @@ export default function Events() {
 
                     <Box sx={{ flexGrow: 1 }}>
                       <Typography
-                        variant="h6"
+                        variant="h4"
                         sx={{
                           fontWeight: 600,
                           fontFamily: "var(--font-poppins)",
+                          fontSize: "1.15rem",
                           mb: 1,
                         }}
                       >
@@ -128,12 +133,15 @@ export default function Events() {
                         </Typography>
                       </Stack>
                       <Button
+                        component={Link}
+                        href="/contact"
                         variant="contained"
                         size="small"
                         sx={{
                           backgroundColor: accentColor,
                           "&:hover": { backgroundColor: "#c49f2d" },
                           color: "black",
+                          textDecoration: "none",
                         }}
                       >
                         Register Now
@@ -181,12 +189,13 @@ export default function Events() {
                 }}
               >
                 <Typography
-                  variant="h6"
+                  variant="h3"
                   sx={{
                     color: "black",
                     fontWeight: 700,
                     fontFamily: "var(--font-poppins)",
                     mb: 1,
+                    fontSize: "1.15rem",
                   }}
                 >
                   INVEST IN ANAMBRA
@@ -206,12 +215,15 @@ export default function Events() {
                   Discover why Anambra is the premier investment destination in Nigeria and Africa.
                 </Typography>
                 <Button
+                  component={Link}
+                  href="/departments/investment-promotion"
                   variant="outlined"
                   endIcon={<ArrowForward />}
                   sx={{
                     borderColor: "black",
                     color: "black",
                     alignSelf: "flex-start",
+                    textDecoration: "none",
                     "&:hover": { borderColor: "black", backgroundColor: "rgba(0,0,0,0.1)" },
                   }}
                 >

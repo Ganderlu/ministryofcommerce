@@ -8,8 +8,8 @@ import { Download, ArrowForward, Home, ChevronRight } from "@mui/icons-material"
 const MotionBox = motion(Box);
 
 export default function Hero() {
-  const primaryColor = "#D4AF37";
-  const accentColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
+  const accentColor = "#FFAA00";
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -32,7 +32,8 @@ export default function Hero() {
           sx={{
             position: "absolute",
             inset: 0,
-            background: `linear-gradient(135deg, ${primaryColor}dd 0%, ${primaryColor}aa 50%, rgba(0,0,0,0.4) 100%)`,
+            background:
+              "linear-gradient(135deg, rgba(15, 23, 42, 0.78) 0%, rgba(15, 23, 42, 0.55) 50%, rgba(15, 23, 42, 0.75) 100%)",
           }}
         />
         <Container
@@ -119,11 +120,11 @@ export default function Hero() {
                   fontWeight: 700,
                   fontSize: "0.95rem",
                   borderRadius: 2,
-                  boxShadow: "0 6px 20px rgba(212, 175, 55, 0.4)",
+                  boxShadow: "0 6px 20px rgba(15, 23, 42, 0.12)",
                   "&:hover": {
                     backgroundColor: "#c49f2d",
                     transform: "translateY(-2px)",
-                    boxShadow: "0 8px 24px rgba(212, 175, 55, 0.5)",
+                    boxShadow: "0 10px 28px rgba(15, 23, 42, 0.18)",
                   },
                   transition: "all 0.3s ease",
                 }}
@@ -131,6 +132,9 @@ export default function Hero() {
                 Start Registration
               </Button>
               <Button
+                component="a"
+                href="/guidelines/cooperative-registration-guidelines.pdf"
+                download="Cooperative-Registration-Guidelines.pdf"
                 variant="outlined"
                 startIcon={<Download />}
                 sx={{

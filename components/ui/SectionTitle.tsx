@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -17,8 +17,8 @@ export default function SectionTitle({
   description,
   align = "center",
 }: SectionTitleProps) {
-  const accentColor = "#D4AF37";
-  const primaryColor = "#D4AF37";
+  const accentColor = "#FFAA00";
+  const primaryColor = "#FFAA00";
 
   return (
     <MotionBox

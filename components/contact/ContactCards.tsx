@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Container, Card, CardContent, Typography, Avatar, Link } from "@mui/material";
 import { motion } from "framer-motion";
 import { contactCards } from "@/data/seed";
@@ -43,17 +43,18 @@ export default function ContactCards() {
                     mx: "auto",
                     mb: 2.5,
                     backgroundColor: "rgba(212, 175, 55, 0.1)",
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                   }}
                 >
                   <card.icon sx={{ fontSize: 32 }} />
                 </Avatar>
 
                 <Typography
-                  variant="h6"
+                  variant="h4"
                   sx={{
                     mb: 2,
                     fontWeight: 700,
+                    fontSize: "1.15rem",
                     color: "#1E293B",
                     fontFamily: "var(--font-poppins)",
                   }}
@@ -96,7 +97,7 @@ export default function ContactCards() {
                     sx={{
                       display: "inline-block",
                       fontWeight: 600,
-                      color: "#D4AF37",
+                      color: "#FFAA00",
                       "&:hover": { color: "#C49F2D" },
                     }}
                   >
@@ -106,7 +107,7 @@ export default function ContactCards() {
                   <Typography
                     sx={{
                       fontWeight: 600,
-                      color: "#D4AF37",
+                      color: "#FFAA00",
                     }}
                   >
                     {card.ctaText}

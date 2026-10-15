@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
@@ -132,16 +132,16 @@ export default function BusinessFilters({
                 startIcon={<SearchIcon />}
                 onClick={handleSearchClick}
                 sx={{
-                  bgcolor: "#0B6B3A",
+                  bgcolor: "#FFAA00",
                   color: "white",
                   fontWeight: 650,
                   borderRadius: "12px",
                   px: 2.2,
                   py: 1.1,
-                  boxShadow: "0 2px 6px rgba(11,107,58,0.25)",
+                  boxShadow: "0 2px 6px rgba(255, 170, 0,0.25)",
                   "&:hover": {
-                    bgcolor: "#084C2E",
-                    boxShadow: "0 2px 6px rgba(11,107,58,0.25)",
+                    bgcolor: "#CC8800",
+                    boxShadow: "0 2px 6px rgba(255, 170, 0,0.25)",
                   },
                 }}
               >

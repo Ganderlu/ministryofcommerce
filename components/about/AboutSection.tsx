@@ -21,7 +21,7 @@ const coreValues = [
 ];
 
 export default function AboutSection() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box sx={{ py: { xs: 4, md: 8 }, backgroundColor: "#fafafa" }}>
@@ -75,10 +75,10 @@ export default function AboutSection() {
               The Anambra State Ministry of Commerce is the government institution responsible for promoting trade, commerce, investment, market development, and business growth across Anambra State. We serve as a bridge between government, businesses, investors, traders, manufacturers, and market associations, creating an enabling environment where commerce can thrive.
             </p>
             <p>
-              As one of the key drivers of the state's economic development, the Ministry formulates and implements policies that encourage entrepreneurship, strengthen markets, attract investments, support small and medium-sized enterprises (SMEs), improve ease of doing business, and enhance commercial activities throughout the state.
+              As one of the key drivers of the state&apos;s economic development, the Ministry formulates and implements policies that encourage entrepreneurship, strengthen markets, attract investments, support small and medium-sized enterprises (SMEs), improve ease of doing business, and enhance commercial activities throughout the state.
             </p>
             <p>
-              We work closely with market leaders, business organizations, financial institutions, development partners, and other government agencies to ensure that Anambra remains Nigeria's leading commercial destination and a preferred place to invest and do business. These responsibilities align with the Ministry's ongoing engagement with market associations and commercial stakeholders across the state.
+              We work closely with market leaders, business organizations, financial institutions, development partners, and other government agencies to ensure that Anambra remains Nigeria&apos;s leading commercial destination and a preferred place to invest and do business. These responsibilities align with the Ministry&apos;s ongoing engagement with market associations and commercial stakeholders across the state.
             </p>
           </Box>
         </MotionBox>
@@ -93,7 +93,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFDF5",
                   p: { xs: 3, md: 6 },
                   borderRadius: 3,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
@@ -129,7 +129,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFDF5",
                   p: { xs: 3, md: 6 },
                   borderRadius: 3,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
@@ -169,7 +169,7 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             sx={{
-              backgroundColor: "white",
+              backgroundColor: "#FFFDF5",
               p: { xs: 3, md: 8 },
               borderRadius: 3,
               boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
@@ -305,7 +305,7 @@ export default function AboutSection() {
                     height: "100%",
                     borderRadius: 3,
                     overflow: "hidden",
-                    backgroundColor: "white",
+                    backgroundColor: "#FFFDF5",
                     textAlign: "center",
                   }}
                 >

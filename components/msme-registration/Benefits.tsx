@@ -31,10 +31,10 @@ const iconMap: { [key: string]: SvgIconComponent } = {
 };
 
 export default function Benefits() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
-    <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "white" }}>
+    <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <SectionTitle
           overline="WHY REGISTER YOUR MSME?"

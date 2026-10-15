@@ -22,7 +22,7 @@ export default function DepartmentSection({
   keyInitiatives = [],
   contactInfo,
 }: DepartmentSectionProps) {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box sx={{ py: { xs: 4, md: 8 }, backgroundColor: "#fafafa" }}>
@@ -85,7 +85,7 @@ export default function DepartmentSection({
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "#FFFDF5",
                 p: { xs: 3, md: 8 },
                 borderRadius: 3,
                 boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
@@ -153,7 +153,7 @@ export default function DepartmentSection({
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "#FFFDF5",
                 p: { xs: 3, md: 8 },
                 borderRadius: 3,
                 boxShadow: "0 4px 20px rgba(0,0,0,0.05)",

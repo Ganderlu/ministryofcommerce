@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import { Typography, Box, ListItemIcon, ListItemButton, ListItemText, List, ListItem, Chip } from "@mui/material";
@@ -23,7 +23,11 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   Analytics: AnalyticsIcon,
 };
 
-export default function QuickActions() {
+interface QuickActionsProps {
+  pendingCount: number;
+}
+
+export default function QuickActions({ pendingCount }: QuickActionsProps) {
   return (
     <SectionCard
       delay={0.18}
@@ -32,6 +36,8 @@ export default function QuickActions() {
       <List disablePadding sx={{ display: "flex", flexDirection: "column", gap: 0.2 }}>
         {quickActions.map((a, idx) => {
           const Icon = iconMap[a.icon] || AnalyticsIcon;
+          // Show live pending count on the "Review Applications" action
+          const showPending = a.id === "2" && pendingCount > 0;
           return (
             <motion.div
               key={a.id}
@@ -50,7 +56,7 @@ export default function QuickActions() {
                       bgcolor: "#F8FAFC",
                       transform: "translateX(3px)",
                       "& .qa-icon-box": {
-                        bgcolor: "#0B6B3A",
+                        bgcolor: "#FFAA00",
                         color: "white",
                       },
                     },
@@ -63,8 +69,8 @@ export default function QuickActions() {
                         width: 34,
                         height: 34,
                         borderRadius: "9px",
-                        bgcolor: "rgba(11, 107, 58, 0.1)",
-                        color: "#0B6B3A",
+                        bgcolor: "rgba(255, 170, 0, 0.1)",
+                        color: "#FFAA00",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -82,14 +88,14 @@ export default function QuickActions() {
                       color: "#1E293B",
                     }}
                   />
-                  {a.badge !== undefined && (
+                  {showPending && (
                     <Chip
-                      label={a.badge}
+                      label={pendingCount}
                       size="small"
                       sx={{
                         height: 22,
                         minWidth: 28,
-                        bgcolor: "#FBBF24",
+                        bgcolor: "#FFB733",
                         color: "#7C2D12",
                         fontWeight: 800,
                         fontSize: 10.5,

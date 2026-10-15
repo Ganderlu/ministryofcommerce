@@ -47,59 +47,61 @@ const units = [
 
 const navItems = [
   { label: "Home", href: "/", hasDropdown: false },
-  { 
-    label: "About Us", 
-    href: "/about", 
+  {
+    label: "About Us",
+    href: "/about",
     hasDropdown: true,
     dropdownItems: [
       { label: "History", href: "/about#history" },
       { label: "Mission & Vision", href: "/about#mission-vision" },
       { label: "Our Team", href: "/about#our-team" },
-    ]
+    ],
   },
-  { 
-    label: "Portals", 
-    href: "#", 
+  {
+    label: "Portals",
+    href: "/services",
     hasDropdown: true,
     dropdownItems: [
       { label: "Business Registration", href: "/services/business-registration" },
       { label: "SME Registration", href: "/services/sme-registration" },
       { label: "Cooperative Registration", href: "/services/cooperative-registration" },
       { label: "MSME Registration", href: "/services/msme-registration" },
-    ]
+    ],
   },
-  { 
-    label: "Invest in Anambra", 
-    href: "#", 
+  {
+    label: "Invest in Anambra",
+    href: "/invest-in-anambra",
     hasDropdown: true,
     dropdownItems: [
-      { label: "Why Anambra", href: "#" },
-      { label: "Investment Opportunities", href: "#" },
-      { label: "Success Stories", href: "#" },
-    ]
+      { label: "Why Anambra", href: "/invest-in-anambra#why-anambra" },
+      { label: "Investment Opportunities", href: "/invest-in-anambra#opportunities" },
+      { label: "Success Stories", href: "/invest-in-anambra#success-stories" },
+    ],
   },
-  { 
-    label: "Department & Unit", 
-    href: "#", 
+  {
+    label: "Department & Unit",
+    href: "/about#departments",
     hasDropdown: true,
     isDepartmentUnit: true,
   },
-  { 
-    label: "Media", 
-    href: "/media", 
+  {
+    label: "Media",
+    href: "/media",
     hasDropdown: true,
     dropdownItems: [
       { label: "News", href: "/media#news" },
       { label: "Events", href: "/media#events" },
       { label: "Gallery", href: "/media#gallery" },
-    ]
+    ],
   },
   { label: "Contact Us", href: "/contact", hasDropdown: false },
 ];
 
 export default function Navbar() {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"), {
+    defaultMatches: false,
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<{ [key: string]: HTMLElement | null }>({});
   const router = useRouter();
@@ -109,6 +111,8 @@ export default function Navbar() {
   };
 
   const handleClick = (label: string) => (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
     setAnchorEl({ ...anchorEl, [label]: event.currentTarget });
   };
 
@@ -116,11 +120,22 @@ export default function Navbar() {
     setAnchorEl({ ...anchorEl, [label]: null });
   };
 
+  const handleKeyDown = (label: string) => (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+      event.preventDefault();
+      event.stopPropagation();
+      const target = event.currentTarget as HTMLElement;
+      setAnchorEl({ ...anchorEl, [label]: target });
+    } else if (event.key === "Escape") {
+      handleClose(label);
+    }
+  };
+
   return (
     <Box
       sx={{
-        backgroundColor: "white",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        backgroundColor: "#FFAA00",
+        boxShadow: "0 2px 8px rgba(15,23,42,0.12)",
         position: "sticky",
         top: 0,
         zIndex: 1000,
@@ -134,64 +149,67 @@ export default function Navbar() {
             <Stack direction="row" alignItems="center" spacing={{ xs: 1.5, md: 2 }}>
               <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 1.5, md: 2 } }}>
                 <Image
-                  src="/images/anambralogo.jpg"
-                  alt="Anambra State Logo"
+                  src="/images/Anambra State Government Seal.png"
+                  alt="Anambra State Government Seal"
                   width={isMobile ? 45 : 60}
                   height={isMobile ? 45 : 60}
-                  style={{ borderRadius: "50%" }}
+                  style={{ objectFit: "contain" }}
                   priority
                 />
                 <Box>
                   <Typography
-                    variant="h6"
-                    sx={{
-                      color: "#D4AF37",
-                      fontWeight: 700,
-                      fontFamily: "var(--font-poppins)",
-                      lineHeight: 1.1,
-                      fontSize: { xs: "1rem", md: "1.25rem" },
-                    }}
-                  >
-                    ANAMBRA STATE
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    sx={{ 
-                      color: theme.palette.text.secondary, 
-                      fontWeight: 500,
-                      fontSize: { xs: "0.7rem", md: "0.75rem" },
-                    }}
-                  >
-                    MINISTRY OF COMMERCE
-                  </Typography>
+                  variant="h6"
+                  component="p"
+                  sx={{
+                    color: "black",
+                    fontWeight: 700,
+                    fontFamily: "var(--font-poppins)",
+                    lineHeight: 1.1,
+                    fontSize: { xs: "1rem", md: "1.25rem" },
+                  }}
+                >
+                  ANAMBRA STATE
+                </Typography>
+                <Typography
+                  variant="caption"
+                  component="p"
+                  sx={{ 
+                    color: "rgba(0,0,0,0.85)", 
+                    fontWeight: 500,
+                    fontSize: { xs: "0.68rem", md: "0.75rem" },
+                    lineHeight: 1.2,
+                  }}
+                >
+                  MINISTRY OF COMMERCE, INDUSTRY AND TRADE
+                </Typography>
                 </Box>
                 <Image
                   src="/images/soludon.png"
-                  alt="Soludo"
+                  alt="Governor of Anambra State"
                   width={isMobile ? 55 : 80}
                   height={isMobile ? 55 : 80}
                   style={{ borderRadius: "50%" }}
-                  priority
+                  sizes="(max-width: 767px) 55px, 80px"
                 />
               </Box>
             </Stack>
 
             {/* Right: Search */}
-            <Stack direction="row" alignItems="center" spacing={1}>
+            <Stack direction="row" alignItems="center" spacing={1} sx={{ ml: { xs: 2, md: 0 } }}>
               {!isMobile && (
                 <IconButton
                   onClick={handleSearchClick}
-                  aria-label="Search"
+                  aria-label="Search the site"
                   sx={{
-                    backgroundColor: "rgba(212, 175, 55, 0.1)",
-                    color: "#D4AF37",
+                    backgroundColor: "rgba(255,255,255,0.9)",
+                    color: "#996600",
                     width: 44,
                     height: 44,
                     borderRadius: 2,
                     "&:hover": {
-                      backgroundColor: "rgba(212, 175, 55, 0.2)",
+                      backgroundColor: "rgba(255,255,255,1)",
                       transform: "translateY(-1px)",
-                      boxShadow: "0 2px 8px rgba(212, 175, 55, 0.25)",
+                      boxShadow: "0 2px 8px rgba(15, 23, 42, 0.15)",
                     },
                     transition: "all 0.2s ease",
                   }}
@@ -202,12 +220,15 @@ export default function Navbar() {
 
               {/* Mobile Menu Button - Enhanced Styling */}
               {isMobile && (
-                <IconButton 
+                <IconButton
                   onClick={() => setMobileOpen(true)}
+                  aria-label="Open main navigation menu"
+                  aria-controls="mobile-navigation-drawer"
+                  aria-expanded={mobileOpen}
                   sx={{
-                    backgroundColor: "rgba(212, 175, 55, 0.1)",
-                    color: "#D4AF37",
-                    "&:hover": { backgroundColor: "rgba(212, 175, 55, 0.2)" },
+                    backgroundColor: "rgba(255,255,255,0.9)",
+                    color: "#996600",
+                    "&:hover": { backgroundColor: "rgba(255,255,255,1)" },
                   }}
                 >
                   <MenuIcon fontSize="medium" />
@@ -218,17 +239,23 @@ export default function Navbar() {
 
           {/* Bottom Row: Navigation */}
           {!isMobile && (
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
+            <Stack direction="row" justifyContent="center" alignItems="center" spacing={1} role="navigation" aria-label="Main site navigation">
               {navItems.map((item) => (
                 <div key={item.label}>
                   {item.hasDropdown ? (
                   <>
                   <Button
+                    component={Link}
+                    href={item.href}
                     onClick={handleClick(item.label)}
-                    sx={{ 
-                      color: item.label === "Home" ? "#D4AF37" : theme.palette.text.primary, 
+                    onKeyDown={handleKeyDown(item.label)}
+                    aria-haspopup="true"
+                    aria-expanded={Boolean(anchorEl[item.label])}
+                    aria-controls={`menu-${item.label.replace(/\s+/g, '-').toLowerCase()}`}
+                    sx={{
+                      color: item.label === "Home" ? "#996600" : theme.palette.text.primary,
                       textTransform: "none",
-                      fontWeight: item.label === "Home" ? 600 : 400,
+                      fontWeight: item.label === "Home" ? 700 : 400,
                       px: 2,
                     }}
                     endIcon={<ExpandMore />}
@@ -236,6 +263,7 @@ export default function Navbar() {
                     {item.label}
                   </Button>
                   <Menu
+                    id={`menu-${item.label.replace(/\s+/g, '-').toLowerCase()}`}
                     anchorEl={anchorEl[item.label]}
                     open={Boolean(anchorEl[item.label])}
                     onClose={() => handleClose(item.label)}
@@ -261,7 +289,7 @@ export default function Navbar() {
                         {/* Departments Column */}
                         <Box sx={{ flex: 1 }}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.8, mb: 1.5 }}>
-                            <Business sx={{ color: "#D4AF37", fontSize: "1.3rem" }} />
+                            <Business sx={{ color: "#FFAA00", fontSize: "1.3rem" }} />
                             <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
                               Departments
                             </Typography>
@@ -283,7 +311,7 @@ export default function Navbar() {
                         {/* Units Column */}
                         <Box sx={{ flex: 1, borderLeft: "1px solid #f0f0f0", pl: 3 }}>
                           <Box sx={{ display: "flex", alignItems: "center", gap: 0.8, mb: 1.5 }}>
-                            <AccountTree sx={{ color: "#D4AF37", fontSize: "1.3rem" }} />
+                            <AccountTree sx={{ color: "#FFAA00", fontSize: "1.3rem" }} />
                             <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
                               Units
                             </Typography>
@@ -322,10 +350,10 @@ export default function Navbar() {
                   <Button
                     component={Link}
                     href={item.href}
-                    sx={{ 
-                      color: item.label === "Home" ? "#D4AF37" : theme.palette.text.primary, 
+                    sx={{
+                      color: item.label === "Home" ? "#996600" : theme.palette.text.primary,
                       textTransform: "none",
-                      fontWeight: item.label === "Home" ? 600 : 400,
+                      fontWeight: item.label === "Home" ? 700 : 400,
                       px: 2,
                       textDecoration: "none",
                     }}
@@ -342,9 +370,11 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <Drawer
+        id="mobile-navigation-drawer"
         anchor="right"
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
+        aria-label="Mobile site navigation"
         PaperProps={{
           sx: {
             borderTopLeftRadius: 16,
@@ -352,7 +382,7 @@ export default function Navbar() {
           }
         }}
       >
-        <Box sx={{ width: 320, pt: 2, px: 1 }}>
+        <Box sx={{ width: 320, pt: 2, px: 1 }} role="dialog" aria-modal="true" aria-label="Mobile main menu">
           {/* Close + Search Buttons */}
           <Box display="flex" justifyContent="space-between" pr={2} pl={2} mb={1}>
             <IconButton
@@ -360,19 +390,20 @@ export default function Navbar() {
                 setMobileOpen(false);
                 handleSearchClick();
               }}
-              aria-label="Search"
+              aria-label="Search the site"
               sx={{
                 backgroundColor: "rgba(212, 175, 55, 0.1)",
-                color: "#D4AF37",
+                color: "#FFAA00",
               }}
             >
               <Search />
             </IconButton>
             <IconButton
               onClick={() => setMobileOpen(false)}
+              aria-label="Close main navigation menu"
               sx={{
                 backgroundColor: "rgba(212, 175, 55, 0.1)",
-                color: "#D4AF37",
+                color: "#FFAA00",
               }}
             >
               <Close />
@@ -383,16 +414,17 @@ export default function Navbar() {
           <Box sx={{ px: 2, pb: 2.5, borderBottom: "1px solid #f0f0f0", mb: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
               <Image
-                src="/images/anambralogo.jpg"
-                alt="Anambra State Logo"
+                src="/images/Anambra State Government Seal.png"
+                alt="Anambra State Government Seal"
                 width={50}
                 height={50}
+                style={{ objectFit: "contain" }}
               />
               <Box>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: "#D4AF37" }}>
+                <Typography variant="subtitle2" component="p" sx={{ fontWeight: 700, color: "#FFAA00" }}>
                   ANAMBRA STATE
                 </Typography>
-                <Typography variant="caption" sx={{ color: "text.secondary" }}>
+                <Typography variant="caption" component="p" sx={{ color: "text.secondary" }}>
                   MINISTRY OF COMMERCE
                 </Typography>
               </Box>
@@ -415,7 +447,7 @@ export default function Navbar() {
                     }}
                   >
                     <AccordionSummary
-                      expandIcon={<ExpandMore sx={{ color: "#D4AF37" }} />}
+                      expandIcon={<ExpandMore sx={{ color: "#FFAA00" }} />}
                       sx={{ px: 2 }}
                     >
                       <Typography sx={{ fontWeight: 500 }}>
@@ -428,7 +460,7 @@ export default function Navbar() {
                           {/* Departments */}
                           <Box>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                              <Business sx={{ color: "#D4AF37", fontSize: "1.2rem" }} />
+                              <Business sx={{ color: "#FFAA00", fontSize: "1.2rem" }} />
                               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                                 Departments
                               </Typography>
@@ -450,7 +482,7 @@ export default function Navbar() {
                           {/* Units */}
                           <Box>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 1 }}>
-                              <AccountTree sx={{ color: "#D4AF37", fontSize: "1.2rem" }} />
+                              <AccountTree sx={{ color: "#FFAA00", fontSize: "1.2rem" }} />
                               <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
                                 Units
                               </Typography>
@@ -506,20 +538,20 @@ export default function Navbar() {
 
           {/* Contact Info */}
           <Box sx={{ mt: 4, px: 2, pb: 3 }}>
-            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1.5, color: "#D4AF37" }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1.5, color: "#FFAA00" }}>
               Contact Us
             </Typography>
             <Stack spacing={1.2}>
               <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
-                <Typography sx={{ color: "#D4AF37", fontSize: "1.2rem" }}>
+                <Typography sx={{ color: "#FFAA00", fontSize: "1.2rem" }}>
                   📧
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary", fontSize: "0.9rem" }}>
-                  info@commerce.anambrastate.gov.ng
+                  commerce@anambrastate.gov.ng
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", gap: 1.5, alignItems: "center" }}>
-                <Typography sx={{ color: "#D4AF37", fontSize: "1.2rem" }}>
+                <Typography sx={{ color: "#FFAA00", fontSize: "1.2rem" }}>
                   📞
                 </Typography>
                 <Typography variant="body2" sx={{ color: "text.secondary", fontSize: "0.9rem" }}>

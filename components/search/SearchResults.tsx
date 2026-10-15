@@ -100,7 +100,7 @@ const CATEGORY_META: Record<
 > = {
   services: {
     label: "Services",
-    color: "#D4AF37",
+    color: "#FFAA00",
     chipBg: "rgba(212,175,55,0.1)",
     Icon: Description,
   },
@@ -136,7 +136,7 @@ const CATEGORY_META: Record<
   },
   registration: {
     label: "Registration",
-    color: "#D4AF37",
+    color: "#FFAA00",
     chipBg: "rgba(212,175,55,0.1)",
     Icon: AppRegistration,
   },
@@ -361,7 +361,7 @@ export default function SearchResults() {
             p: { xs: 2, md: 3 },
             mb: { xs: 3, md: 4 },
             border: "1px solid #EEF1F5",
-            background: "white",
+            background: "#FFFDF5",
           }}
         >
           <SearchField
@@ -386,7 +386,7 @@ export default function SearchResults() {
             variant="subtitle1"
             sx={{ color: theme.palette.text.secondary, fontWeight: 500 }}
           >
-            <Box component="span" sx={{ color: "#D4AF37", fontWeight: 700 }}>
+            <Box component="span" sx={{ color: "#FFAA00", fontWeight: 700 }}>
               {filtered.length}
             </Box>{" "}
             result{filtered.length === 1 ? "" : "s"} found
@@ -427,7 +427,7 @@ export default function SearchResults() {
             value={category}
             onChange={(_e, v) => setCategory(v)}
             TabIndicatorProps={{
-              style: { backgroundColor: "#D4AF37", height: 3, borderRadius: 2 },
+              style: { backgroundColor: "#FFAA00", height: 3, borderRadius: 2 },
             }}
             sx={{
               minWidth: { xs: 720, sm: 0 },
@@ -439,7 +439,7 @@ export default function SearchResults() {
                 px: 2,
                 minHeight: 0,
                 color: theme.palette.text.secondary,
-                "&.Mui-selected": { color: "#D4AF37" },
+                "&.Mui-selected": { color: "#FFAA00" },
               },
             }}
           >
@@ -459,7 +459,7 @@ export default function SearchResults() {
                             ? "rgba(212,175,55,0.15)"
                             : "#EEF1F5",
                         color:
-                          category === t.id ? "#D4AF37" : theme.palette.text.secondary,
+                          category === t.id ? "#FFAA00" : theme.palette.text.secondary,
                         fontWeight: 700,
                         fontSize: "0.72rem",
                         height: 22,
@@ -502,7 +502,7 @@ export default function SearchResults() {
                     sx={{
                       borderRadius: 3,
                       border: "1px solid #EEF1F5",
-                      background: "white",
+                      background: "#FFFDF5",
                       textDecoration: "none",
                       color: "inherit",
                       transition: "all 0.2s ease",
@@ -614,7 +614,7 @@ export default function SearchResults() {
                           sx={{
                             display: "flex",
                             alignItems: "center",
-                            color: "#D4AF37",
+                            color: "#FFAA00",
                             fontWeight: 700,
                             fontSize: "0.86rem",
                             gap: 0.3,
@@ -637,7 +637,7 @@ export default function SearchResults() {
                   sx={{
                     borderRadius: 3,
                     border: "1px solid #EEF1F5",
-                    background: "white",
+                    background: "#FFFDF5",
                     textDecoration: "none",
                     color: "inherit",
                     transition: "all 0.2s ease",
@@ -754,7 +754,7 @@ export default function SearchResults() {
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        color: "#D4AF37",
+                        color: "#FFAA00",
                         fontWeight: 700,
                         fontSize: "0.88rem",
                         gap: 0.4,
@@ -775,7 +775,7 @@ export default function SearchResults() {
               border: "1px dashed #D8DEE7",
               p: { xs: 4, md: 7 },
               textAlign: "center",
-              backgroundColor: "white",
+              backgroundColor: "#FFFDF5",
             }}
           >
             <Box
@@ -791,7 +791,7 @@ export default function SearchResults() {
                 mb: 3,
               }}
             >
-              <SearchOff sx={{ fontSize: 36, color: "#D4AF37" }} />
+              <SearchOff sx={{ fontSize: 36, color: "#FFAA00" }} />
             </Box>
             <Typography
               variant="h6"
@@ -824,8 +824,8 @@ export default function SearchResults() {
                   setCategory("all");
                 }}
                 sx={{
-                  borderColor: "#D4AF37",
-                  color: "#D4AF37",
+                  borderColor: "#FFAA00",
+                  color: "#FFAA00",
                   textTransform: "none",
                   px: 2.5,
                   py: 1.2,
@@ -844,7 +844,7 @@ export default function SearchResults() {
                 href="/services"
                 variant="contained"
                 sx={{
-                  backgroundColor: "#D4AF37",
+                  backgroundColor: "#FFAA00",
                   color: "black",
                   textTransform: "none",
                   px: 2.5,

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Stack, IconButton, Menu, MenuItem, Divider } from "@mui/material";
@@ -61,14 +61,15 @@ export default function ActionMenu({
       <IconButton
         size={size}
         onClick={onView}
+        aria-label="View details"
         sx={{
           p: padding,
           borderRadius: "10px",
           color: "#64748B",
           fontSize: fontSize,
           "&:hover": {
-            bgcolor: "rgba(11, 107, 58, 0.08)",
-            color: "#0B6B3A",
+            bgcolor: "rgba(255, 170, 0, 0.08)",
+            color: "#FFAA00",
           },
         }}
       >
@@ -78,6 +79,7 @@ export default function ActionMenu({
       <IconButton
         size={size}
         onClick={onEdit}
+        aria-label="Edit item"
         sx={{
           p: padding,
           borderRadius: "10px",
@@ -95,6 +97,9 @@ export default function ActionMenu({
       <IconButton
         size={size}
         onClick={handleClick}
+        aria-label={open ? "Close more actions menu" : "Open more actions menu"}
+        aria-haspopup="true"
+        aria-expanded={open}
         sx={{
           p: padding,
           borderRadius: "10px",
@@ -132,7 +137,7 @@ export default function ActionMenu({
           Edit
         </MenuItem>
         <MenuItem onClick={() => handleAction(onApprove)}>
-          <CheckCircle sx={{ mr: 1.5, fontSize: "18px", color: "#16A34A" }} />
+          <CheckCircle sx={{ mr: 1.5, fontSize: "18px", color: "#FFAA00" }} />
           Approve
         </MenuItem>
         <MenuItem onClick={() => handleAction(onReject)}>
@@ -149,11 +154,11 @@ export default function ActionMenu({
           Delete
         </MenuItem>
         <MenuItem onClick={() => handleAction(onDownloadCert)}>
-          <FileDownload sx={{ mr: 1.5, fontSize: "18px", color: "#0B6B3A" }} />
+          <FileDownload sx={{ mr: 1.5, fontSize: "18px", color: "#FFAA00" }} />
           Download Certificate
         </MenuItem>
         <MenuItem onClick={() => handleAction(onViewDocs)}>
-          <Folder sx={{ mr: 1.5, fontSize: "18px", color: "#D4AF37" }} />
+          <Folder sx={{ mr: 1.5, fontSize: "18px", color: "#FFAA00" }} />
           View Documents
         </MenuItem>
       </Menu>

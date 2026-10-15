@@ -1,9 +1,9 @@
 :root {
-  --primary-green: #0B6B3A;
-  --dark-green: #084C2E;
-  --gold: #D4AF37;
+  --primary-green: #FFAA00;
+  --dark-green: #CC8800;
+  --gold: #FFAA00;
   --background: #F8FAFC;
-  --white: #FFFFFF;
+  --white: #FFFDF5;
   --text: #1E293B;
   --secondary-text: #64748B;
 }
@@ -22,9 +22,9 @@ body {
 
 @keyframes coming-soon-pulse {
   0%, 100% {
-    box-shadow: 0 0 0 6px rgba(212, 175, 55, 0.15);
+    box-shadow: 0 0 0 6px rgba(255, 170, 0, 0.14);
   }
   50% {
-    box-shadow: 0 0 0 12px rgba(212, 175, 55, 0);
+    box-shadow: 0 0 0 12px rgba(255, 170, 0, 0);
   }
 }

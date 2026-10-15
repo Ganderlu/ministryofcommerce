@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Card, CardContent, Typography, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import {
@@ -20,7 +20,7 @@ const iconMap: { [key: string]: SvgIconComponent } = {
 };
 
 export default function GuidelinesSidebar() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
     <MotionCard

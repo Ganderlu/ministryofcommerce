@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Card,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useId } from "react";
 import {
   cooperativeTypes as _cooperativeTypes,
   registrationCategories as _registrationCategories,
@@ -58,7 +58,8 @@ export default function CooperativeDetailsForm({
   onSaveAndContinue,
   saving = false,
 }: CooperativeDetailsFormProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#CC8800";
+  const formUid = useId();
   const [formData, setFormData] = useState<CooperativeRegistrationFormData>(
     initialData && Object.values(initialData).some((v) => v && String(v).trim().length > 0)
       ? initialData
@@ -109,6 +110,30 @@ export default function CooperativeDetailsForm({
     e.preventDefault();
     if (!validateForm()) return;
     await onSaveAndContinue(formData);
+  };
+
+  const fieldId = (name: string) => `${formUid}-${name}`;
+  const errorId = (name: string) => `${formUid}-${name}-error`;
+
+  const fieldAccessibilityProps = (
+    field: keyof CooperativeRegistrationFormData,
+    required = false
+  ) => {
+    const hasErr = Boolean(errors[field]);
+    return {
+      id: fieldId(String(field)),
+      error: hasErr,
+      required,
+      "aria-invalid": hasErr || undefined,
+      "aria-required": required || undefined,
+      "aria-describedby": hasErr ? errorId(String(field)) : undefined,
+      FormHelperTextProps: hasErr
+        ? {
+            id: errorId(String(field)),
+            role: "alert" as const,
+          }
+        : undefined,
+    };
   };
 
   const textFieldProps = {
@@ -194,8 +219,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter cooperative name"
                 value={formData.cooperativeName}
                 onChange={handleChange("cooperativeName")}
-                error={!!errors.cooperativeName}
                 helperText={errors.cooperativeName}
+                {...fieldAccessibilityProps("cooperativeName", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -207,8 +232,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Select cooperative type"
                 value={formData.cooperativeType}
                 onChange={handleChange("cooperativeType")}
-                error={!!errors.cooperativeType}
                 helperText={errors.cooperativeType}
+                {...fieldAccessibilityProps("cooperativeType", true)}
                 {...textFieldProps}
               >
                 {cooperativeTypes.map((type) => (
@@ -226,8 +251,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Select category"
                 value={formData.registrationCategory}
                 onChange={handleChange("registrationCategory")}
-                error={!!errors.registrationCategory}
                 helperText={errors.registrationCategory}
+                {...fieldAccessibilityProps("registrationCategory", true)}
                 {...textFieldProps}
               >
                 {registrationCategories.map((cat) => (
@@ -245,8 +270,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Select year"
                 value={formData.yearOfEstablishment}
                 onChange={handleChange("yearOfEstablishment")}
-                error={!!errors.yearOfEstablishment}
                 helperText={errors.yearOfEstablishment}
+                {...fieldAccessibilityProps("yearOfEstablishment", true)}
                 {...textFieldProps}
               >
                 {yearsOfEstablishment.map((year) => (
@@ -264,8 +289,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Select operational area"
                 value={formData.operationalArea}
                 onChange={handleChange("operationalArea")}
-                error={!!errors.operationalArea}
                 helperText={errors.operationalArea}
+                {...fieldAccessibilityProps("operationalArea", true)}
                 {...textFieldProps}
               >
                 {operationalAreas.map((area) => (
@@ -282,8 +307,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter office address"
                 value={formData.officeAddress}
                 onChange={handleChange("officeAddress")}
-                error={!!errors.officeAddress}
                 helperText={errors.officeAddress}
+                {...fieldAccessibilityProps("officeAddress", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -295,8 +320,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Select LGA"
                 value={formData.localGovernmentArea}
                 onChange={handleChange("localGovernmentArea")}
-                error={!!errors.localGovernmentArea}
                 helperText={errors.localGovernmentArea}
+                {...fieldAccessibilityProps("localGovernmentArea", true)}
                 {...textFieldProps}
               >
                 {lgas.map((lga) => (
@@ -313,8 +338,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter community or town"
                 value={formData.communityTown}
                 onChange={handleChange("communityTown")}
-                error={!!errors.communityTown}
                 helperText={errors.communityTown}
+                {...fieldAccessibilityProps("communityTown", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -326,8 +351,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter email address"
                 value={formData.emailAddress}
                 onChange={handleChange("emailAddress")}
-                error={!!errors.emailAddress}
                 helperText={errors.emailAddress}
+                {...fieldAccessibilityProps("emailAddress", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -339,8 +364,8 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter phone number"
                 value={formData.phoneNumber}
                 onChange={handleChange("phoneNumber")}
-                error={!!errors.phoneNumber}
                 helperText={errors.phoneNumber}
+                {...fieldAccessibilityProps("phoneNumber", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -352,6 +377,7 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter whatsapp number"
                 value={formData.whatsappNumber}
                 onChange={handleChange("whatsappNumber")}
+                {...fieldAccessibilityProps("whatsappNumber", false)}
                 {...textFieldProps}
               />
             </Grid>
@@ -362,6 +388,7 @@ export default function CooperativeDetailsForm({
                 placeholder="Enter website"
                 value={formData.website}
                 onChange={handleChange("website")}
+                {...fieldAccessibilityProps("website", false)}
                 {...textFieldProps}
               />
             </Grid>
@@ -372,10 +399,10 @@ export default function CooperativeDetailsForm({
                 placeholder="Describe the main objectives of the cooperative"
                 value={formData.objectives}
                 onChange={handleChange("objectives")}
-                error={!!errors.objectives}
                 helperText={errors.objectives}
                 multiline
                 rows={5}
+                {...fieldAccessibilityProps("objectives", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -395,11 +422,11 @@ export default function CooperativeDetailsForm({
                 fontSize: "0.95rem",
                 borderRadius: 2,
                 fontFamily: "var(--font-poppins)",
-                boxShadow: `0 6px 20px ${primaryColor}40`,
+                boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                 "&:hover": {
                   backgroundColor: "#c49f2d",
                   transform: "translateY(-2px)",
-                  boxShadow: `0 8px 24px ${primaryColor}50`,
+                  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.32)",
                 },
                 transition: "all 0.3s ease",
                 textTransform: "none",

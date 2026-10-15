@@ -82,11 +82,11 @@ function CustomToolbar({ selectedCount, onBulkApprove, onBulkReject, onBulkDelet
         p: 1.4,
         gap: 1,
         borderBottom: "1px solid #F1F5F9",
-        bgcolor: alpha("#0B6B3A", 0.05),
+        bgcolor: alpha("#FFAA00", 0.05),
         alignItems: "center",
       }}
     >
-      <Typography sx={{ fontSize: 13, fontWeight: 650, color: "#0B6B3A" }}>
+      <Typography sx={{ fontSize: 13, fontWeight: 650, color: "#FFAA00" }}>
         {selectedCount} selected
       </Typography>
       <Box sx={{ flex: 1 }} />
@@ -95,13 +95,13 @@ function CustomToolbar({ selectedCount, onBulkApprove, onBulkReject, onBulkDelet
         startIcon={<CheckCircleIcon sx={{ fontSize: 16 }} />}
         onClick={onBulkApprove}
         sx={{
-          color: "#16A34A",
-          bgcolor: "rgba(22,163,74,0.08)",
+          color: "#FFAA00",
+          bgcolor: "rgba(255, 170, 0,0.08)",
           fontWeight: 650,
           borderRadius: "10px",
           px: 1.4,
           fontSize: 12,
-          "&:hover": { bgcolor: "rgba(22,163,74,0.16)" },
+          "&:hover": { bgcolor: "rgba(255, 170, 0,0.16)" },
         }}
       >
         Approve
@@ -433,7 +433,7 @@ export default function BusinessTable(props: BusinessTableProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, delay: 0.18 }}
       sx={{
-        bgcolor: "white",
+        bgcolor: "#FFFDF5",
         borderRadius: "16px",
         border: "1px solid #E2E8F0",
         boxShadow: "0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.04)",
@@ -451,7 +451,7 @@ export default function BusinessTable(props: BusinessTableProps) {
           outline: "none !important",
         },
         "& .MuiDataGrid-virtualScroller": {
-          bgcolor: "white",
+          bgcolor: "#FFFDF5",
         },
         "& .MuiDataGrid-row": {
           borderBottom: "1px solid #F1F5F9",
@@ -460,10 +460,10 @@ export default function BusinessTable(props: BusinessTableProps) {
             bgcolor: "#FAFBFC",
           },
           "&.Mui-selected": {
-            bgcolor: "rgba(11,107,58,0.06) !important",
+            bgcolor: "rgba(255, 170, 0,0.06) !important",
           },
           "&.Mui-selected:hover": {
-            bgcolor: "rgba(11,107,58,0.10) !important",
+            bgcolor: "rgba(255, 170, 0,0.10) !important",
           },
         },
         "& .MuiDataGrid-cell": {
@@ -474,7 +474,7 @@ export default function BusinessTable(props: BusinessTableProps) {
         "& .MuiDataGrid-checkboxInput": {
           color: "#94A3B8",
           "&.Mui-checked": {
-            color: "#0B6B3A",
+            color: "#FFAA00",
           },
         },
         "& .MuiDataGrid-footerContainer": {

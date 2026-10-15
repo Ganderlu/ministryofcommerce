@@ -11,36 +11,68 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { Email, Send } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, useId } from "react";
 import { db, addDoc, collection, serverTimestamp } from "@/firebase/clients";
 
 const MotionBox = motion(Box);
 const MotionButton = motion(Button);
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [fieldError, setFieldError] = useState("");
+  const [touched, setTouched] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success" as "success" | "error",
   });
 
+  const emailId = useId();
+  const errorId = `${emailId}-error`;
+  const helperId = `${emailId}-helper`;
+
+  const validateEmail = (val: string): string => {
+    const trimmed = val.trim();
+    if (!trimmed) return "Please enter your email address.";
+    if (!EMAIL_REGEX.test(trimmed.toLowerCase()))
+      return "Please enter a valid email address (e.g. name@example.com).";
+    return "";
+  };
+
+  const handleBlur = () => {
+    setTouched(true);
+    setFieldError(validateEmail(email));
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (touched || fieldError) {
+      setFieldError(validateEmail(e.target.value));
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
+    setTouched(true);
+    const err = validateEmail(email);
+    if (err) {
+      setFieldError(err);
       setSnackbar({
         open: true,
-        message: "Please enter your email address",
+        message: err,
         severity: "error",
       });
       return;
     }
+    setFieldError("");
 
     setLoading(true);
     try {
       await addDoc(collection(db, "newsletter_subscribers"), {
-        email,
+        email: email.trim(),
         timestamp: serverTimestamp(),
       });
       setSnackbar({
@@ -49,8 +81,11 @@ export default function Newsletter() {
         severity: "success",
       });
       setEmail("");
+      setTouched(false);
     } catch (error) {
-      console.error("Error subscribing:", error);
+      if (process.env.NODE_ENV === "development") {
+        console.error("Error subscribing:", error);
+      }
       setSnackbar({
         open: true,
         message: "Something went wrong. Please try again.",
@@ -61,9 +96,11 @@ export default function Newsletter() {
     }
   };
 
+  const hasError = Boolean(fieldError);
+
   return (
     <>
-      <Box sx={{ py: 10, backgroundColor: "#D4AF37" }}>
+      <Box sx={{ py: 10, backgroundColor: "#CC8800" }} role="region" aria-labelledby="newsletter-heading">
         <Container maxWidth="xl">
           <MotionBox
             initial={{ opacity: 0, y: 30 }}
@@ -84,18 +121,19 @@ export default function Newsletter() {
                   sx={{
                     width: 60,
                     height: 60,
-                    backgroundColor: "rgba(212, 175, 55, 0.2)",
-                    color: "#D4AF37",
+                    backgroundColor: "rgba(0,0,0,0.15)",
+                    color: "#0F172A",
                   }}
                 >
                   <Email sx={{ fontSize: 30 }} />
                 </Avatar>
                 <Box>
                   <Typography
+                    id="newsletter-heading"
                     variant="h4"
                     sx={{
                       fontWeight: 800,
-                      color: "black",
+                      color: "#0F172A",
                       fontFamily: "var(--font-poppins)",
                     }}
                   >
@@ -104,8 +142,9 @@ export default function Newsletter() {
                 </Box>
               </Box>
               <Typography
+                id={helperId}
                 sx={{
-                  color: "rgba(0,0,0,0.85)",
+                  color: "#0F172A",
                   fontSize: "1.1rem",
                   lineHeight: 1.8,
                   maxWidth: "500px",
@@ -118,6 +157,10 @@ export default function Newsletter() {
 
             {/* Right: Form */}
             <Box
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              aria-describedby={helperId}
               sx={{
                 flex: 1,
                 maxWidth: "600px",
@@ -125,8 +168,6 @@ export default function Newsletter() {
               }}
             >
               <Box
-                component="form"
-                onSubmit={handleSubmit}
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", sm: "row" },
@@ -134,13 +175,28 @@ export default function Newsletter() {
                 }}
               >
                 <TextField
+                  id={emailId}
+                  type="email"
+                  label="Email Address"
                   fullWidth
                   variant="outlined"
-                  placeholder="Enter your email address"
+                  placeholder="name@example.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  required
+                  error={hasError}
+                  aria-invalid={hasError || undefined}
+                  aria-required="true"
+                  aria-describedby={hasError ? errorId : helperId}
+                  helperText={hasError ? fieldError : undefined}
+                  FormHelperTextProps={{
+                    id: hasError ? errorId : undefined,
+                    role: hasError ? "alert" : undefined,
+                    sx: { color: "#7F1D1D", fontWeight: 550 },
+                  }}
                   sx={{
-                    backgroundColor: "white",
+                    backgroundColor: "#FFFDF5",
                     borderRadius: 2,
                     "& .MuiOutlinedInput-root": {
                       borderRadius: 2,
@@ -155,17 +211,19 @@ export default function Newsletter() {
                   type="submit"
                   variant="contained"
                   disabled={loading}
+                  aria-describedby={helperId}
                   sx={{
-                    backgroundColor: "black",
-                    color: "#D4AF37",
+                    backgroundColor: "#0F172A",
+                    color: "#FFE9B3",
                     fontWeight: 700,
                     px: 4,
                     py: 1.5,
                     borderRadius: 2,
                     textTransform: "none",
                     whiteSpace: "nowrap",
+                    minHeight: 56,
                     "&:hover": { backgroundColor: "#1E293B" },
-                    "&:disabled": { backgroundColor: "#334155" },
+                    "&:disabled": { backgroundColor: "#334155", color: "#CBD5E1" },
                   }}
                   endIcon={<Send />}
                 >
@@ -187,6 +245,7 @@ export default function Newsletter() {
         <Alert
           onClose={() => setSnackbar({ ...snackbar, open: false })}
           severity={snackbar.severity}
+          role={snackbar.severity === "success" ? "status" : "alert"}
           sx={{ width: "100%" }}
         >
           {snackbar.message}

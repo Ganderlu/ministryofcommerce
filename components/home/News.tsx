@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Container,
@@ -15,11 +15,12 @@ import { motion } from "framer-motion";
 import { theme } from "@/theme";
 import { news } from "@/data/seed";
 import Image from "next/image";
+import Link from "next/link";
 
 const MotionCard = motion(Card);
 
 export default function News() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
   return (
     <Box sx={{ py: 10 }}>
       <Container maxWidth="xl">
@@ -49,9 +50,11 @@ export default function News() {
             </Typography>
           </Box>
           <Button
+            component={Link}
+            href="/media#news"
             variant="text"
             endIcon={<ArrowForward />}
-            sx={{ color: accentColor, fontWeight: 600 }}
+            sx={{ color: accentColor, fontWeight: 600, textDecoration: "none" }}
           >
             View All
           </Button>
@@ -74,13 +77,6 @@ export default function News() {
                     fill
                     style={{ objectFit: "cover" }}
                   />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundColor: "rgba(212, 175, 55, 0.45)",
-                    }}
-                  />
                 </Box>
                 <CardContent sx={{ p: 3 }}>
                   <Chip
@@ -94,7 +90,7 @@ export default function News() {
                     }}
                   />
                   <Typography
-                    variant="h6"
+                    variant="h4"
                     sx={{
                       fontWeight: 600,
                       fontFamily: "var(--font-poppins)",

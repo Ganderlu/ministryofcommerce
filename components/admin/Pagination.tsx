@@ -1,7 +1,7 @@
-"use client";
+﻿"use client";
 
-import React from "react";
-import { Box, Typography, Select, MenuItem, IconButton, Stack } from "@mui/material";
+import React, { useId } from "react";
+import { Box, Typography, Select, MenuItem, IconButton, Stack, InputLabel } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 interface Props {
@@ -27,6 +27,8 @@ export default function Pagination({
 }: Props) {
   const start = totalItems === 0 ? 0 : (page - 1) * itemsPerPage + 1;
   const end = Math.min(page * itemsPerPage, totalItems);
+  const selectId = useId();
+  const labelId = `${selectId}-label`;
 
   const getPageNumbers = (): (number | "dots")[] => {
     const pages: (number | "dots")[] = [];
@@ -96,18 +98,19 @@ export default function Pagination({
         sx={{ flexWrap: "wrap" }}
       >
         <Stack direction="row" spacing={1} alignItems="center">
-          <Typography
-            sx={{
+          <InputLabel id={labelId} htmlFor={selectId} sx={{
               fontSize: 12.5,
               color: "#64748B",
               fontWeight: 500,
-            }}
-          >
+            }}>
             Rows per page:
-          </Typography>
+          </InputLabel>
           <Select
+            labelId={labelId}
+            id={selectId}
             size="small"
             value={itemsPerPage}
+            aria-label="Rows per page"
             onChange={(e) => {
               const newVal = e.target.value as number;
               onRowsPerPageChange?.(newVal);
@@ -123,7 +126,7 @@ export default function Pagination({
               fontSize: 12.5,
               color: "#1E293B",
               "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                borderColor: "#0B6B3A",
+                borderColor: "#FFAA00",
                 borderWidth: 1,
               },
               "&:hover .MuiOutlinedInput-notchedOutline": {
@@ -144,6 +147,8 @@ export default function Pagination({
             size="small"
             disabled={page === 1}
             onClick={() => onPageChange(page - 1)}
+            aria-label="Previous page"
+            aria-disabled={page === 1}
             sx={{
               minWidth: 38,
               height: 38,
@@ -168,6 +173,7 @@ export default function Pagination({
                   color: "#94A3B8",
                   fontSize: 13,
                 }}
+                aria-hidden="true"
               >
                 …
               </Typography>
@@ -176,6 +182,8 @@ export default function Pagination({
                 key={p}
                 size="small"
                 onClick={() => onPageChange(p)}
+                aria-label={p === page ? `Page ${p} (current)` : `Go to page ${p}`}
+                aria-current={p === page ? "page" : undefined}
                 sx={{
                   minWidth: 38,
                   height: 38,
@@ -183,14 +191,14 @@ export default function Pagination({
                   fontSize: 13,
                   fontWeight: 650,
                   px: 1,
-                  bgcolor: p === page ? "#0B6B3A" : "white",
+                  bgcolor: p === page ? "#FFAA00" : "white",
                   color: p === page ? "white" : "#64748B",
                   border:
                     p === page
-                      ? "1px solid #0B6B3A"
+                      ? "1px solid #FFAA00"
                       : "1px solid #E2E8F0",
                   "&:hover": {
-                    bgcolor: p === page ? "#084C2E" : "#F8FAFC",
+                    bgcolor: p === page ? "#CC8800" : "#F8FAFC",
                   },
                 }}
               >
@@ -203,6 +211,8 @@ export default function Pagination({
             size="small"
             disabled={page === totalPages || totalPages === 0}
             onClick={() => onPageChange(page + 1)}
+            aria-label="Next page"
+            aria-disabled={page === totalPages || totalPages === 0}
             sx={{
               minWidth: 38,
               height: 38,

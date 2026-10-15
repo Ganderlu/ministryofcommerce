@@ -1,4 +1,4 @@
-import {
+﻿import {
   Statistic,
   Service,
   NewsItem,
@@ -90,7 +90,7 @@ export const statistics: Statistic[] = [
   {
     id: "5",
     icon: "AccountBalance",
-    iconColor: "#D4AF37",
+    iconColor: "#FFAA00",
     count: "N8.6B+",
     label: "Revenue Generated",
   },
@@ -233,11 +233,11 @@ export const footerLinks: FooterLink[] = [
     id: "1",
     title: "Quick Links",
     links: [
-      { name: "About Us", href: "#" },
-      { name: "Our Services", href: "#" },
-      { name: "Procurement & Tenders", href: "#" },
-      { name: "Invest in Anambra", href: "#" },
-      { name: "News & Events", href: "#" },
+      { name: "About Us", href: "/about" },
+      { name: "Our Services", href: "/services" },
+      { name: "Procurement & Tenders", href: "/units/procurement" },
+      { name: "Invest in Anambra", href: "/departments/investment-promotion" },
+      { name: "News & Events", href: "/media" },
       { name: "Contact Us", href: "/contact" },
     ],
   },
@@ -245,12 +245,12 @@ export const footerLinks: FooterLink[] = [
     id: "2",
     title: "Important Links",
     links: [
-      { name: "Anambra State Government", href: "#" },
-      { name: "CAC Registration", href: "#" },
-      { name: "NIPC", href: "#" },
-      { name: "BOI", href: "#" },
-      { name: "NERFUND", href: "#" },
-      { name: "NEPC", href: "#" },
+      { name: "Anambra State Government", href: "https://anambrastate.gov.ng/" },
+      { name: "CAC Registration", href: "https://pre.cac.gov.ng/" },
+      { name: "NIPC", href: "https://nipc.gov.ng/" },
+      { name: "BOI", href: "https://boi.ng/" },
+      { name: "NERFUND", href: "https://nerfund.ng/" },
+      { name: "NEPC", href: "https://nepc.gov.ng/" },
     ],
   },
 ];
@@ -260,7 +260,7 @@ export const contactInformation: ContactInformation = {
   id: "1",
   phone: "+234 813 423 4567",
   altPhone: "+234 906 789 0123",
-  email: "info@commerce.anambrastate.gov.ng",
+  email: "commerce@anambrastate.gov.ng",
   supportEmail: "support@commerce.anambrastate.gov.ng",
   officeHours: "Monday – Friday",
   officeHoursNote: "8:00 AM – 4:00 PM",
@@ -955,7 +955,7 @@ export const kpiCards: KpiCard[] = [
     change: 12.5,
     changeDirection: "up",
     icon: "Description",
-    color: "#0B6B3A",
+    color: "#FFAA00",
   },
   {
     id: "2",
@@ -982,7 +982,7 @@ export const kpiCards: KpiCard[] = [
     change: 18.2,
     changeDirection: "up",
     icon: "Payments",
-    color: "#D4AF37",
+    color: "#FFAA00",
   },
   {
     id: "5",
@@ -991,7 +991,7 @@ export const kpiCards: KpiCard[] = [
     change: 10.1,
     changeDirection: "up",
     icon: "SupervisorAccount",
-    color: "#16A34A",
+    color: "#FFAA00",
   },
 ];
 
@@ -1002,7 +1002,7 @@ export const topServices: TopService[] = [
     applications: 1523,
     growth: 15.3,
     icon: "Business",
-    color: "#0B6B3A",
+    color: "#FFAA00",
   },
   {
     id: "2",
@@ -1038,7 +1038,7 @@ export const recentApplications: RecentApplication[] = [
     submissionTime: "2 mins ago",
     status: "Pending",
     icon: "Business",
-    color: "#0B6B3A",
+    color: "#FFAA00",
   },
   {
     id: "2",
@@ -1056,7 +1056,7 @@ export const recentApplications: RecentApplication[] = [
     submissionTime: "1 hour ago",
     status: "Approved",
     icon: "Business",
-    color: "#16A34A",
+    color: "#FFAA00",
   },
   {
     id: "4",
@@ -1065,7 +1065,7 @@ export const recentApplications: RecentApplication[] = [
     submissionTime: "2 hours ago",
     status: "Pending",
     icon: "Diversity3",
-    color: "#F59E0B",
+    color: "#FFAA00",
   },
   {
     id: "5",
@@ -1125,7 +1125,7 @@ export const footerStats: FooterStat[] = [
     label: "System Roles",
     value: "15",
     icon: "VerifiedUser",
-    color: "#0B6B3A",
+    color: "#FFAA00",
   },
   {
     id: "3",
@@ -1139,7 +1139,7 @@ export const footerStats: FooterStat[] = [
     label: "System Uptime",
     value: "99.9%",
     icon: "Schedule",
-    color: "#084C2E",
+    color: "#CC8800",
   },
 ];
 
@@ -1158,9 +1158,9 @@ export const applicationsByMonth = [
 ];
 
 export const applicationsByStatus = [
-  { label: "Pending", value: 1245, color: "#FBBF24" },
+  { label: "Pending", value: 1245, color: "#FFB733" },
   { label: "Under Review", value: 892, color: "#3B82F6" },
-  { label: "Approved", value: 542, color: "#16A34A" },
+  { label: "Approved", value: 542, color: "#FFAA00" },
   { label: "Rejected", value: 168, color: "#EF4444" },
 ];
 
@@ -1177,9 +1177,9 @@ export const revenueAnalytics = [
 
 export const businessAdminCategories: BusinessCategoryItem[] = [
   { id: "ict", name: "ICT Services", icon: "Computer", color: "#3B82F6" },
-  { id: "agriculture", name: "Agriculture", icon: "Agriculture", color: "#16A34A" },
+  { id: "agriculture", name: "Agriculture", icon: "Agriculture", color: "#FFAA00" },
   { id: "construction", name: "Construction", icon: "Construction", color: "#8B5CF6" },
-  { id: "retail", name: "Retail", icon: "Storefront", color: "#F59E0B" },
+  { id: "retail", name: "Retail", icon: "Storefront", color: "#FFAA00" },
   { id: "cooperative", name: "Cooperative", icon: "Diversity3", color: "#EF4444" },
   { id: "food", name: "Food & Beverage", icon: "Fastfood", color: "#14B8A6" },
   { id: "transport", name: "Transport", icon: "DirectionsCar", color: "#EF4444" },
@@ -1223,7 +1223,7 @@ export const businessRows: BusinessRow[] = [
     status: "Under Review",
     registeredOnDate: "May 24, 2025",
     registeredOnTime: "9:15 AM",
-    logoColor: "#16A34A",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-bus-2025-0003",
@@ -1253,7 +1253,7 @@ export const businessRows: BusinessRow[] = [
     status: "Pending",
     registeredOnDate: "May 23, 2025",
     registeredOnTime: "2:30 PM",
-    logoColor: "#F59E0B",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-bus-2025-0005",
@@ -1328,7 +1328,7 @@ export const businessRows: BusinessRow[] = [
     status: "Approved",
     registeredOnDate: "May 20, 2025",
     registeredOnTime: "10:00 AM",
-    logoColor: "#F59E0B",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-bus-2025-0010",
@@ -1350,11 +1350,11 @@ export const businessRows: BusinessRow[] = [
 export const TOTAL_BUSINESSES = 1532;
 
 export const cooperativeAdminCategories: CooperativeCategoryItem[] = [
-  { id: "agriculture", name: "Agriculture", icon: "Agriculture", color: "#16A34A" },
+  { id: "agriculture", name: "Agriculture", icon: "Agriculture", color: "#FFAA00" },
   { id: "business", name: "Business", icon: "Business", color: "#3B82F6" },
   { id: "cooperative", name: "Cooperative", icon: "Cooperative", color: "#EF4444" },
   { id: "youth", name: "Youth", icon: "Youth", color: "#A855F7" },
-  { id: "trade", name: "Trade", icon: "Trade", color: "#F59E0B" },
+  { id: "trade", name: "Trade", icon: "Trade", color: "#FFAA00" },
   { id: "multipurpose", name: "Multipurpose", icon: "Multipurpose", color: "#14B8A6" },
   { id: "transport", name: "Transport", icon: "Transport", color: "#F97316" },
   { id: "artisan", name: "Artisan", icon: "Artisan", color: "#6366F1" },
@@ -1381,7 +1381,7 @@ export const cooperativeRows: CooperativeRow[] = [
     status: "Approved",
     registeredOnDate: "May 24, 2025",
     registeredOnTime: "10:30 AM",
-    logoColor: "#16A34A",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-coop-2025-0002",
@@ -1441,7 +1441,7 @@ export const cooperativeRows: CooperativeRow[] = [
     status: "Rejected",
     registeredOnDate: "May 22, 2025",
     registeredOnTime: "11:20 AM",
-    logoColor: "#F59E0B",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-coop-2025-0006",
@@ -1456,7 +1456,7 @@ export const cooperativeRows: CooperativeRow[] = [
     status: "Approved",
     registeredOnDate: "May 22, 2025",
     registeredOnTime: "9:05 AM",
-    logoColor: "#16A34A",
+    logoColor: "#FFAA00",
   },
   {
     id: "ans-coop-2025-0007",

@@ -8,7 +8,7 @@ type Status = ApplicationStatus | string;
 
 const statusConfig: Record<string, { color: string; bgcolor: string; border: string }> = {
   Pending: {
-    color: "#92400E",
+    color: "#996600",
     bgcolor: "rgba(245, 158, 11, 0.12)",
     border: "rgba(245, 158, 11, 0.3)",
   },
@@ -18,9 +18,9 @@ const statusConfig: Record<string, { color: string; bgcolor: string; border: str
     border: "rgba(59, 130, 246, 0.3)",
   },
   Approved: {
-    color: "#8C6A16",
-    bgcolor: "rgba(22, 163, 74, 0.12)",
-    border: "rgba(22, 163, 74, 0.3)",
+    color: "#996600",
+    bgcolor: "rgba(255, 170, 0, 0.12)",
+    border: "rgba(255, 170, 0, 0.3)",
   },
   Rejected: {
     color: "#991B1B",

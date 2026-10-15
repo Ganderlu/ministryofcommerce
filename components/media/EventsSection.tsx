@@ -16,10 +16,10 @@ import { events } from "@/data/seed";
 const MotionCard = motion(Card);
 
 export default function EventsSection() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
-    <Box id="events" sx={{ py: { xs: 6, md: 10 }, backgroundColor: "white" }}>
+    <Box id="events" sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <Box sx={{ textAlign: "center", mb: { xs: 4, md: 6 } }}>
           <Typography
@@ -54,7 +54,7 @@ export default function EventsSection() {
               fontSize: { xs: "0.95rem", md: "1.05rem" },
             }}
           >
-            Don't miss our upcoming events, workshops, and training programs.
+            Don&apos;t miss our upcoming events, workshops, and training programs.
           </Typography>
         </Box>
 

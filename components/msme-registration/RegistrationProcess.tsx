@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Container, Typography, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import SectionTitle from "@/components/ui/SectionTitle";
@@ -7,7 +7,7 @@ import { msmeProcessSteps } from "@/data/seed";
 const MotionBox = motion(Box);
 
 export default function RegistrationProcess() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
     <Box sx={{ py: { xs: 10, md: 14 }, backgroundColor: "#F8FAFC" }}>
@@ -71,7 +71,7 @@ export default function RegistrationProcess() {
                         fontWeight: 700,
                         fontSize: "1.5rem",
                         fontFamily: "var(--font-poppins)",
-                        boxShadow: `0 6px 20px ${primaryColor}40`,
+                        boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                         border: `4px solid white`,
                         mb: 2,
                         mx: "auto",
@@ -115,7 +115,7 @@ export default function RegistrationProcess() {
 }
 
 function ProcessCircle({ step }: { step: number }) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   return (
     <Box
       sx={{
@@ -130,7 +130,7 @@ function ProcessCircle({ step }: { step: number }) {
         fontWeight: 700,
         fontSize: "1.25rem",
         fontFamily: "var(--font-poppins)",
-        boxShadow: `0 4px 16px ${primaryColor}30`,
+        boxShadow: "0 4px 16px rgba(15, 23, 42, 0.18)",
         flexShrink: 0,
       }}
     >

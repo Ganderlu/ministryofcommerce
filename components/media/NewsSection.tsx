@@ -18,7 +18,7 @@ import Image from "next/image";
 const MotionCard = motion(Card);
 
 export default function NewsSection() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box id="news" sx={{ py: { xs: 6, md: 10 } }}>
@@ -73,7 +73,7 @@ export default function NewsSection() {
                   height: "100%",
                   borderRadius: 3,
                   overflow: "hidden",
-                  backgroundColor: "white",
+                  backgroundColor: "#FFFDF5",
                 }}
               >
                 <Box sx={{ position: "relative", height: { xs: 180, md: 220 }, overflow: "hidden" }}>
@@ -82,13 +82,6 @@ export default function NewsSection() {
                     alt={item.title}
                     fill
                     style={{ objectFit: "cover" }}
-                  />
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundColor: "rgba(212, 175, 55, 0.45)",
-                    }}
                   />
                 </Box>
                 <CardContent sx={{ p: { xs: 2.5, md: 3 } }}>

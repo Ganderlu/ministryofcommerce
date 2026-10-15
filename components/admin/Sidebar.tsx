@@ -21,6 +21,8 @@ import {
   ChevronRight as ChevronRightIcon,
   Shield as ShieldIcon,
   CheckCircle as CheckCircleIcon,
+  Storefront as MsmeIcon,
+  Work as SmeIcon,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
@@ -31,6 +33,8 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   Applications: ApplicationsIcon,
   Businesses: BusinessesIcon,
   Cooperatives: CooperativesIcon,
+  MSME: MsmeIcon,
+  SME: SmeIcon,
   Users: UsersIcon,
   Payments: PaymentsIcon,
   Reports: ReportsIcon,
@@ -49,6 +53,8 @@ const mainItems = [
   { id: "Dashboard", label: "Dashboard", icon: "Dashboard", href: "/admin" },
   { id: "Applications", label: "Applications", icon: "Applications", href: "/admin/applications" },
   { id: "Businesses", label: "Businesses", icon: "Businesses", href: "/admin/businesses" },
+  { id: "MSME", label: "MSME", icon: "MSME", href: "/admin/msme" },
+  { id: "SME", label: "SME", icon: "SME", href: "/admin/sme" },
   { id: "Cooperatives", label: "Cooperatives", icon: "Cooperatives", href: "/admin/cooperatives" },
   { id: "Users", label: "Users & Roles", icon: "Users", href: "/admin/users" },
   { id: "Payments", label: "Payments", icon: "Payments", href: "/admin/payments" },
@@ -78,7 +84,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
       sx={{
         width: collapsed ? 84 : 280,
         minHeight: "100vh",
-        bgcolor: "#084C2E",
+        bgcolor: "#CC8800",
         color: "white",
         display: "flex",
         flexDirection: "column",
@@ -106,14 +112,14 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
             height: 50,
             flexShrink: 0,
             borderRadius: "50%",
-            bgcolor: "#D4AF37",
-            border: "3px solid #D4AF37",
+            bgcolor: "#FFAA00",
+            border: "3px solid #FFAA00",
             position: "relative",
             overflow: "hidden",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: "0 0 0 2px #D4AF37 inset",
+            boxShadow: "0 0 0 2px rgba(255, 170, 0, 0.35) inset",
           }}
         >
           <Image
@@ -132,7 +138,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
             <Typography variant="h6" sx={{ fontSize: 13.5, fontWeight: 800, letterSpacing: 0.2, lineHeight: 1.15 }}>
               ANAMBRA STATE
             </Typography>
-            <Typography sx={{ fontSize: 10.5, fontWeight: 600, letterSpacing: 0.25, color: "#D4AF37", lineHeight: 1.3 }}>
+            <Typography sx={{ fontSize: 10.5, fontWeight: 600, letterSpacing: 0.25, color: "#FFAA00", lineHeight: 1.3 }}>
               MINISTRY OF COMMERCE
             </Typography>
             <Typography
@@ -173,6 +179,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
           {mainItems.map((item, idx) => {
             const IconComp = iconMap[item.icon] || DashboardIcon;
             const active = isActive(item.href);
+            const hasHref = !!item.href && item.href !== "#" && item.href.trim().length > 1;
             return (
               <MotionBox
                 key={item.id}
@@ -183,21 +190,31 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
               >
                 <ListItem disablePadding>
                   <ListItemButton
-                    component={Link}
-                    href={item.href || "#"}
+                    {...(hasHref ? { component: Link as React.ElementType, href: item.href } : {})}
+                    disabled={!hasHref}
+                    aria-disabled={!hasHref}
                     sx={{
                       py: 1.2,
                       px: collapsed ? 1.1 : 1.5,
                       borderRadius: "10px",
-                      bgcolor: active ? "rgba(11, 107, 58, 0.85)" : "transparent",
-                      color: active ? "white" : "rgba(255,255,255,0.82)",
+                      bgcolor: active ? "rgba(255, 170, 0, 0.85)" : "transparent",
+                      color: active ? "white" : (hasHref ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.42)"),
                       transition: "all 0.15s",
                       border: active ? "1px solid rgba(212, 175, 55, 0.25)" : "1px solid transparent",
-                      "&:hover": {
-                        bgcolor: active ? "rgba(11, 107, 58, 0.95)" : "rgba(255,255,255,0.06)",
-                        color: "white",
-                        transform: "translateX(3px)",
-                      },
+                      cursor: hasHref ? "pointer" : "default",
+                      textDecoration: !hasHref ? "line-through" : "none",
+                      ...(hasHref ? {
+                        "&:hover": {
+                          bgcolor: active ? "rgba(255, 170, 0, 0.95)" : "rgba(255,255,255,0.06)",
+                          color: "white",
+                          transform: "translateX(3px)",
+                        },
+                      } : {
+                        "&.Mui-disabled": {
+                          bgcolor: "transparent",
+                          color: "rgba(255,255,255,0.38)",
+                        },
+                      }),
                       justifyContent: collapsed ? "center" : "flex-start",
                     }}
                   >
@@ -245,6 +262,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
         <List disablePadding>
           {managementItems.map((item, idx) => {
             const IconComp = iconMap[item.icon] || SettingsIcon;
+            const hasHref = !!item.href && item.href !== "#" && item.href.trim().length > 1;
             return (
               <MotionBox
                 key={item.id}
@@ -255,19 +273,29 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
               >
                 <ListItem disablePadding>
                   <ListItemButton
-                    component={Link}
-                    href={item.href || "#"}
+                    {...(hasHref ? { component: Link as React.ElementType, href: item.href } : {})}
+                    disabled={!hasHref}
+                    aria-disabled={!hasHref}
                     sx={{
                       py: 1.2,
                       px: collapsed ? 1.1 : 1.5,
                       borderRadius: "10px",
-                      color: "rgba(255,255,255,0.78)",
+                      color: hasHref ? "rgba(255,255,255,0.78)" : "rgba(255,255,255,0.42)",
                       transition: "all 0.15s",
-                      "&:hover": {
-                        bgcolor: "rgba(255,255,255,0.06)",
-                        color: "white",
-                        transform: "translateX(3px)",
-                      },
+                      cursor: hasHref ? "pointer" : "default",
+                      textDecoration: !hasHref ? "line-through" : "none",
+                      ...(hasHref ? {
+                        "&:hover": {
+                          bgcolor: "rgba(255,255,255,0.06)",
+                          color: "white",
+                          transform: "translateX(3px)",
+                        },
+                      } : {
+                        "&.Mui-disabled": {
+                          bgcolor: "transparent",
+                          color: "rgba(255,255,255,0.38)",
+                        },
+                      }),
                       justifyContent: collapsed ? "center" : "flex-start",
                     }}
                   >
@@ -322,7 +350,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
                   width: 90,
                   height: 90,
                   borderRadius: "50%",
-                  background: "rgba(22, 163, 74, 0.15)",
+                  background: "rgba(255, 170, 0, 0.15)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -341,8 +369,8 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
                       width: 9,
                       height: 9,
                       borderRadius: "50%",
-                      bgcolor: "#22C55E",
-                      boxShadow: "0 0 0 4px rgba(34, 197, 94, 0.2)",
+                      bgcolor: "#FFB733",
+                      boxShadow: "0 0 0 4px rgba(255, 170, 0, 0.25)",
                       position: "relative",
                       "&::before": {
                         content: '""',
@@ -350,7 +378,7 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
                         inset: 0,
                         borderRadius: "50%",
                         animation: "pulse 1.8s infinite",
-                        bgcolor: "#22C55E",
+                        bgcolor: "#FFB733",
                         opacity: 0.4,
                       },
                       "@keyframes pulse": {
@@ -379,14 +407,14 @@ export default function AdminSidebar({ collapsed = false }: SidebarProps) {
                       width: 34,
                       height: 34,
                       borderRadius: "10px",
-                      bgcolor: "rgba(22, 163, 74, 0.22)",
+                      bgcolor: "rgba(255, 170, 0, 0.22)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      border: "1px solid rgba(22, 163, 74, 0.35)",
+                      border: "1px solid rgba(255, 170, 0, 0.35)",
                     }}
                   >
-                    <CheckCircleIcon sx={{ fontSize: 20, color: "#22C55E" }} />
+                    <CheckCircleIcon sx={{ fontSize: 20, color: "#FFB733" }} />
                   </Box>
                 </Box>
               </Box>

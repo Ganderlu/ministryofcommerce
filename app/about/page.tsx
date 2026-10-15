@@ -28,11 +28,11 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <AboutSection />
       <Footer />
-    </main>
+    </>
   );
 }

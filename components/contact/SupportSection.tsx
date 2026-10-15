@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import {
   Box,
   Container,
@@ -7,6 +8,7 @@ import {
   IconButton,
   Avatar,
   Grid,
+  Tooltip,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { HeadsetMic, Phone } from "@mui/icons-material";
@@ -17,7 +19,7 @@ const MotionButton = motion(Button);
 
 export default function SupportSection() {
   return (
-    <Box sx={{ py: 12, backgroundColor: "white" }}>
+    <Box sx={{ py: 12, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <Grid container spacing={6} alignItems="center">
           {/* Left: Immediate Support */}
@@ -28,7 +30,7 @@ export default function SupportSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
               sx={{
-                background: "linear-gradient(135deg, #D4AF37 0%, #C49F2D 100%)",
+                background: "linear-gradient(135deg, #FFAA00 0%, #C49F2D 100%)",
                 borderRadius: 4,
                 p: { xs: 4, md: 6 },
                 color: "black",
@@ -84,7 +86,7 @@ export default function SupportSection() {
                   size="large"
                   sx={{
                     backgroundColor: "black",
-                    color: "#D4AF37",
+                    color: "#FFAA00",
                     fontWeight: 700,
                     px: 4,
                     py: 1.5,
@@ -131,7 +133,7 @@ export default function SupportSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               sx={{
-                backgroundColor: "white",
+                backgroundColor: "#FFFDF5",
                 borderRadius: 4,
                 p: { xs: 4, md: 6 },
                 border: "1px solid #E2E8F0",
@@ -139,7 +141,7 @@ export default function SupportSection() {
             >
               <Box
                 sx={{
-                  borderLeft: "4px solid #D4AF37",
+                  borderLeft: "4px solid #FFAA00",
                   pl: 3,
                   mb: 4,
                 }}
@@ -168,28 +170,58 @@ export default function SupportSection() {
                   flexWrap: "wrap",
                 }}
               >
-                {socialLinks.map((social) => (
-                  <IconButton
-                    key={social.id}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: "50%",
-                      backgroundColor: "#F8FAFC",
-                      color: "#1E293B",
-                      "&:hover": {
-                        backgroundColor: "#D4AF37",
-                        color: "black",
-                      },
-                      transition: "all 0.3s ease",
-                    }}
-                  >
-                    <social.icon sx={{ fontSize: 26 }} />
-                  </IconButton>
-                ))}
+                {socialLinks.map((social) => {
+                  const isDisabled =
+                    !social.href || social.href === "#" || social.href.trim().length < 2;
+                  return (
+                    <Tooltip
+                      key={social.id}
+                      title={
+                        isDisabled
+                          ? `${social.name} — official link pending`
+                          : `Open ${social.name} (opens in new tab)`
+                      }
+                      placement="bottom"
+                    >
+                      <span>
+                        <IconButton
+                          {...(!isDisabled ? { href: social.href, target: "_blank" as const, rel: "noopener noreferrer" as const } : {})}
+                          disabled={isDisabled}
+                          aria-disabled={isDisabled}
+                          aria-label={
+                            isDisabled
+                              ? `${social.name} — official link pending (disabled)`
+                              : `${social.name}`
+                          }
+                          sx={{
+                            width: 56,
+                            height: 56,
+                            borderRadius: "50%",
+                            backgroundColor: isDisabled ? "#F1F5F9" : "#F8FAFC",
+                            color: isDisabled ? "#94A3B8" : "#1E293B",
+                            cursor: isDisabled ? "default" : "pointer",
+                            pointerEvents: isDisabled ? "none" : "auto",
+                            opacity: isDisabled ? 0.7 : 1,
+                            textDecoration: isDisabled ? "line-through" : "none",
+                            transition: "all 0.3s ease",
+                            "&.Mui-disabled": {
+                              backgroundColor: "#F1F5F9",
+                              color: "#94A3B8",
+                            },
+                            ...(!isDisabled && {
+                              "&:hover": {
+                                backgroundColor: "#FFAA00",
+                                color: "black",
+                              },
+                            }),
+                          }}
+                        >
+                          <social.icon sx={{ fontSize: 26 }} />
+                        </IconButton>
+                      </span>
+                    </Tooltip>
+                  );
+                })}
               </Box>
             </MotionBox>
           </Grid>

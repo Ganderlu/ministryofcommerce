@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -6,7 +6,7 @@ import Image from "next/image";
 const MotionBox = motion(Box);
 
 export default function MediaHero() {
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
     <Box

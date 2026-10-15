@@ -1,16 +1,25 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Typography, Box, MenuItem, Select, FormControl } from "@mui/material";
 import SectionCard from "@/components/ui/SectionCard";
-import { LineChart } from "@mui/x-charts/LineChart";
-import { applicationsByMonth } from "@/data/seed";
 import { motion } from "framer-motion";
+import { LineChart } from "@mui/x-charts/LineChart";
+import type { AdminDashboardData } from "@/lib/admin-data";
 
 const MotionBox = motion(Box);
 
-export default function ApplicationsChart() {
-  const [range, setRange] = useState("This Month");
+interface ApplicationsChartProps {
+  data: AdminDashboardData;
+}
+
+export default function ApplicationsChart({ data }: ApplicationsChartProps) {
+  const [range, setRange] = useState("This Year");
+  const { labels, thisMonth, lastMonth } = data.monthlyApplications;
+
+  const maxVal = Math.max(1, ...thisMonth, ...lastMonth);
+  // Round up to nearest nice number
+  const yMax = Math.ceil(maxVal / 5) * 5 || 5;
 
   return (
     <SectionCard
@@ -25,7 +34,7 @@ export default function ApplicationsChart() {
               fontSize: 12.5,
               height: 34,
               bgcolor: "#F8FAFC",
-              color: "#1E293B",
+              color: "#475569",
               fontWeight: 500,
               borderRadius: "9px",
               border: "1px solid #E2E8F0",
@@ -33,23 +42,33 @@ export default function ApplicationsChart() {
               "&:hover .MuiOutlinedInput-notchedOutline": { border: "none" },
             }}
           >
-            <MenuItem value="This Month">This Month</MenuItem>
-            <MenuItem value="Last Month">Last Month</MenuItem>
-            <MenuItem value="Custom Range">Custom Range</MenuItem>
+            <MenuItem value="This Year">This Year</MenuItem>
+            <MenuItem value="Last Year">Last Year</MenuItem>
           </Select>
         </FormControl>
       }
     >
       <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 1 }}>
-          <Legend color="#0B6B3A" label="This Month" />
-          <Legend color="#86C69A" label="Last Month" />
+          <Legend color="#FFAA00" label="This Year" />
+          <Legend color="#CBD5E1" label="Last Year" />
         </Box>
-        <Box sx={{ width: "100%", height: 250, mt: -1 }}>
+        <Box
+          sx={{
+            width: "100%",
+            height: 250,
+            mt: -1,
+            position: "relative",
+            borderRadius: "12px",
+            overflow: "hidden",
+          }}
+          role="img"
+          aria-label="Monthly application volumes chart"
+        >
           <LineChart
             xAxis={[
               {
-                data: applicationsByMonth.map((d) => d.date),
+                data: labels,
                 scaleType: "band",
                 tickInterval: (_, i) => i % 2 === 0,
               },
@@ -57,36 +76,33 @@ export default function ApplicationsChart() {
             yAxis={[
               {
                 min: 0,
-                max: 1000,
-                tickInterval: [0, 200, 400, 600, 800, 1000],
+                max: yMax,
+                tickInterval: (v) => v % Math.max(1, Math.round(yMax / 5)) === 0,
                 labelStyle: { fontSize: 11, fill: "#94A3B8" },
               },
             ]}
             grid={{ horizontal: true, vertical: false }}
             series={[
               {
-                data: applicationsByMonth.map((d) => d.thisMonth),
-                color: "#0B6B3A",
-                showMark: false,
+                data: thisMonth,
+                color: "#FFAA00",
+                showMark: true,
                 curve: "monotoneX",
                 area: true,
-                label: "This Month",
+                label: "This Year",
               },
               {
-                data: applicationsByMonth.map((d) => d.lastMonth),
-                color: "#86C69A",
+                data: lastMonth,
+                color: "#CBD5E1",
                 showMark: false,
                 curve: "monotoneX",
-                area: true,
-                label: "Last Month",
+                area: false,
+                label: "Last Year",
               },
             ]}
             margin={{ top: 10, left: 40, right: 20, bottom: 10 }}
             height={250}
             sx={{
-              "& .MuiAreaElement-root": {
-                opacity: 1,
-              },
               "& .MuiChartsAxis-tickLabel": { fill: "#94A3B8", fontSize: 11 },
               "& .MuiChartsGrid-line": { stroke: "#F1F5F9" },
             }}
@@ -108,7 +124,7 @@ function Legend({ color, label }: { color: string; label: string }) {
           bgcolor: color,
         }}
       />
-      <Typography sx={{ fontSize: 11.5, color: "#475569", fontWeight: 600 }}>{label}</Typography>
+      <Typography sx={{ fontSize: 11.5, color: "#64748B", fontWeight: 600 }}>{label}</Typography>
     </Box>
   );
 }

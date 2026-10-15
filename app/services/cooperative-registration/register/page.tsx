@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { Suspense } from "react";
 import { Box, CircularProgress } from "@mui/material";
 import dynamic from "next/dynamic";
@@ -48,7 +48,7 @@ export default function CooperativeRegisterPage() {
             bgcolor: "#F8FAFC",
           }}
         >
-          <CircularProgress sx={{ color: "#D4AF37" }} />
+          <CircularProgress sx={{ color: "#FFAA00" }} />
         </Box>
       }
     >

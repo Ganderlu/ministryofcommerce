@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { Box, Card, CardContent, Typography, Stack } from "@mui/material";
 import { motion } from "framer-motion";
 import { CheckCircleOutline } from "@mui/icons-material";
@@ -7,7 +7,7 @@ import { msmeRequiredDocs } from "@/data/seed";
 const MotionCard = motion(Card);
 
 export default function RequiredDocuments() {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   return (
     <MotionCard

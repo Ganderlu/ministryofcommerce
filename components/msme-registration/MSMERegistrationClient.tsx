@@ -642,7 +642,7 @@ export default function MSMERegistrationClient() {
             fontFamily: "var(--font-poppins)",
             borderRadius: 2,
             boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
-            bgcolor: notify.type === "success" ? "#D4AF37" : undefined,
+            bgcolor: notify.type === "success" ? "#FFAA00" : undefined,
           }}
         >
           {notify.msg}
@@ -663,7 +663,7 @@ function SubmissionSuccessCard({
   docId: string;
   onStartNew: () => void;
 }) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   const businessName =
     (documentData?.businessInformation as MSMERegistrationFormData | undefined)
       ?.businessName || "Your MSME";
@@ -718,7 +718,7 @@ function SubmissionSuccessCard({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: `0 10px 28px ${primaryColor}30`,
+            boxShadow: "0 10px 28px rgba(15, 23, 42, 0.18)",
           }}
         >
           <Box
@@ -800,7 +800,7 @@ function SubmissionSuccessCard({
               sx={{
                 fontSize: "0.85rem",
                 fontWeight: 700,
-                color: "#D4AF37",
+                color: "#FFAA00",
                 fontFamily: "var(--font-poppins)",
               }}
             >
@@ -851,7 +851,7 @@ function SubmissionSuccessCard({
               py: 1.5,
               borderRadius: 2,
               border: "1px solid #CBD5E1",
-              bgcolor: "white",
+              bgcolor: "#FFFDF5",
               color: "#475569",
               fontWeight: 700,
               fontFamily: "var(--font-poppins)",
@@ -880,15 +880,15 @@ function SubmissionSuccessCard({
               fontSize: "0.95rem",
               cursor: "pointer",
               textDecoration: "none",
-              boxShadow: `0 10px 24px ${primaryColor}35`,
+              boxShadow: "0 10px 24px rgba(15, 23, 42, 0.20)",
               transition: "all 0.3s ease",
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               "&:hover": {
-                bgcolor: "#B8941F",
+                bgcolor: "#CC8800",
                 transform: "translateY(-1.5px)",
-                boxShadow: `0 14px 28px ${primaryColor}45`,
+                boxShadow: "0 14px 28px rgba(15, 23, 42, 0.28)",
               },
             }}
           >
@@ -901,7 +901,7 @@ function SubmissionSuccessCard({
 }
 
 function InfoBox({ label, value }: { label: string; value: string }) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   return (
     <Box
       sx={{

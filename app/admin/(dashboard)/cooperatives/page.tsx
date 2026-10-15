@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CooperativesPageClient from "./CooperativesPageClient";
+import { getCooperativeRows } from "@/lib/admin-data";
 
 export const metadata: Metadata = {
   title: "Cooperatives Management | Anambra State Ministry of Commerce",
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function CooperativesPage() {
-  return <CooperativesPageClient />;
+export default async function CooperativesPage() {
+  const initialRows = await getCooperativeRows();
+  return <CooperativesPageClient initialRows={initialRows} />;
 }

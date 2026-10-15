@@ -144,11 +144,11 @@ function categoryColor(category: RequiredBusinessDocument["category"]) {
     case "Legal":
       return { bg: "rgba(14, 116, 144, 0.1)", color: "#0E7490" };
     case "Identity":
-      return { bg: "rgba(212, 175, 55, 0.12)", color: "#0B6B3A" };
+      return { bg: "rgba(212, 175, 55, 0.12)", color: "#FFAA00" };
     case "Financial":
       return { bg: "rgba(124, 58, 237, 0.12)", color: "#6D28D9" };
     case "Profile":
-      return { bg: "rgba(212, 175, 55, 0.18)", color: "#8C6A16" };
+      return { bg: "rgba(212, 175, 55, 0.18)", color: "#996600" };
     default:
       return { bg: "#F1F5F9", color: "#0F172A" };
   }
@@ -166,7 +166,7 @@ function fileIconByType(fileName: string) {
   if (/\.(png|jpe?g|webp|gif)$/.test(lc))
     return <ImageIcon sx={{ color: "#0284C7" }} />;
   if (/\.(xlsx?|csv|numbers)$/.test(lc))
-    return <TableChartIcon sx={{ color: "#D4AF37" }} />;
+    return <TableChartIcon sx={{ color: "#FFAA00" }} />;
   if (/\.(zip|rar|7z)$/.test(lc))
     return <FolderZipIcon sx={{ color: "#C2410C" }} />;
   if (/\.(docx?|txt|rtf)$/.test(lc))
@@ -181,8 +181,8 @@ export default function DocumentUpload({
   onBack,
   saving,
 }: DocumentUploadProps) {
-  const primaryColor = "#D4AF37";
-  const accentColor = "#0B6B3A";
+  const primaryColor = "#FFAA00";
+  const accentColor = "#FFAA00";
   const seeds = useMemo(() => [...BUSINESS_DOCUMENTS], []);
   const [documents, setDocuments] = useState<Record<string, BusinessDocumentUpload>>(
     () => {
@@ -568,7 +568,7 @@ export default function DocumentUpload({
       sx={{
         borderRadius: 3,
         border: "1px solid #E5E7EB",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#FFFDF5",
         p: { xs: 2.5, md: 4.5 },
       }}
     >
@@ -605,10 +605,10 @@ export default function DocumentUpload({
                 sx={{
                   ml: 1,
                   bgcolor: "rgba(212, 175, 55, 0.12)",
-                  color: "#8C6A16",
+                  color: "#996600",
                   fontWeight: 700,
                   borderRadius: 10,
-                  "& .MuiChip-icon": { color: "#8C6A16" },
+                  "& .MuiChip-icon": { color: "#996600" },
                 }}
               />
             )}
@@ -622,7 +622,7 @@ export default function DocumentUpload({
             fontWeight: 700,
             fontSize: "0.85rem",
             bgcolor: "rgba(212, 175, 55, 0.12)",
-            color: "#8C6A16",
+            color: "#996600",
             "& .MuiChip-icon": { color: primaryColor },
             borderRadius: 10,
             px: 1,
@@ -705,7 +705,7 @@ export default function DocumentUpload({
               sx={{
                 border: `1.5px solid ${err ? "#FECACA" : saved ? `rgba(212,175,55,0.45)` : "#E2E8F0"}`,
                 borderRadius: 3,
-                background: saved ? "#FDF8E8" : "#FFFFFF",
+                background: saved ? "#FDF8E8" : "#FFFDF5",
                 p: { xs: 2, md: 2.75 },
                 transition: "box-shadow 0.2s ease, transform 0.2s ease",
                 "&:hover": {
@@ -773,12 +773,12 @@ export default function DocumentUpload({
                         label={onCloudinary ? "Uploaded to Cloudinary" : "Uploaded"}
                         sx={{
                           bgcolor: onCloudinary ? "rgba(212, 175, 55, 0.15)" : "rgba(212, 175, 55, 0.12)",
-                          color: onCloudinary ? "#8C6A16" : "#8C6A16",
+                          color: onCloudinary ? "#996600" : "#996600",
                           fontWeight: 700,
                           fontSize: "0.72rem",
                           borderRadius: 10,
                           py: 0.4,
-                          "& .MuiChip-icon": { color: onCloudinary ? primaryColor : "#D4AF37" },
+                          "& .MuiChip-icon": { color: onCloudinary ? primaryColor : "#FFAA00" },
                         }}
                       />
                     )}
@@ -826,7 +826,7 @@ export default function DocumentUpload({
                           width: 44,
                           height: 44,
                           borderRadius: 2,
-                          bgcolor: "#FFFFFF",
+                          bgcolor: "#FFFDF5",
                           border: "1px solid #E2E8F0",
                           display: "flex",
                           alignItems: "center",
@@ -961,7 +961,7 @@ export default function DocumentUpload({
                       fontWeight: 700,
                       px: 2.25,
                       py: 1,
-                      boxShadow: saved ? "none" : `0 10px 24px ${primaryColor}40`,
+                      boxShadow: saved ? "none" : "0 10px 24px rgba(15, 23, 42, 0.25)",
                       "&:hover": {
                         bgcolor: saved ? `${primaryColor}08` : "#B8952D",
                         borderColor: "#B8952D",
@@ -1025,7 +1025,7 @@ export default function DocumentUpload({
             fontWeight: 800,
             textTransform: "none",
             fontFamily: "var(--font-poppins)",
-            boxShadow: `0 14px 32px ${primaryColor}50`,
+            boxShadow: "0 14px 32px rgba(15, 23, 42, 0.32)",
             "&:hover": { bgcolor: "#B8952D" },
             "&:disabled": { bgcolor: "#F1F5F9", color: "#94A3B8", boxShadow: "none" },
           }}

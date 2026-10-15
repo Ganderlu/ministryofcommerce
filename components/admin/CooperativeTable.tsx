@@ -336,12 +336,12 @@ function CustomToolbar({
           sx={{
             fontSize: 12,
             fontWeight: 700,
-            color: "#16A34A",
-            bgcolor: "rgba(22,163,74,0.08)",
+            color: "#FFAA00",
+            bgcolor: "rgba(255, 170, 0,0.08)",
             borderRadius: "10px",
             px: 1.2,
             "&:hover": {
-              bgcolor: "rgba(22,163,74,0.16)",
+              bgcolor: "rgba(255, 170, 0,0.16)",
             },
           }}
         >
@@ -563,7 +563,7 @@ export default function CooperativeTable(props: CooperativeTableProps) {
         },
         borderRadius: "16px",
         border: "1px solid #E2E8F0",
-        bgcolor: "white",
+        bgcolor: "#FFFDF5",
         boxShadow: "0 1px 2px rgba(15,23,42,0.04)",
       }}
     />

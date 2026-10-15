@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useMemo, useState } from "react";
 import {
   Box,
@@ -133,7 +133,7 @@ export default function ReviewSubmission({
   onSubmit,
   submitting,
 }: ReviewSubmissionProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   const [declaration, setDeclaration] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -346,7 +346,7 @@ export default function ReviewSubmission({
                     <CheckCircle sx={{ color: primaryColor, fontSize: "1.05rem", mt: 0.3 }} />
                   )}
                   {row.status === "warning" && (
-                    <WarningAmber sx={{ color: "#F59E0B", fontSize: "1.05rem", mt: 0.3 }} />
+                    <WarningAmber sx={{ color: "#FFAA00", fontSize: "1.05rem", mt: 0.3 }} />
                   )}
                   <Typography
                     sx={{
@@ -582,7 +582,7 @@ export default function ReviewSubmission({
                                 bgcolor: primaryColor,
                                 fontWeight: 800,
                                 fontSize: "0.85rem",
-                                boxShadow: `0 4px 12px ${primaryColor}30`,
+                                boxShadow: "0 4px 12px rgba(15, 23, 42, 0.18)",
                               }}
                             >
                               {m.fullName?.trim()
@@ -726,13 +726,13 @@ export default function ReviewSubmission({
                     bgcolor: allDocsOnCloudinary
                       ? `${primaryColor}1A`
                       : "rgba(245, 158, 11, 0.12)",
-                    color: allDocsOnCloudinary ? primaryColor : "#B45309",
+                    color: allDocsOnCloudinary ? primaryColor : "#CC8800",
                     fontWeight: 700,
                     fontSize: "0.72rem",
                     borderRadius: 10,
                     py: 0.3,
                     "& .MuiChip-icon": {
-                      color: allDocsOnCloudinary ? primaryColor : "#D97706",
+                      color: allDocsOnCloudinary ? primaryColor : "#E69500",
                     },
                   }}
                 />
@@ -794,7 +794,7 @@ export default function ReviewSubmission({
                               bgcolor: isOnCloudinary
                                 ? `${primaryColor}1A`
                                 : "#FFF7E6",
-                              color: isOnCloudinary ? primaryColor : "#B45309",
+                              color: isOnCloudinary ? primaryColor : "#CC8800",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -1044,11 +1044,11 @@ export default function ReviewSubmission({
               fontSize: "0.95rem",
               borderRadius: 2,
               fontFamily: "var(--font-poppins)",
-              boxShadow: canSubmit ? `0 6px 20px ${primaryColor}40` : "none",
+              boxShadow: canSubmit ? "0 6px 20px rgba(15, 23, 42, 0.25)" : "none",
               "&:hover": {
                 backgroundColor: canSubmit ? "#B8952D" : "#CBD5E1",
                 transform: canSubmit ? "translateY(-2px)" : "none",
-                boxShadow: canSubmit ? `0 8px 24px ${primaryColor}50` : "none",
+                boxShadow: canSubmit ? "0 8px 24px rgba(15, 23, 42, 0.32)" : "none",
               },
               transition: "all 0.3s ease",
               textTransform: "none",

@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Audit Unit | Anambra State Ministry of Commerce",
   description:
     "The Audit Unit provides internal audit services, ensuring accountability and compliance in the Ministry's operations.",
+  keywords: [
+    "Anambra State",
+    "Audit",
+    "Internal Audit",
+    "Ministry of Commerce",
+    "Accountability",
+    "Compliance",
+    "Risk Management",
+    "Internal Controls",
+    "Financial Audit",
+    "Transparency",
+  ],
+  alternates: { canonical: "/units/audit" },
+  openGraph: {
+    title: "Audit Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Audit Unit provides internal audit services, ensuring accountability and compliance in the Ministry's operations.",
+    type: "website",
+    url: "/units/audit",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Audit Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Audit Unit provides internal audit services, ensuring accountability and compliance in the Ministry's operations.",
+  },
 };
 
 export default function AuditPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function AuditPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

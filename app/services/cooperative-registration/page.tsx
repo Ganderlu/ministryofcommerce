@@ -23,11 +23,13 @@ export const metadata: Metadata = {
     "Legal Recognition",
     "Funding Opportunities",
   ],
+  alternates: { canonical: "/services/cooperative-registration" },
   openGraph: {
     title: "Cooperative Registration | Anambra State Ministry of Commerce",
     description:
       "Register your cooperative society with the Anambra State Ministry of Commerce. Build Stronger Together.",
     type: "website",
+    url: "/services/cooperative-registration",
     siteName: "Anambra State Ministry of Commerce",
   },
   twitter: {

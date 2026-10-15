@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Card,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowForward } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import {
   businessTypes,
   businessCategories,
@@ -61,7 +61,8 @@ export default function BusinessInformationForm({
   onSaveAndContinue,
   saving,
 }: BusinessInformationFormProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#CC8800";
+  const formUid = useId();
   const [formData, setFormData] = useState<BusinessRegistrationFormData>(() => {
     if (initialData && initialData.businessName) return initialData;
     try {
@@ -112,17 +113,20 @@ export default function BusinessInformationForm({
     const newErrors: Partial<Record<keyof BusinessRegistrationFormData, string>> = {};
     requiredFields.forEach((field) => {
       if (!formData[field]?.toString().trim()) {
-        newErrors[field] = "This field is required";
+        newErrors[field] = `${String(field)
+          .replace(/([A-Z])/g, " $1")
+          .replace(/^./, (c) => c.toUpperCase())
+          .trim()} is required.`;
       }
     });
     if (formData.emailAddress && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.emailAddress)) {
-      newErrors.emailAddress = "Please enter a valid email address";
+      newErrors.emailAddress = "Please enter a valid email address (e.g. name@example.com).";
     }
     if (formData.phoneNumber && !/^[+\d\s-]{8,}$/.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = "Please enter a valid phone number";
+      newErrors.phoneNumber = "Please enter a valid phone number (8+ digits).";
     }
     if (formData.postalCode && !/^\d{4,6}$/.test(formData.postalCode)) {
-      newErrors.postalCode = "Please enter a valid postal code";
+      newErrors.postalCode = "Please enter a valid postal code (4-6 digits).";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -140,6 +144,30 @@ export default function BusinessInformationForm({
     e.preventDefault();
     if (!validateForm()) return;
     onSaveAndContinue(formData);
+  };
+
+  const fieldId = (name: string) => `${formUid}-${name}`;
+  const errorId = (name: string) => `${formUid}-${name}-error`;
+
+  const fieldAccessibilityProps = (
+    field: keyof BusinessRegistrationFormData,
+    required = false
+  ) => {
+    const hasErr = Boolean(errors[field]);
+    return {
+      id: fieldId(String(field)),
+      error: hasErr,
+      required,
+      "aria-invalid": hasErr || undefined,
+      "aria-required": required || undefined,
+      "aria-describedby": hasErr ? errorId(String(field)) : undefined,
+      FormHelperTextProps: hasErr
+        ? {
+            id: errorId(String(field)),
+            role: "alert" as const,
+          }
+        : undefined,
+    };
   };
 
   const textFieldProps = {
@@ -162,6 +190,9 @@ export default function BusinessInformationForm({
       "& .MuiOutlinedInput-input": {
         fontFamily: "var(--font-inter)",
         fontSize: "0.9rem",
+      },
+      "& .MuiFormHelperText-root.Mui-error": {
+        fontWeight: 550,
       },
     },
   };
@@ -225,8 +256,8 @@ export default function BusinessInformationForm({
                 placeholder="Enter your business name"
                 value={formData.businessName}
                 onChange={handleChange("businessName")}
-                error={!!errors.businessName}
                 helperText={errors.businessName}
+                {...fieldAccessibilityProps("businessName", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -237,8 +268,8 @@ export default function BusinessInformationForm({
                 placeholder="Select business type"
                 value={formData.businessType}
                 onChange={handleChange("businessType")}
-                error={!!errors.businessType}
                 helperText={errors.businessType}
+                {...fieldAccessibilityProps("businessType", true)}
                 {...textFieldProps}
               >
                 {businessTypes.map((t) => (
@@ -256,8 +287,8 @@ export default function BusinessInformationForm({
                 placeholder="Select category"
                 value={formData.businessCategory}
                 onChange={handleChange("businessCategory")}
-                error={!!errors.businessCategory}
                 helperText={errors.businessCategory}
+                {...fieldAccessibilityProps("businessCategory", true)}
                 {...textFieldProps}
               >
                 {businessCategories.map((c) => (
@@ -274,8 +305,8 @@ export default function BusinessInformationForm({
                 placeholder="Select nature of business"
                 value={formData.natureOfBusiness}
                 onChange={handleChange("natureOfBusiness")}
-                error={!!errors.natureOfBusiness}
                 helperText={errors.natureOfBusiness}
+                {...fieldAccessibilityProps("natureOfBusiness", true)}
                 {...textFieldProps}
               >
                 {businessNatures.map((n) => (
@@ -292,9 +323,9 @@ export default function BusinessInformationForm({
                 label="Date of Incorporation/Commencement *"
                 value={formData.dateOfIncorporation}
                 onChange={handleChange("dateOfIncorporation")}
-                error={!!errors.dateOfIncorporation}
                 helperText={errors.dateOfIncorporation}
                 InputLabelProps={{ shrink: true }}
+                {...fieldAccessibilityProps("dateOfIncorporation", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -304,6 +335,7 @@ export default function BusinessInformationForm({
                 placeholder="Enter CAC registration number"
                 value={formData.cacRegNumber}
                 onChange={handleChange("cacRegNumber")}
+                {...fieldAccessibilityProps("cacRegNumber", false)}
                 {...textFieldProps}
               />
             </Grid>
@@ -314,8 +346,8 @@ export default function BusinessInformationForm({
                 placeholder="Enter TIN"
                 value={formData.taxIdentificationNumber}
                 onChange={handleChange("taxIdentificationNumber")}
-                error={!!errors.taxIdentificationNumber}
                 helperText={errors.taxIdentificationNumber}
+                {...fieldAccessibilityProps("taxIdentificationNumber", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -326,8 +358,8 @@ export default function BusinessInformationForm({
                 placeholder="Select structure"
                 value={formData.businessStructure}
                 onChange={handleChange("businessStructure")}
-                error={!!errors.businessStructure}
                 helperText={errors.businessStructure}
+                {...fieldAccessibilityProps("businessStructure", true)}
                 {...textFieldProps}
               >
                 {businessStructures.map((s) => (
@@ -344,8 +376,8 @@ export default function BusinessInformationForm({
                 placeholder="Enter street address"
                 value={formData.businessAddress}
                 onChange={handleChange("businessAddress")}
-                error={!!errors.businessAddress}
                 helperText={errors.businessAddress}
+                {...fieldAccessibilityProps("businessAddress", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -357,8 +389,8 @@ export default function BusinessInformationForm({
                 placeholder="Select LGA"
                 value={formData.localGovernmentArea}
                 onChange={handleChange("localGovernmentArea")}
-                error={!!errors.localGovernmentArea}
                 helperText={errors.localGovernmentArea}
+                {...fieldAccessibilityProps("localGovernmentArea", true)}
                 {...textFieldProps}
               >
                 {lgas.map((lga) => (
@@ -374,8 +406,8 @@ export default function BusinessInformationForm({
                 placeholder="Enter community or town"
                 value={formData.communityTown}
                 onChange={handleChange("communityTown")}
-                error={!!errors.communityTown}
                 helperText={errors.communityTown}
+                {...fieldAccessibilityProps("communityTown", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -386,8 +418,8 @@ export default function BusinessInformationForm({
                 label="State *"
                 value={formData.state}
                 onChange={handleChange("state")}
-                error={!!errors.state}
                 helperText={errors.state}
+                {...fieldAccessibilityProps("state", true)}
                 {...textFieldProps}
               >
                 {nigerianStates.map((s) => (
@@ -400,11 +432,11 @@ export default function BusinessInformationForm({
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Postal Code *"
-                placeholder="Enter postal code"
+                placeholder="Enter postal code (4-6 digits)"
                 value={formData.postalCode}
                 onChange={handleChange("postalCode")}
-                error={!!errors.postalCode}
                 helperText={errors.postalCode}
+                {...fieldAccessibilityProps("postalCode", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -413,11 +445,11 @@ export default function BusinessInformationForm({
               <TextField
                 type="email"
                 label="Email Address *"
-                placeholder="Enter email address"
+                placeholder="name@example.com"
                 value={formData.emailAddress}
                 onChange={handleChange("emailAddress")}
-                error={!!errors.emailAddress}
                 helperText={errors.emailAddress}
+                {...fieldAccessibilityProps("emailAddress", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -425,11 +457,11 @@ export default function BusinessInformationForm({
               <TextField
                 type="tel"
                 label="Phone Number *"
-                placeholder="Enter phone number"
+                placeholder="+234 800 000 0000"
                 value={formData.phoneNumber}
                 onChange={handleChange("phoneNumber")}
-                error={!!errors.phoneNumber}
                 helperText={errors.phoneNumber}
+                {...fieldAccessibilityProps("phoneNumber", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -438,18 +470,20 @@ export default function BusinessInformationForm({
               <TextField
                 type="tel"
                 label="Alternative Phone Number"
-                placeholder="Enter alternative phone number"
+                placeholder="+234 800 000 0000"
                 value={formData.alternativePhoneNumber}
                 onChange={handleChange("alternativePhoneNumber")}
+                {...fieldAccessibilityProps("alternativePhoneNumber", false)}
                 {...textFieldProps}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 label="Website (If available)"
-                placeholder="Enter website URL"
+                placeholder="https://www.example.com"
                 value={formData.website}
                 onChange={handleChange("website")}
+                {...fieldAccessibilityProps("website", false)}
                 {...textFieldProps}
               />
             </Grid>
@@ -460,10 +494,10 @@ export default function BusinessInformationForm({
                 placeholder="Describe your business activities, products or services"
                 value={formData.businessDescription}
                 onChange={handleChange("businessDescription")}
-                error={!!errors.businessDescription}
                 helperText={errors.businessDescription}
                 multiline
                 rows={5}
+                {...fieldAccessibilityProps("businessDescription", true)}
                 {...textFieldProps}
               />
             </Grid>
@@ -483,11 +517,11 @@ export default function BusinessInformationForm({
                 fontSize: "0.95rem",
                 borderRadius: 2,
                 fontFamily: "var(--font-poppins)",
-                boxShadow: `0 6px 20px ${primaryColor}40`,
+                boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                 "&:hover": {
                   backgroundColor: "#B8952D",
                   transform: "translateY(-2px)",
-                  boxShadow: `0 8px 24px ${primaryColor}50`,
+                  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.32)",
                 },
                 "&:disabled": {
                   backgroundColor: `${primaryColor}90`,

@@ -11,8 +11,13 @@ import TopServicesTable from "@/components/admin/TopServicesTable";
 import RevenueChart from "@/components/admin/RevenueChart";
 import SystemAlerts from "@/components/admin/SystemAlerts";
 import FooterStatistics from "@/components/admin/FooterStatistics";
+import type { AdminDashboardData } from "@/lib/admin-data";
 
-export default function AdminDashboardPage() {
+interface DashboardClientProps {
+  data: AdminDashboardData;
+}
+
+export default function DashboardClient({ data }: DashboardClientProps) {
   return (
     <Box sx={{ maxWidth: "100%", mx: "auto" }}>
       {/* Welcome */}
@@ -54,40 +59,40 @@ export default function AdminDashboardPage() {
 
       {/* KPI Cards */}
       <Box sx={{ mb: 3 }}>
-        <StatisticsCards />
+        <StatisticsCards data={data} />
       </Box>
 
       {/* Row 1: App Overview + Status + Quick Actions */}
       <Grid container spacing={2.5} sx={{ mb: 2.5 }}>
         <Grid item xs={12} lg={7} xl={7.5}>
-          <ApplicationsChart />
+          <ApplicationsChart data={data} />
         </Grid>
         <Grid item xs={12} sm={6} lg={3} xl={2.8}>
-          <StatusChart />
+          <StatusChart data={data} />
         </Grid>
         <Grid item xs={12} sm={6} lg={2} xl={1.7}>
-          <QuickActions />
+          <QuickActions pendingCount={data.statusDistribution.pending + data.statusDistribution.underReview} />
         </Grid>
       </Grid>
 
       {/* Row 2: Top Services + Revenue + (Recent App + System Alerts stacked) */}
       <Grid container spacing={2.5} sx={{ mb: 3 }}>
         <Grid item xs={12} lg={4} xl={4.2}>
-          <TopServicesTable />
+          <TopServicesTable data={data} />
         </Grid>
         <Grid item xs={12} lg={4.2} xl={4.2}>
-          <RevenueChart />
+          <RevenueChart data={data} />
         </Grid>
         <Grid item xs={12} lg={3.8} xl={3.6}>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
-            <RecentApplications />
-            <SystemAlerts />
+            <RecentApplications data={data} />
+            <SystemAlerts data={data} />
           </Box>
         </Grid>
       </Grid>
 
       {/* Footer Stats */}
-      <FooterStatistics />
+      <FooterStatistics data={data} />
     </Box>
   );
 }

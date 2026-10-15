@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Legal Unit | Anambra State Ministry of Commerce",
   description:
     "The Legal Unit provides legal advice, support, and representation to the Ministry, ensuring legal compliance.",
+  keywords: [
+    "Anambra State",
+    "Legal",
+    "Legal Unit",
+    "Ministry of Commerce",
+    "Legal Advice",
+    "Compliance",
+    "Contracts",
+    "Legal Representation",
+    "Regulatory Compliance",
+    "Policy Legal",
+  ],
+  alternates: { canonical: "/units/legal" },
+  openGraph: {
+    title: "Legal Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Legal Unit provides legal advice, support, and representation to the Ministry, ensuring legal compliance.",
+    type: "website",
+    url: "/units/legal",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Legal Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Legal Unit provides legal advice, support, and representation to the Ministry, ensuring legal compliance.",
+  },
 };
 
 export default function LegalPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function LegalPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

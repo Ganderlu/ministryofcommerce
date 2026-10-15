@@ -7,9 +7,9 @@ import { ArrowForward, Download, Store } from "@mui/icons-material";
 const MotionBox = motion(Box);
 
 export default function CTA() {
-  const darkGreen = "#D4AF37";
-  const primaryColor = "#D4AF37";
-  const accentColor = "#D4AF37";
+  const darkGreen = "#FFAA00";
+  const primaryColor = "#FFAA00";
+  const accentColor = "#FFAA00";
 
   return (
     <Box
@@ -28,7 +28,7 @@ export default function CTA() {
           width: 400,
           height: 400,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${accentColor}20 0%, transparent 70%)`,
+          background: "radial-gradient(circle, rgba(255, 170, 0, 0.14) 0%, transparent 70%)",
         }}
       />
       <Box
@@ -39,7 +39,7 @@ export default function CTA() {
           width: 300,
           height: 300,
           borderRadius: "50%",
-          background: `radial-gradient(circle, ${accentColor}15 0%, transparent 70%)`,
+          background: "radial-gradient(circle, rgba(255, 170, 0, 0.10) 0%, transparent 70%)",
         }}
       />
       <Container maxWidth="xl" sx={{ position: "relative", zIndex: 1 }}>
@@ -104,11 +104,11 @@ export default function CTA() {
                 fontWeight: 700,
                 fontSize: "0.95rem",
                 borderRadius: 2,
-                boxShadow: "0 6px 20px rgba(212, 175, 55, 0.35)",
+                boxShadow: "0 6px 20px rgba(15, 23, 42, 0.12)",
                 "&:hover": {
                   backgroundColor: "#c49f2d",
                   transform: "translateY(-2px)",
-                  boxShadow: "0 8px 24px rgba(212, 175, 55, 0.45)",
+                  boxShadow: "0 10px 28px rgba(15, 23, 42, 0.18)",
                 },
                 transition: "all 0.3s ease",
                 whiteSpace: "nowrap",
@@ -117,6 +117,9 @@ export default function CTA() {
               Start SME Registration
             </Button>
             <Button
+              component="a"
+              href="/guidelines/sme-registration-guidelines.pdf"
+              download="SME-Registration-Guidelines.pdf"
               variant="outlined"
               startIcon={<Download />}
               sx={{

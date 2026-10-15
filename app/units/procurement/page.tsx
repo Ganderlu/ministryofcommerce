@@ -8,11 +8,38 @@ export const metadata: Metadata = {
   title: "Procurement Unit | Anambra State Ministry of Commerce",
   description:
     "The Procurement Unit manages the Ministry's procurement processes, ensuring transparency, efficiency, and compliance.",
+  keywords: [
+    "Anambra State",
+    "Procurement",
+    "Ministry of Commerce",
+    "Tender",
+    "Public Procurement",
+    "Vendor Management",
+    "Transparency",
+    "Bidding Process",
+    "Procurement Compliance",
+    "Value for Money",
+  ],
+  alternates: { canonical: "/units/procurement" },
+  openGraph: {
+    title: "Procurement Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Procurement Unit manages the Ministry's procurement processes, ensuring transparency, efficiency, and compliance.",
+    type: "website",
+    url: "/units/procurement",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Procurement Unit | Anambra State Ministry of Commerce",
+    description:
+      "The Procurement Unit manages the Ministry's procurement processes, ensuring transparency, efficiency, and compliance.",
+  },
 };
 
 export default function ProcurementPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +66,6 @@ export default function ProcurementPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

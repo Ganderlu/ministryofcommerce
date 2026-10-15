@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useMemo, useState } from "react";
 import {
   Box,
@@ -66,7 +66,7 @@ export default function ReviewSubmission({
   onSubmit,
   submitting,
 }: ReviewSubmissionProps) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
 
   const [declaration, setDeclaration] = useState(false);
   const [termsAgreed, setTermsAgreed] = useState(false);
@@ -267,10 +267,10 @@ export default function ReviewSubmission({
                   sx={{ justifyContent: "flex-end", width: "68%" }}
                 >
                   {row.status === "success" && (
-                    <CheckCircleIcon sx={{ color: "#D4AF37", fontSize: "1.05rem" }} />
+                    <CheckCircleIcon sx={{ color: "#FFAA00", fontSize: "1.05rem" }} />
                   )}
                   {row.status === "warning" && (
-                    <WarningAmberIcon sx={{ color: "#F59E0B", fontSize: "1.05rem" }} />
+                    <WarningAmberIcon sx={{ color: "#FFAA00", fontSize: "1.05rem" }} />
                   )}
                   <Typography
                     sx={{
@@ -477,7 +477,7 @@ export default function ReviewSubmission({
                                 bgcolor: primaryColor,
                                 fontWeight: 800,
                                 fontSize: "0.85rem",
-                                boxShadow: `0 4px 12px ${primaryColor}30`,
+                                boxShadow: "0 4px 12px rgba(15, 23, 42, 0.18)",
                               }}
                             >
                               {m.fullName?.trim()
@@ -526,7 +526,7 @@ export default function ReviewSubmission({
                             <Box sx={{ textAlign: "right" }}>
                               <Typography
                                 sx={{
-                                  color: "#8C6A16",
+                                  color: "#996600",
                                   fontSize: "0.76rem",
                                   fontWeight: 700,
                                 }}
@@ -613,15 +613,15 @@ export default function ReviewSubmission({
                   label={`${totalCloudinary} on Cloudinary`}
                   sx={{
                     bgcolor: allRequiredDocsOnCloudinary
-                      ? "rgba(15, 118, 110, 0.12)"
+                      ? "rgba(255, 170, 0, 0.12)"
                       : "rgba(245, 158, 11, 0.12)",
-                    color: allRequiredDocsOnCloudinary ? "#8C6A16" : "#B45309",
+                    color: allRequiredDocsOnCloudinary ? "#996600" : "#CC8800",
                     fontWeight: 700,
                     fontSize: "0.72rem",
                     borderRadius: 10,
                     py: 0.3,
                     "& .MuiChip-icon": {
-                      color: allRequiredDocsOnCloudinary ? "#8C6A16" : "#D97706",
+                      color: allRequiredDocsOnCloudinary ? "#996600" : "#E69500",
                     },
                   }}
                 />
@@ -678,8 +678,8 @@ export default function ReviewSubmission({
                               width: 36,
                               height: 36,
                               borderRadius: 1.75,
-                              bgcolor: isOnCloudinary ? "rgba(15,118,110,0.1)" : "rgba(212,175,55,0.1)",
-                              color: isOnCloudinary ? "#8C6A16" : "#8a6e14",
+                              bgcolor: isOnCloudinary ? "rgba(255, 170, 0,0.1)" : "rgba(212,175,55,0.1)",
+                              color: isOnCloudinary ? "#996600" : "#8a6e14",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -724,7 +724,7 @@ export default function ReviewSubmission({
                                   label="Cloudinary"
                                   sx={{
                                     bgcolor: "rgba(140, 106, 22, 0.1)",
-                                    color: "#8C6A16",
+                                    color: "#996600",
                                     fontWeight: 700,
                                     fontSize: "0.68rem",
                                     borderRadius: 1.1,
@@ -732,7 +732,7 @@ export default function ReviewSubmission({
                                     "& .MuiChip-label": { px: 0.75 },
                                     "& .MuiChip-icon": {
                                       fontSize: "0.7rem",
-                                      color: "#8C6A16",
+                                      color: "#996600",
                                     },
                                   }}
                                 />
@@ -972,11 +972,11 @@ export default function ReviewSubmission({
               fontSize: "0.95rem",
               borderRadius: 2,
               fontFamily: "var(--font-poppins)",
-              boxShadow: canSubmit ? `0 6px 20px ${primaryColor}40` : "none",
+              boxShadow: canSubmit ? "0 6px 20px rgba(15, 23, 42, 0.25)" : "none",
               "&:hover": {
                 backgroundColor: canSubmit ? "#c49f2d" : "#CBD5E1",
                 transform: canSubmit ? "translateY(-2px)" : "none",
-                boxShadow: canSubmit ? `0 8px 24px ${primaryColor}50` : "none",
+                boxShadow: canSubmit ? "0 8px 24px rgba(15, 23, 42, 0.32)" : "none",
               },
               transition: "all 0.3s ease",
               textTransform: "none",
@@ -992,7 +992,7 @@ export default function ReviewSubmission({
 }
 
 function GridLikeDetails({ member }: { member: CooperativeMember }) {
-  const primaryColor = "#D4AF37";
+  const primaryColor = "#FFAA00";
   const rows: { label: string; value: string }[] = [
     { label: "Role", value: member.role || "—" },
     { label: "Full Name", value: member.fullName || "—" },

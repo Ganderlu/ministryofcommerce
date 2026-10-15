@@ -1,10 +1,20 @@
 import { v2 as cloudinary } from "cloudinary";
 
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "m7yxk6za";
-const apiKey = process.env.CLOUDINARY_API_KEY || "951375989845552";
-const apiSecret = process.env.CLOUDINARY_API_SECRET || "ntjhbXtLIlghRwe1nKwbua7LpO4";
-const uploadPreset =
-  process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "anambra_sme_uploads";
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    const msg = `[cloudinary/server] Missing required env var: ${name}. Set it in .env.local before running.`;
+    if (process.env.NODE_ENV === "production") throw new Error(msg);
+    console.warn(msg);
+    return "";
+  }
+  return value;
+}
+
+const cloudName = requireEnv("NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME");
+const apiKey = requireEnv("CLOUDINARY_API_KEY");
+const apiSecret = requireEnv("CLOUDINARY_API_SECRET");
+const uploadPreset = requireEnv("NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET");
 
 cloudinary.config({
   cloud_name: cloudName,

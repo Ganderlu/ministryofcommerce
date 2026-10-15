@@ -21,10 +21,10 @@ const MotionCard = motion(Card);
 export default function Services() {
   const router = useRouter();
   const displayServices = services.slice(0, 5);
-  const accentColor = "#D4AF37";
+  const accentColor = "#FFAA00";
 
   return (
-    <Box sx={{ py: 12, backgroundColor: "white" }}>
+    <Box sx={{ py: 12, backgroundColor: "#FFFDF5" }}>
       <Container maxWidth="xl">
         <Stack
           direction={{ xs: "column", md: "row" }}
@@ -90,7 +90,7 @@ export default function Services() {
                     height: "100%",
                     borderRadius: 2,
                     overflow: "hidden",
-                    backgroundColor: "white",
+                    backgroundColor: "#FFFDF5",
                   }}
                 >
                   <Box sx={{ position: "relative", height: 220, overflow: "hidden" }}>
@@ -99,13 +99,6 @@ export default function Services() {
                       alt={service.title}
                       fill
                       style={{ objectFit: "cover" }}
-                    />
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        inset: 0,
-                        backgroundColor: "rgba(212, 175, 55, 0.45)",
-                      }}
                     />
                   </Box>
                   <CardContent sx={{ p: 3 }}>
@@ -118,7 +111,7 @@ export default function Services() {
                       }}
                     />
                     <Typography
-                      variant="h6"
+                      variant="h4"
                       sx={{
                         fontWeight: 600,
                         fontFamily: "var(--font-poppins)",

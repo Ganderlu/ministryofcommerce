@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import {
   Box,
   Card,
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowBack, ArrowForward, Add, Close } from "@mui/icons-material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import { z } from "zod";
 import type { SMEOwnerDirector } from "@/types";
 
@@ -102,8 +102,9 @@ export default function OwnerDirectorsForm({
   onBack,
   saving,
 }: OwnerDirectorsFormProps) {
-  const primaryColor = "#D4AF37";
-  const accentColor = "#D4AF37";
+  const primaryColor = "#CC8800";
+  const accentColor = "#CC8800";
+  const formUid = useId();
   const [owners, setOwners] = useState<SMEOwnerDirector[]>(() => {
     if (initialOwners && initialOwners.length > 0) return initialOwners;
     try {
@@ -228,6 +229,34 @@ export default function OwnerDirectorsForm({
     },
   };
 
+  const ownerFieldId = (ownerIdx: number, field: string) =>
+    `${formUid}-owner-${ownerIdx}-${field}`;
+  const ownerErrorId = (ownerIdx: number, field: string) =>
+    `${formUid}-owner-${ownerIdx}-${field}-error`;
+
+  const fieldA11y = (
+    ownerIdx: number,
+    field: keyof SMEOwnerDirector,
+    required = false,
+    ownerErrors?: Record<string, string>
+  ) => {
+    const hasErr = Boolean(ownerErrors?.[field]);
+    return {
+      id: ownerFieldId(ownerIdx, String(field)),
+      error: hasErr,
+      required,
+      "aria-invalid": hasErr || undefined,
+      "aria-required": required || undefined,
+      "aria-describedby": hasErr ? ownerErrorId(ownerIdx, String(field)) : undefined,
+      FormHelperTextProps: hasErr
+        ? {
+            id: ownerErrorId(ownerIdx, String(field)),
+            role: "alert" as const,
+          }
+        : undefined,
+    };
+  };
+
   return (
     <>
       <MotionCard
@@ -334,9 +363,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "fullName", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.fullName}
                         helperText={errors[ownerIndex]?.fullName}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "fullName", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -348,9 +377,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "position", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.position}
                         helperText={errors[ownerIndex]?.position}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "position", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       >
                         {positions.map((p) => (
@@ -368,9 +397,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "gender", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.gender}
                         helperText={errors[ownerIndex]?.gender}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "gender", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       >
                         {genders.map((g) => (
@@ -389,9 +418,9 @@ export default function OwnerDirectorsForm({
                           updateOwner(ownerIndex, "dateOfBirth", e.target.value)
                         }
                         InputLabelProps={{ shrink: true }}
-                        error={!!errors[ownerIndex]?.dateOfBirth}
                         helperText={errors[ownerIndex]?.dateOfBirth}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "dateOfBirth", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -403,9 +432,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "nationality", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.nationality}
                         helperText={errors[ownerIndex]?.nationality}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "nationality", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       >
                         {nationalities.map((n) => (
@@ -423,9 +452,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "occupation", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.occupation}
                         helperText={errors[ownerIndex]?.occupation}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "occupation", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       >
                         {occupations.map((o) => (
@@ -443,9 +472,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "meansOfId", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.meansOfId}
                         helperText={errors[ownerIndex]?.meansOfId}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "meansOfId", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       >
                         {idTypes.map((t) => (
@@ -463,9 +492,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "idNumber", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.idNumber}
                         helperText={errors[ownerIndex]?.idNumber}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "idNumber", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -477,9 +506,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "residentialAddress", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.residentialAddress}
                         helperText={errors[ownerIndex]?.residentialAddress}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "residentialAddress", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -492,9 +521,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "email", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.email}
                         helperText={errors[ownerIndex]?.email}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "email", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -507,9 +536,9 @@ export default function OwnerDirectorsForm({
                         onChange={(e) =>
                           updateOwner(ownerIndex, "phoneNumber", e.target.value)
                         }
-                        error={!!errors[ownerIndex]?.phoneNumber}
                         helperText={errors[ownerIndex]?.phoneNumber}
                         fullWidth
+                        {...fieldA11y(ownerIndex, "phoneNumber", true, errors[ownerIndex])}
                         sx={{ ...textFieldSx, mb: 2.5 }}
                       />
                     </Grid>
@@ -576,11 +605,11 @@ export default function OwnerDirectorsForm({
                 fontSize: "0.95rem",
                 borderRadius: 2,
                 fontFamily: "var(--font-poppins)",
-                boxShadow: `0 6px 20px ${primaryColor}40`,
+                boxShadow: "0 6px 20px rgba(15, 23, 42, 0.25)",
                 "&:hover": {
-                  backgroundColor: "#B8941F",
+                  backgroundColor: "#CC8800",
                   transform: "translateY(-2px)",
-                  boxShadow: `0 8px 24px ${primaryColor}50`,
+                  boxShadow: "0 8px 24px rgba(15, 23, 42, 0.32)",
                 },
                 "&:disabled": {
                   backgroundColor: `${primaryColor}90`,
@@ -606,6 +635,7 @@ export default function OwnerDirectorsForm({
           onClose={() => setSnackbar((s) => ({ ...s, open: false }))}
           severity={snackbar.severity}
           variant="filled"
+          role={snackbar.severity === "error" ? "alert" : "status"}
           sx={{
             width: "100%",
             fontFamily: "var(--font-inter)",

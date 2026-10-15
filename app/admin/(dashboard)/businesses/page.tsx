@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import BusinessesPageClient from "./BusinessesPageClient";
+import { getBusinessRows } from "@/lib/admin-data";
 
 export const metadata: Metadata = {
   title: "Businesses Management | Anambra State Ministry of Commerce",
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function BusinessesPage() {
-  return <BusinessesPageClient />;
+export default async function BusinessesPage() {
+  const initialRows = await getBusinessRows();
+  return <BusinessesPageClient initialRows={initialRows} />;
 }

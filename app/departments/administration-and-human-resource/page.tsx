@@ -8,11 +8,37 @@ export const metadata: Metadata = {
   title: "Administration & Human Resource Department | Anambra State Ministry of Commerce",
   description:
     "The Administration & Human Resource Department manages the Ministry's operations, personnel, and administrative functions.",
+  keywords: [
+    "Anambra State",
+    "Administration",
+    "Human Resource",
+    "HR Department",
+    "Ministry of Commerce",
+    "Personnel Management",
+    "Staff Development",
+    "Administrative Operations",
+    "Anambra Civil Service",
+  ],
+  alternates: { canonical: "/departments/administration-and-human-resource" },
+  openGraph: {
+    title: "Administration & Human Resource Department | Anambra State Ministry of Commerce",
+    description:
+      "The Administration & Human Resource Department manages the Ministry's operations, personnel, and administrative functions.",
+    type: "website",
+    url: "/departments/administration-and-human-resource",
+    siteName: "Anambra State Ministry of Commerce",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Administration & Human Resource Department | Anambra State Ministry of Commerce",
+    description:
+      "The Administration & Human Resource Department manages the Ministry's operations, personnel, and administrative functions.",
+  },
 };
 
 export default function AdministrationHRPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <DepartmentSection
@@ -39,6 +65,6 @@ export default function AdministrationHRPage() {
         }}
       />
       <Footer />
-    </main>
+    </>
   );
 }

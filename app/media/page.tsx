@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function MediaPage() {
   return (
-    <main>
+    <>
       <TopBar />
       <Navbar />
       <MediaHero />
@@ -39,6 +39,6 @@ export default function MediaPage() {
       <EventsSection />
       <GallerySection />
       <Footer />
-    </main>
+    </>
   );
 }

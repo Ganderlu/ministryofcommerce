@@ -1,69 +1,99 @@
 "use client";
 
 import React from "react";
-import { Typography, Box, Button, Chip } from "@mui/material";
+import { Typography, Box, Chip } from "@mui/material";
 import SectionCard from "@/components/ui/SectionCard";
 import {
   WarningAmber as WarningIcon,
   CheckCircle as CheckCircleIcon,
   Info as InfoIcon,
-  Error as ErrorIcon,
 } from "@mui/icons-material";
-import { systemAlerts } from "@/data/seed";
 import { motion } from "framer-motion";
+import type { AdminDashboardData } from "@/lib/admin-data";
 
-const typeConfig: Record<string, { icon: typeof WarningIcon; color: string; bg: string; border: string }> = {
-  warning: {
-    icon: WarningIcon,
-    color: "#B45309",
-    bg: "rgba(245, 158, 11, 0.1)",
-    border: "rgba(245, 158, 11, 0.2)",
-  },
-  success: {
-    icon: CheckCircleIcon,
-    color: "#166534",
-    bg: "rgba(22, 163, 74, 0.08)",
-    border: "rgba(22, 163, 74, 0.2)",
-  },
-  info: {
-    icon: InfoIcon,
-    color: "#1D4ED8",
-    bg: "rgba(59, 130, 246, 0.08)",
-    border: "rgba(59, 130, 246, 0.2)",
-  },
-  error: {
-    icon: ErrorIcon,
-    color: "#991B1B",
-    bg: "rgba(220, 38, 38, 0.08)",
-    border: "rgba(220, 38, 38, 0.2)",
-  },
+interface SystemAlertsProps {
+  data: AdminDashboardData;
+}
+
+type AlertType = "warning" | "success" | "info";
+
+interface Alert {
+  id: string;
+  title: string;
+  description: string;
+  type: AlertType;
+  badge: number;
+}
+
+const TYPE_STYLES: Record<AlertType, { icon: React.ComponentType<any>; color: string; bg: string; border: string }> = {
+  warning: { icon: WarningIcon, color: "#CC8800", bg: "rgba(255, 170, 0, 0.08)", border: "rgba(255, 170, 0, 0.25)" },
+  success: { icon: CheckCircleIcon, color: "#CC8800", bg: "rgba(255, 170, 0, 0.06)", border: "rgba(255, 170, 0, 0.22)" },
+  info: { icon: InfoIcon, color: "#1D4ED8", bg: "rgba(29, 78, 216, 0.06)", border: "rgba(29, 78, 216, 0.22)" },
 };
 
-export default function SystemAlerts() {
+export default function SystemAlerts({ data }: SystemAlertsProps) {
+  const dist = data.statusDistribution;
+
+  const alerts: Alert[] = [];
+
+  if (dist.pending > 0) {
+    alerts.push({
+      id: "pending",
+      title: "Pending Applications",
+      description: `${dist.pending} application(s) awaiting review.`,
+      type: "warning",
+      badge: dist.pending,
+    });
+  }
+
+  if (dist.underReview > 0) {
+    alerts.push({
+      id: "review",
+      title: "Under Review",
+      description: `${dist.underReview} application(s) currently under review.`,
+      type: "info",
+      badge: dist.underReview,
+    });
+  }
+
+  if (dist.approved > 0) {
+    alerts.push({
+      id: "approved",
+      title: "Approved Registrations",
+      description: `${dist.approved} application(s) have been approved.`,
+      type: "success",
+      badge: dist.approved,
+    });
+  }
+
+  if (dist.rejected > 0) {
+    alerts.push({
+      id: "rejected",
+      title: "Rejected Applications",
+      description: `${dist.rejected} application(s) were rejected.`,
+      type: "warning",
+      badge: dist.rejected,
+    });
+  }
+
+  if (alerts.length === 0) {
+    alerts.push({
+      id: "none",
+      title: "No pending actions",
+      description: "All caught up — no applications require attention.",
+      type: "success",
+      badge: 0,
+    });
+  }
+
   return (
     <SectionCard
       delay={0.34}
       headerTitle={<Typography sx={{ fontSize: 16, fontWeight: 700, color: "#1E293B" }}>System Alerts</Typography>}
-      action={
-        <Button
-          size="small"
-          sx={{
-            color: "#0B6B3A",
-            fontWeight: 700,
-            fontSize: 12,
-            textTransform: "none",
-            p: 0,
-            minWidth: 0,
-            "&:hover": { bgcolor: "transparent", textDecoration: "underline" },
-          }}
-        >
-          View All
-        </Button>
-      }
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1.2 }}>
-        {systemAlerts.map((alert, idx) => {
-          const cfg = typeConfig[alert.type] || typeConfig.info;
+        {alerts.map((alert, idx) => {
+          const cfg = TYPE_STYLES[alert.type];
           const Icon = cfg.icon;
           return (
             <motion.div
@@ -82,12 +112,9 @@ export default function SystemAlerts() {
                   alignItems: "flex-start",
                   gap: 1.2,
                   transition: "all 0.2s",
-                  cursor: "pointer",
-                  "&:hover": {
-                    transform: "translateX(3px)",
-                    filter: "brightness(1.02)",
-                  },
                 }}
+                role="status"
+                aria-label={`${alert.title}: ${alert.description}`}
               >
                 <Box
                   sx={{
@@ -95,42 +122,54 @@ export default function SystemAlerts() {
                     height: 30,
                     flexShrink: 0,
                     borderRadius: "9px",
-                    bgcolor: "white",
+                    bgcolor: "#FFFDF5",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     color: cfg.color,
-                    boxShadow: "0 1px 3px rgba(15, 23, 42, 0.06)",
+                    boxShadow: "0 1px 3px rgba(15, 23, 42, 0.04)",
                     mt: 0.2,
                   }}
                 >
                   <Icon sx={{ fontSize: 18 }} />
                 </Box>
                 <Box sx={{ flex: 1, minWidth: 0 }}>
-                  <Typography sx={{ fontSize: 12.8, fontWeight: 650, color: "#1E293B", lineHeight: 1.2 }}>
+                  <Typography
+                    sx={{
+                      fontSize: 12.8,
+                      fontWeight: 650,
+                      color: "#1E293B",
+                      lineHeight: 1.2,
+                    }}
+                  >
                     {alert.title}
                   </Typography>
-                  <Typography sx={{ fontSize: 11.5, color: "#64748B", mt: 0.35, fontWeight: 500 }}>
+                  <Typography
+                    sx={{
+                      fontSize: 11.5,
+                      color: "#64748B",
+                      mt: 0.5,
+                      fontWeight: 500,
+                    }}
+                  >
                     {alert.description}
                   </Typography>
                 </Box>
-                {alert.badge !== undefined ? (
+                {alert.badge > 0 && (
                   <Chip
                     label={alert.badge}
                     size="small"
                     sx={{
                       height: 22,
                       minWidth: 28,
-                      bgcolor: "#FBBF24",
-                      color: "#7C2D12",
+                      bgcolor: cfg.color,
+                      color: "white",
                       fontWeight: 800,
                       fontSize: 10.5,
                       borderRadius: "999px",
                       ".MuiChip-label": { px: 0.8 },
                     }}
                   />
-                ) : (
-                  <CheckCircleIcon sx={{ fontSize: 18, color: "#16A34A", mt: 0.8 }} />
                 )}
               </Box>
             </motion.div>
